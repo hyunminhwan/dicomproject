@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+a {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+
+.nav-area {
+	width: 100%;
+	background-color: rgb(2, 77, 81);
+	color: white;
+	height: 50px;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.nav-area td {
+	width: 25%;
+	font-size: 18px;
+}
+
+.nav-area td:hover {
+	background-color: rgb(90, 142, 144);
+	cursor: pointer;
+}
+
+.imgwrap {
+	text-align: center;
+}
+
+.imgwrap img {
+	margin-top: 70px;
+	width: 500px;
+}
+
+#enrollForm tr {
+	height: 40px;
+}
+
+td,
+th {
+	border: 1px solid;
+	text-align: center;
+}
+
+tr {
+	cursor: pointer;
+}
+
+tr:hover {
+	background-color: #f0f0f0;
+	/* 원하는 색상으로 변경 */
+}

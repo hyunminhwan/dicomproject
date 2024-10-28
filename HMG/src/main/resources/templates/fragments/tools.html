@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	
+</head>
+<body>
+	<!-- fragments/tools.html -->
+	<div th:fragment="tools-container">
+		<ul class="tools-container-ul">
+			<button type="button"  onclick="location.href='StudyTabList'">전체조회</button>
+			<button class="pan" onclick="togglePanTool()">이동</button>
+
+			<button id="windowLevel" type="button" class="btn btn-default"><span>윈도우 레벨</span></button>
+			<button id="invert" type="button" class="btn btn-default"><span>흑백전환</span></button>
+			<button id="drag" type="button" class="btn btn-default"><span>이미지 드래그</span></button>
+			<!-- 도구모음으로 넣을 예정 -->
+			<button id="hFlip" type="button" class="btn btn-default"><span>수평뒤집기</span></button>
+			<button id="vFlip" type="button" class="btn btn-default"><span>수직대칭이동</span></button>
+			<button id="lRotate" type="button" class="btn btn-default"><span>왼쪽 회전</span></button>
+			<button id="rRotate" type="button" class="btn btn-default"><span>오른쪽 회전</span></button>
+			<button id="scrollZoom" type="button" class="btn btn-default"><span>스크롤 줌</span></button>
+			<button id="zoomIn" type="button" class="btn btn-default"><span>확대</span></button>
+			<button id="zoomOut" type="button" class="btn btn-default"><span>축소</span></button>
+			<!-- 여기까지 도구모음 -->
+			
+			<!-- 기능추가 전 실험용 버튼 -->
+			<button id="exbtn" type="button" class="btn btn-default"><span>exbtn</span></button>
+			<button id="reset" type="button" class="btn btn-default"><span>리셋</span></button>
+		</ul>
+	</div>
+	
+	<style>
+	    .tools-container {
+	        display: flex;
+	        justify-content: center;
+	        margin-bottom: 10px;
+	    }
+	
+	    .tool-button {
+	        padding: 10px;
+	        margin: 0 5px;
+	        background-color: #007bff;
+	        color: white;
+	        border: none;
+	        border-radius: 5px;
+	        cursor: pointer;
+	    }
+	
+	    .tool-button:hover {
+	        background-color: #0056b3;
+	    }
+	</style>
+</body>
+</html>

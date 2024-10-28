@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+/* 그리드 레이아웃 설정 */
+.viewer-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	/* 2열 그리드 (2x2 레이아웃) */
+	grid-template-rows: repeat(2, 1fr);
+	/* 2행 그리드 */
+	gap: 10px;
+	/* 그리드 요소 사이의 간격 */
+
+}
+
+.viewer-container {
+	position: relative;
+	width: 512px;
+	height: 512px;
+	border: 1px solid #f00;
+	/* 시각적으로 확인하기 위한 테두리 */
+}
+
+.hidden {
+	display: none;
+	/* 이미지를 숨길 때 사용 */
+}
+
+.dicomImage {
+	width: 100%;
+	height: 100%;
+}
