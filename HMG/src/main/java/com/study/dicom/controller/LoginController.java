@@ -10,6 +10,12 @@ public class LoginController {
 
     // 로그인 페이지 표시
 	  @GetMapping("/")
+	  public String root() {
+		  
+		  return "login/login";
+		  
+	  }
+	  @GetMapping("/login")
 	  public String loginForm() {
 		  
 		  return "login/login";
