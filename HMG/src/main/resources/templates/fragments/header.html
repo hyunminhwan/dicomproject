@@ -1,382 +1,52 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="fragment-menu">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-   <script src="https://npmcdn.com/flatpickr@4.6.3/dist/plugins/monthSelect/index.js"></script>
-   <link rel="stylesheet" href="https://npmcdn.com/flatpickr@4.6.3/dist/plugins/monthSelect/style.css">
-   <title>검색 폼</title>
-
-   <style>
-      body {
-         font-family: Arial, sans-serif;
-         background-color: #1f1f1f;
-         color: #fff;
-         margin: 0;
-         padding: 20px;
-      }
-
-      .container {
-         display: flex;
-         flex-direction: row;
-         justify-content: flex-start;
-         align-items: flex-start;
-         width: 100%;
-      }
-
-      .sidebar {
-         width: 300px;
-         background-color: #2e2e2e;
-         padding: 20px;
-         margin-right: 20px;
-         box-sizing: border-box;
-         height: 100vh;
-         overflow-y: auto;
-      }
-
-      .main-content {
-         flex-grow: 1;
-         padding: 20px;
-         background-color: #333;
-      }
-
-      .search-bar {
-         display: flex;
-         justify-content: flex-start;
-         align-items: center;
-         margin-bottom: 20px;
-         gap: 10px;
-         background-color: #2e2e2e;
-         padding: 10px;
-         border-radius: 8px;
-      }
-
-      .search-bar input[type="text"],
-      .search-bar select {
-         background-color: #2e2e2e;
-         color: #fff;
-         border: 1px solid #880000;
-         padding: 8px 12px;
-         border-radius: 8px;
-      }
-
-      .search-bar select {
-         padding-right: 20px;
-      }
-
-     button {
-         background-color: #880000;
-         color: #fff;
-         border: none;
-         padding: 8px 16px;
-         border-radius: 8px;
-         cursor: pointer;
-      }
-
-      table {
-         width: 100%;
-         border-collapse: collapse;
-         background-color: #ffffff;
-      }
-
-      th,
-      td {
-         border: 1px solid #ddd;
-         padding: 10px;
-         text-align: center;
-         font-size: 16px;
-      }
-
-      th {
-         background-color: #f0f0f0;
-         color: #333;
-      }
-
-      td {
-         cursor: pointer;
-         border-radius: 50%;
-      }
-
-      td:hover {
-         background-color: #e6ffe6;
-      }
-
-      .selected {
-         background-color: #00cc44;
-         color: white;
-         border-radius: 50%;
-      }
-
-      .in-range {
-         background-color: #ccffcc;
-         border-radius: 50%;
-      }
-
-      .calendar-panel {
-         margin-top: 20px;
-      }
-
-      .buttons {
-         margin-top: 20px;
-      }
-
-      .date-input {
-         font-size: 18px;
-         border: 1px solid #ddd;
-         border-radius: 8px;
-         padding: 10px;
-         margin: 10px 0;
-         width: 100%;
-         text-align: center;
-         color: #333;
-      }
-
-      .calendar-icon {
-         cursor: pointer;
-         margin-left: 10px;
-      }
-
-      .nav-arrows {
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-      }
-
-      .arrow {
-         font-size: 24px;
-         color: white;
-         cursor: pointer;
-      }
-
-      /* 검사일자 부분을 달력 밑으로 내리기 위한 스타일 */
-      .date-range {
-         margin-top: 20px;
-      }
-
-   </style>
-</head>
-
-<body>
-
-   <div class="container">
-      <!-- 왼쪽 사이드바 영역 (달력) -->
-      <div class="sidebar">
-         <form action="/search" method="get">
-            <div class="calendar-panel">
-               <div class="nav-arrows">
-                  <!-- 이전 달/다음 달 버튼을 화살표로 변경 -->
-                  <span class="arrow" id="prev-month">&lt;</span>
-                  <div id="calendar-title" style="font-size: 24px; cursor: pointer;"></div>
-                  <span class="arrow" id="next-month">&gt;</span>
-               </div>
-               <table>
-                  <thead>
-                     <tr>
-                        <th>일</th>
-                        <th>월</th>
-                        <th>화</th>
-                        <th>수</th>
-                        <th>목</th>
-                        <th>금</th>
-                        <th>토</th>
-                     </tr>
-                  </thead>
-                  <tbody id="calendar-body">
-                     <!-- 달력 날짜가 렌더링되는 영역 -->
-                  </tbody>
-               </table>
-            </div>
-
-            <!-- 검사일자 선택 -->
-            <div class="date-range">
-               <label>검사일자:</label>
-               <input type="date" id="start-date" name="startDate" class="date-input" readonly>
-               ~
-               <input type="date" id="end-date" name="endDate" class="date-input" readonly>
-               <button type="submit">검색</button>
-            </div>
-      </div>
-      	
-
-      <!-- 오른쪽 검색 폼 영역 -->
-      <div class="main-content">
-            <div class="search-bar">
-               <input type="text" placeholder="환자 아이디" name="pid">
-               <input type="text" placeholder="환자 이름" name="pname">
-               <select name="reportStatus">
-                  <option value="0">판독 상태</option>
-                  <option value="3">읽지 않음</option>
-                  <option value="5">예비 판독</option>
-                  <option value="6">판독</option>
-               </select>
-               <select name="modality">
-                  <option value="">검사장비</option>
-                  <option value="AS">AS</option>
-                  <option value="AU">AU</option>
-                  <option value="BI">BI</option>
-                  <option value="CD">CD</option>
-                  <option value="CF">CF</option>
-                  <option value="CP">CP</option>
-                  <option value="CR">CR</option>
-                  <option value="CS">CS</option>
-                  <option value="CT">CT</option>
-                  <option value="DD">DD</option>
-                  <option value="DF">DF</option>
-                  <option value="DG">DG</option>
-                  <option value="DM">DM</option>
-                  <option value="DR">DR</option>
-                  <option value="DS">DS</option>
-                  <option value="DX">DX</option>
-                  <option value="EC">EC</option>
-                  <option value="ES">ES</option>
-                  <option value="FA">FA</option>
-                  <option value="FS">FS</option>
-                  <option value="LS">LS</option>
-                  <option value="LP">LP</option>
-                  <option value="MA">MA</option>
-                  <option value="MR">MR</option>
-                  <option value="MS">MS</option>
-                  <option value="NM">NM</option>
-                  <option value="OT">OT</option>
-                  <option value="PT">PT</option>
-                  <option value="RF">RF</option>
-                  <option value="RG">RG</option>
-                  <option value="ST">ST</option>
-                  <option value="TG">TG</option>
-                  <option value="US">US</option>
-                  <option value="VF">VF</option>
-                  <option value="XA">XA</option>
-               </select>
-               <button type="submit">검색</button>
-               <button type="button" class="active" onclick="location.href='StudyTabList'">전체조회</button>
-            </div>
-         </form>
-      </div>
-   </div>
-
-   <script>
-      let today = new Date();
-      let currentMonth = today.getMonth();
-      let currentYear = today.getFullYear();
-      let startDate = null;
-      let endDate = null;
-
-      // Flatpickr 달력에 monthSelect 플러그인 적용 (년도/월 선택 가능)
-      flatpickr("#calendar-title", {
-         plugins: [
-            new monthSelectPlugin({
-               shorthand: true,
-               dateFormat: "Y-m", 
-               altFormat: "Y년 m월" 
-            })
-         ],
-         onChange: function (selectedDates) {
-            const selectedDate = selectedDates[0];
-            currentYear = selectedDate.getFullYear();
-            currentMonth = selectedDate.getMonth();
-            renderCalendar(currentMonth, currentYear);
-         }
-      });
-
-      // 초기 달력 렌더링
-      document.addEventListener('DOMContentLoaded', function () {
-         renderCalendar(currentMonth, currentYear);
-      });
-
-      function renderCalendar(month, year) {
-         const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
-         const firstDay = new Date(year, month).getDay();
-         const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-         const calendarTitle = document.getElementById("calendar-title");
-         calendarTitle.textContent = `${year}년 ${monthNames[month]}`;
-
-         const calendarBody = document.getElementById("calendar-body");
-         calendarBody.innerHTML = "";
-
-         let date = 1;
-         for (let i = 0; i < 6; i++) {
-            const row = document.createElement("tr");
-            for (let j = 0; j < 7; j++) {
-               const cell = document.createElement("td");
-               if (i === 0 && j < firstDay) {
-                  cell.textContent = "";
-               } else if (date > daysInMonth) {
-                  cell.textContent = "";
-               } else {
-                  cell.textContent = date;
-                  cell.dataset.date = `${year}-${month < 9 ? '0' + (month + 1) : (month + 1)}-${date < 10 ? '0' + date : date}`;
-                  cell.addEventListener("click", () => handleDateSelection(cell, cell.textContent, month + 1, year));
-                  date++;
-               }
-               row.appendChild(cell);
-            }
-            calendarBody.appendChild(row);
-         }
-         highlightSelectedRange();
-      }
-
-      function highlightSelectedRange() {
-         if (!startDate || !endDate) return;
-
-         const cells = document.querySelectorAll("td");
-         cells.forEach(cell => {
-            const cellDate = cell.dataset.date;
-            if (cellDate >= startDate && cellDate <= endDate) {
-               cell.classList.add("in-range");
-            } else {
-               cell.classList.remove("in-range");
-            }
-         });
-      }
-
-      function handleDateSelection(cell, day, month, year) {
-         const selectedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
-
-         if (!startDate || (startDate && endDate)) {
-            startDate = selectedDate;
-            endDate = null;
-         } else {
-            endDate = selectedDate;
-            if (startDate > endDate) {
-               [startDate, endDate] = [endDate, startDate];
-            }
-         }
-
-         document.getElementById("start-date").value = startDate;
-         document.getElementById("end-date").value = endDate ? endDate : startDate;
-
-         highlightSelectedRange();
-
-         const cells = document.querySelectorAll("td");
-         cells.forEach(cell => {
-            const cellDate = cell.dataset.date;
-            if (cellDate === startDate || cellDate === endDate) {
-               cell.classList.add("selected");
-            } else {
-               cell.classList.remove("selected");
-            }
-         });
-      }
-
-      // 이전 달 이동
-      document.getElementById("prev-month").addEventListener("click", () => {
-         currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-         currentYear = (currentMonth === 11) ? currentYear - 1 : currentYear;
-         renderCalendar(currentMonth, currentYear);
-      });
-
-      // 다음 달 이동
-      document.getElementById("next-month").addEventListener("click", () => {
-         currentMonth = (currentMonth === 11) ? 0 : currentMonth + 1;
-         currentYear = (currentMonth === 0) ? currentYear + 1 : currentYear;
-         renderCalendar(currentMonth, currentYear);
-      });
-
-   </script>
+   <form action="/search" method="get">
+      <input type="text" placeholder="환자 아이디" name="pid">
+      <input type="text" placeholder="환자 이름" name="pname">
+      <select name="reportStatus">
+         <option value="0">판독 상태</option>
+         <option value="3">읽지 않음</option>
+         <option value="5">예비 판독</option>
+         <option value="6">판독</option>
+      </select>
+      <select name="modality">
+         <option value="">검사장비</option>
+         <option value="AS">AS</option>
+         <option value="AU">AU</option>
+         <option value="BI">BI</option>
+         <option value="CD">CD</option>
+         <option value="CF">CF</option>
+         <option value="CP">CP</option>
+         <option value="CR">CR</option>
+         <option value="CS">CS</option>
+         <option value="CT">CT</option>
+         <option value="DD">DD</option>
+         <option value="DF">DF</option>
+         <option value="DG">DG</option>
+         <option value="DM">DM</option>
+         <option value="DR">DR</option>
+         <option value="DS">DS</option>
+         <option value="DX">DX</option>
+         <option value="EC">EC</option>
+         <option value="ES">ES</option>
+         <option value="FA">FA</option>
+         <option value="FS">FS</option>
+         <option value="LS">LS</option>
+         <option value="LP">LP</option>
+         <option value="MA">MA</option>
+         <option value="MR">MR</option>
+         <option value="MS">MS</option>
+         <option value="NM">NM</option>
+         <option value="OT">OT</option>
+         <option value="PT">PT</option>
+         <option value="RF">RF</option>
+         <option value="RG">RG</option>
+         <option value="ST">ST</option>
+         <option value="TG">TG</option>
+         <option value="US">US</option>
+         <option value="VF">VF</option>
+         <option value="XA">XA</option>
+      </select>
+      <button type="submit">검색</button>
+      <button type="button" onclick="location.href='StudyTabList'">전체조회</button>
+   </form>
 </div>
-
-</html>
