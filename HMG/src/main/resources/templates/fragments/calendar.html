@@ -8,44 +8,69 @@
    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
    <style>    
-      .calendar_header {
+      .Calendar_header {
          display: flex;
          align-items: center;
          font-size: 24px;
          cursor: pointer;
       }
-      .calendar_button {
+      .Calendar_button {
          background: none;
          border: none;
-         color: white;
+         color: black;
          font-size: 24px;
          cursor: pointer;
       }
-      .calendar_title {
+      .Calendar_title {
          margin: 0 10px;
          cursor: pointer;
          background: none;
          border: none;
-         color: white;
+         color: black;
          text-align: center;
       }
-      .calendar_table {
+      .Calendar_table {
          margin-top: 20px;
          width: 100%;
          text-align: center;
-         color: #fff;
+         color: black;
+      }
+      .Calendar_filter-buttons {
+         display: flex;
+         gap: 10px;
+         margin-bottom: 10px;
+         justify-content: center;
+      }
+      .Calendar_filter-buttons button {
+         padding: 5px 10px;
+         cursor: pointer;
+         border: 1px solid #ddd;
+         background-color: white;
+      }
+      .Calendar_settings-area {
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         margin-top: 10px;
       }
    </style>
 </head>
 <body>
-
-   <div class="calendar_header">
-      <button id="prev-month" class="calendar_button">&lt;</button>
-      <input id="calendar-title" class="calendar_title" type="text" readonly>
-      <button id="next-month" class="calendar_button">&gt;</button>
+   <div class="Calendar_header">
+      <button id="prev-month" class="Calendar_button">&lt;</button>
+      <input id="calendar-title" class="Calendar_title" type="text" readonly>
+      <button id="next-month" class="Calendar_button">&gt;</button>
    </div>
 
-   <table class="calendar_table">
+   <!-- 필터 버튼 영역 -->
+   <div class="Calendar_filter-buttons">
+      <button id="select-all">전체</button>
+      <button id="select-1-day">1일</button>
+      <button id="select-3-day">3일</button>
+      <button id="select-1-week">1주일</button>
+   </div>
+
+   <table class="Calendar_table">
       <thead>
          <tr>
             <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
@@ -55,11 +80,41 @@
    </table>
 
    <!-- 검사일자 선택 -->
-   <div style="margin-top: 20px;">
+   <div class="Calendar_settings-area">
       <label>검사일자:</label>
       <input type="date" id="start-date" name="startDate" readonly>
       ~
       <input type="date" id="end-date" name="endDate" readonly>
+
+      <!-- 검사장비 및 기타 설정 -->
+      <select>
+         <option>선택해주세요</option>
+         <!-- 옵션 추가 -->
+      </select>
+      <label>Verify</label>
+      <select>
+         <option>선택해주세요</option>
+         <!-- 옵션 추가 -->
+      </select>
+      <button>조회</button>
+      <button>재설정</button>
+      
+         <!-- 리포트 섹션 -->
+   <div class="calendar_report-container">
+      <label>리포트</label>
+      <label for="comment">[코멘트]</label>
+      <textarea id="comment" placeholder="코멘트를 입력하세요"></textarea>
+
+      <label for="exploration">[탐색]</label>
+      <textarea id="exploration" placeholder="탐색 내용을 입력하세요"></textarea>
+
+      <label for="conclusion">[결론]</label>
+      <textarea id="conclusion" placeholder="결론을 입력하세요"></textarea>
+
+      <label for="recommendation">[권장]</label>
+      <textarea id="recommendation" placeholder="권장 사항을 입력하세요"></textarea>
+   </div>
+   
    </div>
 
    <script>
@@ -158,18 +213,46 @@
          document.getElementById("end-date").value = endDate ? endDate : startDate;
 
          highlightSelectedRange();
+      }
 
-         const cells = document.querySelectorAll("td");
-         cells.forEach(cell => {
-            const cellDate = cell.dataset.date;
-            if (cellDate === startDate || cellDate === endDate) {
-               cell.style.backgroundColor = "#00cc44";
-               cell.style.color = "white";
-            } else {
-               cell.style.backgroundColor = "";
-               cell.style.color = "";
-            }
-         });
+      // 버튼 기능 추가
+      document.getElementById("select-all").addEventListener("click", () => {
+         startDate = `${currentYear}-${currentMonth + 1 < 10 ? '0' + (currentMonth + 1) : currentMonth + 1}-01`;
+         endDate = `${currentYear}-${currentMonth + 1 < 10 ? '0' + (currentMonth + 1) : currentMonth + 1}-${new Date(currentYear, currentMonth + 1, 0).getDate()}`;
+         document.getElementById("start-date").value = startDate;
+         document.getElementById("end-date").value = endDate;
+         highlightSelectedRange();
+      });
+
+      document.getElementById("select-1-day").addEventListener("click", () => {
+         const todayDate = new Date(currentYear, currentMonth, today.getDate());
+         startDate = formatDate(todayDate);
+         endDate = startDate;
+         document.getElementById("start-date").value = startDate;
+         document.getElementById("end-date").value = endDate;
+         highlightSelectedRange();
+      });
+
+      document.getElementById("select-3-day").addEventListener("click", () => {
+         const todayDate = new Date(currentYear, currentMonth, today.getDate());
+         startDate = formatDate(todayDate);
+         endDate = formatDate(new Date(todayDate.setDate(todayDate.getDate() + 2)));
+         document.getElementById("start-date").value = startDate;
+         document.getElementById("end-date").value = endDate;
+         highlightSelectedRange();
+      });
+
+      document.getElementById("select-1-week").addEventListener("click", () => {
+         const todayDate = new Date(currentYear, currentMonth, today.getDate());
+         startDate = formatDate(todayDate);
+         endDate = formatDate(new Date(todayDate.setDate(todayDate.getDate() + 6)));
+         document.getElementById("start-date").value = startDate;
+         document.getElementById("end-date").value = endDate;
+         highlightSelectedRange();
+      });
+
+      function formatDate(date) {
+         return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
       }
 
       // 이전 달 이동
