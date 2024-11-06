@@ -61,10 +61,4 @@ public class StudyTabController {
 		 return pastStudy.getContent();
 	 }
 	 
-	  // 새로운 달력페이지 넘어가게 검색
-	    @GetMapping("/calendar")
-	    public String calendar() {
-	        return "fragments/calendar"; // calendar.html로 이동
-	    }
-	 
 }

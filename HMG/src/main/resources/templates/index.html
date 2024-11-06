@@ -62,7 +62,7 @@
          padding: 8px;
       }
 
-      /* 하단 과거 검사 이력 및 리포트 섹션 */
+      /* 하단 과거 검사 이력 및 이미지 섹션 */
       .StudyList_bottom-section {
          display: flex;
          height: 40%;
@@ -94,6 +94,17 @@
          border: 1px solid #ddd;
          padding: 8px;
          text-align: center;
+      }
+
+      /* DICOM 이미지 뷰어 스타일 */
+      .study-viewer-container {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         height: 100%;
+         background-color: #333;
+         border-radius: 8px;
+         overflow: hidden;
       }
    </style>
 </head>
@@ -145,7 +156,7 @@
             </table>
          </div>
 
-         <!-- 하단 과거 검사 이력 및 리포트 섹션 -->
+         <!-- 하단 과거 검사 이력 및 이미지 섹션 -->
          <div class="StudyList_bottom-section">
             <!-- 과거 검사 이력 -->
             <div class="StudyList_past-exam">
@@ -164,7 +175,7 @@
                </table>
             </div>
 
-            <!-- 리포트 영역 -->
+            <!-- 이미지 영역 -->
             <div class="StudyList_image">
                <div class="StudyList_title">이미지</div>
                <div class="study-viewer-container" id="dicomViewer" th:ondblclick="imageTabList()"></div>
@@ -172,6 +183,26 @@
          </div>
       </div>
    </div>
+
+   <script>
+      // Cornerstone.js 초기화
+      document.addEventListener("DOMContentLoaded", function() {
+         const dicomViewer = document.getElementById("dicomViewer");
+
+         cornerstone.enable(dicomViewer);
+
+         function loadImage(imageId) {
+            cornerstone.loadAndCacheImage(imageId).then(function(image) {
+               cornerstone.displayImage(dicomViewer, image);
+               cornerstone.fitToWindow(dicomViewer); // 이미지 크기를 컨테이너에 맞추기
+            });
+         }
+
+         // 예제 이미지 ID, 실제 이미지 경로로 변경 필요
+         const exampleImageId = "wadouri:path/to/your/dicom/file.dcm";
+         loadImage(exampleImageId);
+      });
+   </script>
 </body>
 
 </html>
