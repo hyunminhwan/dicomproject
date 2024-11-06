@@ -34,12 +34,12 @@ public class StudyTabController {
 	
 	 @GetMapping("/search")
 	    public String search(@RequestParam(value="nowPage", defaultValue="0") int nowPage,
-	    					 @RequestParam(value = "pid", required = false) String pid,
-	                         @RequestParam(value = "pname", required = false) String pname,
-	                         @RequestParam(value = "reportStatus", required = false) Long reportStatus,
-	                         @RequestParam(value = "modality", required = false) String modality,
-	                         @RequestParam(value = "startDate", required = false) String startDate,
-	                         @RequestParam(value = "endDate", required = false) String endDate,
+	    					 @RequestParam(value = "pid") String pid,
+	                         @RequestParam(value = "pname") String pname,
+	                         @RequestParam(value = "reportStatus") Long reportStatus,
+	                         @RequestParam(value = "modality") String modality,
+	                         @RequestParam(value = "startDate") String startDate,
+	                         @RequestParam(value = "endDate") String endDate,
 	                         Model model) {
 
 		 Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(nowPage, 10),pid, pname, reportStatus, modality,startDate,endDate);
@@ -60,6 +60,5 @@ public class StudyTabController {
 		 Page<StudyTab> pastStudy=studyTabService.pastList(PageRequest.of(pastNowPage, 5),pid,pname);
 		 return pastStudy.getContent();
 	 }
-	 
 	 
 }
