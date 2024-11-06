@@ -86,21 +86,20 @@
       ~
       <input type="date" id="end-date" name="endDate" readonly>
 
-      <!-- 검사장비 및 기타 설정 -->
-      <select>
-         <option>선택해주세요</option>
-         <!-- 옵션 추가 -->
-      </select>
       <label>Verify</label>
       <select>
-         <option>선택해주세요</option>
-         <!-- 옵션 추가 -->
+      <option disabled hidden selected>
+      	선택해주세요.
+      </option>
+         <option>미요청</option>
+         <option>요청완료</option>
       </select>
+      
       <button>조회</button>
       <button>재설정</button>
       
          <!-- 리포트 섹션 -->
-   <div class="calendar_report-container">
+  	 <div class="calendar_report-container">
       <label>리포트</label>
       <label for="comment">[코멘트]</label>
       <textarea id="comment" placeholder="코멘트를 입력하세요"></textarea>
