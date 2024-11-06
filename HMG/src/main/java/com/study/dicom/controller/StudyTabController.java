@@ -28,7 +28,7 @@ public class StudyTabController {
 		model.addAttribute("totalPages",totalPages);
 		model.addAttribute("study",study);
 		model.addAttribute("nowPage",nowPage);
-		return "admin/Study/StudyList";
+		return "index";
 		
 	}
 	
@@ -47,7 +47,7 @@ public class StudyTabController {
 			model.addAttribute("totalPages",totalPages);
 			model.addAttribute("study",study);
 			model.addAttribute("nowPage",nowPage);
-	        return "admin/Study/StudyList";
+	        return "index";
 	 }
 	 
 	 @GetMapping("/pastList")
@@ -60,11 +60,5 @@ public class StudyTabController {
 		 Page<StudyTab> pastStudy=studyTabService.pastList(PageRequest.of(pastNowPage, 5),pid,pname);
 		 return pastStudy.getContent();
 	 }
-	 
-	  // 새로운 달력페이지 넘어가게 검색
-	    @GetMapping("/calendar")
-	    public String calendar() {
-	        return "fragments/calendar"; // calendar.html로 이동
-	    }
 	 
 }
