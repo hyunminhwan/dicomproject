@@ -28,7 +28,7 @@ public class StudyTabController {
 		model.addAttribute("totalPages",totalPages);
 		model.addAttribute("study",study);
 		model.addAttribute("nowPage",nowPage);
-		return "admin/Study/StudyList";
+		return "index";
 		
 	}
 	
@@ -47,7 +47,7 @@ public class StudyTabController {
 			model.addAttribute("totalPages",totalPages);
 			model.addAttribute("study",study);
 			model.addAttribute("nowPage",nowPage);
-	        return "admin/Study/StudyList";
+	        return "index";
 	 }
 	 
 	 @GetMapping("/pastList")

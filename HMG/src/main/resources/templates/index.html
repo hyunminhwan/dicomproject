@@ -1,13 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+   <meta charset="UTF-8">
+   <title>Study List</title>
+   <link href="css/index.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script src="https://unpkg.com/cornerstone-core/dist/cornerstone.js"></script>
+   <script src="https://unpkg.com/cornerstone-tools"></script>
+   <script src="https://unpkg.com/dicom-parser"></script>
+   <script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
+   <script src="https://unpkg.com/cornerstone-tools/dist/cornerstoneTools.js"></script>
+   <script src="js/StudyList.js"></script>
+   <style>
+      /* 전체 레이아웃 */
+      .StudyList_container {
+         display: flex;
+         height: 100vh;
+      }
+
+      /* 왼쪽 사이드바 */
+      .StudyList_sidebar {
+         width: 20%;
+         background-color: #f4f4f4;
+         padding: 10px;
+         overflow-y: auto;
+      }
+
+      /* 오른쪽 메인 콘텐츠 */
+      .StudyList_main-content {
+         width: 80%;
+         display: flex;
+         flex-direction: column;
+         padding: 10px;
+      }
+
+      /* 상단 헤더 */
+      .StudyList_header {
+         height: 10%;
+         background-color: #e0e0e0;
+         padding: 10px;
+         margin-bottom: 10px;
+      }
+
+      /* 테이블 영역 */
+      .StudyList_table-container {
+         height: 50%;
+         overflow-y: auto;
+         margin-bottom: 20px;
+      }
+
+      .StudyList_table {
+         width: 100%;
+         border-collapse: collapse;
+         background-color: #fff;
+         text-align: center;
+      }
+
+      .StudyList_table th, .StudyList_table td {
+         border: 1px solid #ddd;
+         padding: 8px;
+      }
+
+      /* 하단 과거 검사 이력 및 리포트 섹션 */
+      .StudyList_bottom-section {
+         display: flex;
+         height: 40%;
+         gap: 10px;
+      }
+
+      .StudyList_past-exam, .StudyList_image {
+         flex: 1;
+         background-color: #e9e9e9;
+         padding: 10px;
+         border-radius: 8px;
+         overflow-y: auto;
+      }
+
+      .StudyList_title {
+         font-size: 18px;
+         font-weight: bold;
+         margin-bottom: 10px;
+      }
+
+      /* 과거 검사 이력 테이블 */
+      .StudyList_history-table {
+         width: 100%;
+         border-collapse: collapse;
+         background-color: #fff;
+      }
+
+      .StudyList_history-table th, .StudyList_history-table td {
+         border: 1px solid #ddd;
+         padding: 8px;
+         text-align: center;
+      }
+   </style>
 </head>
-<link href="css/index.css" rel="stylesheet"/>
+
 <body>
-	<div th:replace="~{fragments/header.html :: fragment-menu}"></div>
+   <div class="StudyList_container">
+      <!-- 왼쪽 사이드바 -->
+      <div class="StudyList_sidebar">
+         <div th:replace="~{/fragments/calendar.html :: fragment-calendar}"></div>
+      </div>
+
+      <!-- 오른쪽 메인 콘텐츠 -->
+      <div class="StudyList_main-content">
+         <!-- 상단 헤더 -->
+         <div class="StudyList_header">
+            <div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
+         </div>
+
+         <!-- 중간 테이블 -->
+         <div class="StudyList_table-container">
+            <table class="StudyList_table">
+               <tr>
+                  <th>검사설명</th>
+                  <th>장비</th>
+                  <th>검사날짜</th>
+                  <th>환자아이디</th>
+                  <th>환자이름</th>
+                  <th>환자성별</th>
+                  <th>환자생일</th>
+                  <th>시리즈건수</th>
+                  <th>이미지건수</th>
+                  <th>판독결과</th>
+               </tr>
+               <tr th:each="study : ${study}"
+                   th:ondblclick="|location.href='@{/ImageTabList(studyKey=${study.studyKey})}'|"
+                   th:data-pid="${study.pid}" th:data-pname="${study.pname}" th:data-studyKey="${study.studyKey}"
+                   onclick="studyPast(this)">
+                  <td th:text="${study.studyDesc != null ? study.studyDesc : '이름없음'}"></td>
+                  <td th:text="${study.modality != null ? study.modality : ''}"></td>
+                  <td th:text="${study.studyDate != null ? study.studyDate : ''}"></td>
+                  <td th:text="${study.pid != null ? study.pid : ''}"></td>
+                  <td th:text="${study.pname != null ? study.pname : ''}"></td>
+                  <td th:text="${study.psex != null ? study.psex : ''}"></td>
+                  <td th:text="${study.pBirthDateTime != null ? study.pBirthDateTime : ''}"></td>
+                  <td th:text="${study.seriesCnt != null ? study.seriesCnt : ''}"></td>
+                  <td th:text="${study.imageCnt != null ? study.imageCnt : ''}"></td>
+                  <td th:text="${study.reportStatus != null ? (study.reportStatus == 3 ? '읽지않음' : (study.reportStatus == 5 ? '예비판독' : '판독')) : ''}"></td>
+               </tr>
+            </table>
+         </div>
+
+         <!-- 하단 과거 검사 이력 및 리포트 섹션 -->
+         <div class="StudyList_bottom-section">
+            <!-- 과거 검사 이력 -->
+            <div class="StudyList_past-exam">
+               <div class="StudyList_title">과거 검사 이력</div>
+               <div>환자 아이디: <span id="pid"></span>&emsp; 환자 이름: <span id="pname"></span></div>
+               <table class="StudyList_history-table">
+                  <tr>
+                     <th>검사장비</th>
+                     <th>검사설명</th>
+                     <th>검사일시</th>
+                     <th>판독상태</th>
+                     <th>시리즈</th>
+                     <th>이미지</th>
+                  </tr>
+                  <tbody id="studyPastList"></tbody>
+               </table>
+            </div>
+
+            <!-- 리포트 영역 -->
+            <div class="StudyList_image">
+               <div class="StudyList_title">이미지</div>
+               <div class="study-viewer-container" id="dicomViewer" th:ondblclick="imageTabList()"></div>
+            </div>
+         </div>
+      </div>
+   </div>
 </body>
 
 </html>
