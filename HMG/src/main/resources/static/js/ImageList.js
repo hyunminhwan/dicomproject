@@ -47,12 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 
-		function imageDetail(key) {
+		
+	
+});
+function imageDetail(key) {
 			const studyKey = key.getAttribute('data-studyKey');
 			const seriesKey = key.getAttribute('data-seriesKey');
 
 			const url = `/ImageDetail?studyKey=${studyKey}&seriesKey=${seriesKey}`;
 			window.location.href = url;
 		}
-	
-});
