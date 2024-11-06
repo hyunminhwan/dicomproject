@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+/* Form 전체 영역 스타일 */
+.fragment-menu-form {
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 그림자 효과를 강화하여 입체감 추가 */
+    display: flex;
+    gap: 15px; /* 간격을 좀 더 넓혀서 여유롭게 */
+    flex-wrap: wrap;
+}
+
+/* 검색 필드 스타일 */
+.search-fields {
+    display: flex;
+    flex-direction: row; /* 가로 방향으로 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 10px; /* 간격 조정 */
+}
+
+/* 입력 필드 및 선택 필드 스타일 */
+.fragment-menu-input,
+.fragment-menu-select {
+    padding: 12px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    flex: 1; /* 균등하게 크기를 조정하도록 설정 */
+    margin-right: 10px; /* 오른쪽 간격 설정 */
+    transition: all 0.3s ease;
+}
+
+/* 입력 필드 포커스 스타일 */
+.fragment-menu-input:focus, .fragment-menu-select:focus {
+    border-color: #0056b3; /* 진한 파란색 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* 버튼 스타일 */
+.fragment-menu-button,
+.fragment-menu-button-secondary {
+    padding: 12px 20px; /* 패딩 증가 */
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* 파란색 배경 */
+    color: #ffffff; /* 흰색 글자 */
+    font-size: 16px; /* 글꼴 크기 증가 */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 호버 시 애니메이션 효과 추가 */
+}
+
+/* 버튼 호버 스타일 */
+.fragment-menu-button:hover,
+.fragment-menu-button-secondary:hover {
+    background-color: #0056b3; /* 더 진한 파란색 */
+    transform: scale(1.05); /* 클릭 시 살짝 커지는 효과 */
+}
+
+/* 전체조회 버튼 스타일 */
+.fragment-menu-button-secondary {
+    background-color: #007bff; /* 파란색 배경 */
+    color: #ffffff; /* 흰색 텍스트 */
+}
+
+.fragment-menu-button-secondary:hover {
+    background-color: #0056b3; /* hover 시 진한 파란색 */
+}
+
+.fragment-menu-select.report-status-select { /* 판독 상태 select 요소 스타일 */
+    font-size: 16px; /* 글꼴 크기 증가 */
+    height: 40px; /* 높이 증가 */
+    width: 800px; /* 옆으로 늘리기 위해 너비를 조정합니다. */ 
+}
+
+.select-fields {
+    display: flex; /* Flexbox 사용 */
+    gap: 10px; /* 간격 조정 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.select-fields {
+    display: flex;
+    gap: 10px; /* 기존의 gap을 사용하여 선택 필드 간의 간격을 조정 */
+}
+
+.fragment-menu-select {
+    padding: 12px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    width: 250px; /* 같은 너비를 유지하기 위한 설정 */
+    margin-right: 10px; /* 오른쪽 여백 추가 */
+}

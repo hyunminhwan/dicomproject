@@ -9,7 +9,5 @@ public class ImgConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/mhg/**")
-		.addResourceLocations("file:///Users/hyeye_on/Desktop/file001/mhg/");
-		
 	}
 }
