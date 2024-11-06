@@ -28,18 +28,18 @@ public class StudyTabController {
 		model.addAttribute("totalPages",totalPages);
 		model.addAttribute("study",study);
 		model.addAttribute("nowPage",nowPage);
-		return "admin/Study/StudyList";
+		return "index";
 		
 	}
 	
 	 @GetMapping("/search")
 	    public String search(@RequestParam(value="nowPage", defaultValue="0") int nowPage,
-	    					 @RequestParam(value = "pid") String pid,
-	                         @RequestParam(value = "pname") String pname,
-	                         @RequestParam(value = "reportStatus") Long reportStatus,
-	                         @RequestParam(value = "modality") String modality,
-	                         @RequestParam(value = "startDate") String startDate,
-	                         @RequestParam(value = "endDate") String endDate,
+	    					 @RequestParam(value = "pid", required = false) String pid,
+	                         @RequestParam(value = "pname", required = false) String pname,
+	                         @RequestParam(value = "reportStatus", required = false) Long reportStatus,
+	                         @RequestParam(value = "modality", required = false) String modality,
+	                         @RequestParam(value = "startDate", required = false) String startDate,
+	                         @RequestParam(value = "endDate", required = false) String endDate,
 	                         Model model) {
 
 		 Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(nowPage, 10),pid, pname, reportStatus, modality,startDate,endDate);
@@ -47,7 +47,7 @@ public class StudyTabController {
 			model.addAttribute("totalPages",totalPages);
 			model.addAttribute("study",study);
 			model.addAttribute("nowPage",nowPage);
-	        return "admin/Study/StudyList";
+	        return "index";
 	 }
 	 
 	 @GetMapping("/pastList")
@@ -61,10 +61,5 @@ public class StudyTabController {
 		 return pastStudy.getContent();
 	 }
 	 
-	  // 새로운 달력페이지 넘어가게 검색
-	    @GetMapping("/calendar")
-	    public String calendar() {
-	        return "fragments/calendar"; // calendar.html로 이동
-	    }
 	 
 }

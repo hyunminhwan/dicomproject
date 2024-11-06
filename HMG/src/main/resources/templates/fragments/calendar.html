@@ -1,12 +1,52 @@
 <div th:fragment="fragment-calendar">
-   <!-- 달력 상단 타이틀 및 아이콘 -->
-   <div style="display: flex; align-items: center; justify-content: center;">
-      <div id="calendar-title"></div>
-      <img src="https://cdn-icons-png.flaticon.com/512/2089/2089641.png" alt="달력 아이콘" id="calendar-icon" width="24px">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>달력 예제</title>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+   <style>
+      .calendar_header {
+         display: flex;
+         align-items: center;
+         font-size: 24px;
+         cursor: pointer;
+      }
+      .calendar_button {
+         background: none;
+         border: none;
+         color: white;
+         font-size: 24px;
+         cursor: pointer;
+      }
+      .calendar_title {
+         margin: 0 10px;
+         cursor: pointer;
+         background: none;
+         border: none;
+         color: white;
+         text-align: center;
+      }
+      
+      .calendar_table {
+         margin-top: 20px;
+         width: 100%;
+         text-align: center;
+         color: #fff;
+      }
+   </style>
+</head>
+<body>
+
+   <div class="calendar_header">
+      <button id="prev-month" class="calendar_button">&lt;</button>
+      <input id="calendar-title" class="calendar_title" type="text" readonly>
+      <button id="next-month" class="calendar_button">&gt;</button>
    </div>
-   <button id="prev-month" type="button">이전 달</button>
-   <button id="next-month" type="button">다음 달</button>
-   <table>
+
+   <table class="calendar_table">
       <thead>
          <tr>
             <th>일</th>
@@ -18,57 +58,61 @@
             <th>토</th>
          </tr>
       </thead>
-      <tbody id="calendar-body">
-         <!-- 달력 날짜가 렌더링되는 영역 -->
-      </tbody>
+      <tbody id="calendar-body"></tbody>
    </table>
 
    <!-- 검사일자 선택 -->
-   <div>
+   <div style="margin-top: 20px;">
       <label>검사일자:</label>
       <input type="date" id="start-date" name="startDate" readonly>
       ~
       <input type="date" id="end-date" name="endDate" readonly>
    </div>
-
-   <!-- Flatpickr 및 달력 관련 스크립트 -->
-   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
    <script>
+	   
       let today = new Date();
       let currentMonth = today.getMonth();
       let currentYear = today.getFullYear();
       let startDate = null;
       let endDate = null;
 
-      // 달력 아이콘 클릭 시 Flatpickr 달력 열기
-      document.getElementById("calendar-icon").addEventListener("click", function() {
-         flatpickr("#calendar-icon", {
-            altInput: true,
-            altFormat: "F Y", // 월과 년도만 표시
-            dateFormat: "Y-m-d",
-            defaultDate: `${currentYear}-${currentMonth + 1}-01`, // 현재 년도와 월로 초기화
+      // Flatpickr 달력 설정
+      document.addEventListener('DOMContentLoaded', function() {
+         flatpickr("#calendar-title", {
+            plugins: [
+               new monthSelectPlugin({
+                  shorthand: true,
+                  dateFormat: "Y-m",
+                  altFormat: "Y년 F",
+                  theme: "light"
+                  
+               })
+            ],
+            
+            defaultDate: `${currentYear}-${currentMonth + 1}-01`,
             onChange: function(selectedDates) {
                const selectedDate = selectedDates[0];
                currentYear = selectedDate.getFullYear();
                currentMonth = selectedDate.getMonth();
-               // 선택된 월과 년도로 달력 업데이트
                renderCalendar(currentMonth, currentYear);
             }
-         }).open(); // 달력 열기
+         });
+
+         renderCalendar(currentMonth, currentYear);
       });
 
+      // 달력 렌더링 함수
       function renderCalendar(month, year) {
          const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
-         const firstDay = new Date(year, month).getDay();
-         const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-         const calendarTitle = document.getElementById("calendar-title");
-         calendarTitle.textContent = `${year}년 ${monthNames[month]}`;
+         document.getElementById("calendar-title").value = `${year}년 ${monthNames[month]}`;
 
          const calendarBody = document.getElementById("calendar-body");
-         calendarBody.innerHTML = "";
+         calendarBody.innerHTML = ""; // 기존 내용 지우기
 
+         const firstDay = new Date(year, month).getDay();
+         const daysInMonth = new Date(year, month + 1, 0).getDate();
          let date = 1;
+
          for (let i = 0; i < 6; i++) {
             const row = document.createElement("tr");
             for (let j = 0; j < 7; j++) {
@@ -80,7 +124,7 @@
                } else {
                   cell.textContent = date;
                   cell.dataset.date = `${year}-${month < 9 ? '0' + (month + 1) : (month + 1)}-${date < 10 ? '0' + date : date}`;
-                  cell.addEventListener("click", () => handleDateSelection(cell, cell.textContent, month + 1, year)); // 날짜 선택
+                  cell.addEventListener("click", () => handleDateSelection(cell, cell.textContent, month + 1, year));
                   date++;
                }
                row.appendChild(cell);
@@ -92,8 +136,8 @@
 
       // 날짜 범위 시각적 표시
       function highlightSelectedRange() {
+		  
          if (!startDate || !endDate) return;
-
          const cells = document.querySelectorAll("td");
          cells.forEach(cell => {
             const cellDate = cell.dataset.date;
@@ -102,7 +146,9 @@
             } else {
                cell.style.backgroundColor = "";
             }
+            
          });
+         
       }
 
       // 날짜 선택 핸들러
@@ -110,14 +156,12 @@
          const selectedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
          if (!startDate || (startDate && endDate)) {
-            // 시작 날짜 선택 또는 범위 초기화
             startDate = selectedDate;
             endDate = null;
          } else {
-            // 끝 날짜 선택
             endDate = selectedDate;
             if (startDate > endDate) {
-               [startDate, endDate] = [endDate, startDate]; // 날짜 순서 반전
+               [startDate, endDate] = [endDate, startDate];
             }
          }
 
@@ -126,7 +170,6 @@
 
          highlightSelectedRange();
 
-         // 선택된 날짜 시각적 표시
          const cells = document.querySelectorAll("td");
          cells.forEach(cell => {
             const cellDate = cell.dataset.date;
@@ -138,6 +181,7 @@
                cell.style.color = "";
             }
          });
+         
       }
 
       // 이전 달 이동
@@ -145,6 +189,7 @@
          currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
          currentYear = (currentMonth === 11) ? currentYear - 1 : currentYear;
          renderCalendar(currentMonth, currentYear);
+         
       });
 
       // 다음 달 이동
@@ -152,11 +197,9 @@
          currentMonth = (currentMonth === 11) ? 0 : currentMonth + 1;
          currentYear = (currentMonth === 0) ? currentYear + 1 : currentYear;
          renderCalendar(currentMonth, currentYear);
+         
       });
-
-      // 초기 로드 시 현재 달 렌더링
-      window.onload = function () {
-         renderCalendar(currentMonth, currentYear);
-      };
+      
    </script>
+</body>
 </div>
