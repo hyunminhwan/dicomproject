@@ -7,8 +7,9 @@
 	<!-- fragments/tools.html -->
 	<div th:fragment="tools-container">
 		<ul class="tools-container-ul">
-			<button type="button"  onclick="location.href='StudyTabList'">전체조회</button>
-			<button class="pan" onclick="togglePanTool()">이동</button>
+			<button type="button"  onclick="location.href='StudyTabList'" class="btn btn-default">전체조회</button>
+			
+			<button id="scrollPage" type="button" class="btn btn-default">페이지 스크롤</button>
 
 			<button id="windowLevel" type="button" class="btn btn-default"><span>윈도우 레벨</span></button>
 			<button id="invert" type="button" class="btn btn-default"><span>흑백전환</span></button>
@@ -22,10 +23,22 @@
 			<button id="zoomIn" type="button" class="btn btn-default"><span>확대</span></button>
 			<button id="zoomOut" type="button" class="btn btn-default"><span>축소</span></button>
 			<!-- 여기까지 도구모음 -->
-			
+			<button id="playClip" type="button" class="btn btn-default"><span>플레이클립</span></button>
+			<button id="magnify" type="button" class="btn btn-default"><span>돋보기</span></button>
 			<!-- 기능추가 전 실험용 버튼 -->
-			<button id="exbtn" type="button" class="btn btn-default"><span>exbtn</span></button>
-			<button id="reset" type="button" class="btn btn-default"><span>리셋</span></button>
+			<button id="length" type="button" class="btn btn-default"><span>길이 측정</span></button>
+			<button id="angle" type="button" class="btn btn-default"><span>각도 측정</span></button>
+			
+			<button id="eraser" type="button" class="btn btn-default"><span>지우개</span></button>
+			
+
+		  		<button id="gridButton" class="btn btn-default">그리드</button>
+			  	<div id="gridContainer" class="dropdown-content">
+				    <!-- 셀렉터 그리드가 표시될 영역 -->
+				    <div class="grid-selector"></div>
+			  	</div>
+			
+			<button id="reset" type="button" class="btn btn-default"><span> 리셋</span></button>
 		</ul>
 	</div>
 	
@@ -49,6 +62,7 @@
 	    .tool-button:hover {
 	        background-color: #0056b3;
 	    }
+	    
 	</style>
 </body>
 </html>
