@@ -49,10 +49,14 @@ function studyPast(element) {
 		
 }
 
+let reportStudyKey;
+
 function loadReportData(studyKey) {
+	reportStudyKey=studyKey;
     axios.get(`/api/report/${studyKey}`) // 검사에 대한 리포트를 가져오는 API 호출
         .then(response => {
             const report = response.data;
+			console.log(report);
             // 리포트 데이터가 있다면 입력 필드에 채우기
             if (report) {
                 document.getElementById("comment").value = report.reComment || "";
@@ -66,27 +70,20 @@ function loadReportData(studyKey) {
         });
 }
 
-function saveReport() {
-    if (!selectedStudyKey) {
-        alert("검사를 선택한 후 저장하세요.");
-        return;
-    }
-}
-
-/*
 // 리포트 저장
-function saveReport(studyKey) {
-	if (!studyKey) {
+function saveReport() {
+	if (!reportStudyKey) {
 		alert("검사를 선택한 후 저장하세요.");
 		return;
 	}
+	
 	const comment = document.getElementById("comment").value;
 	const exploration = document.getElementById("exploration").value;
 	const conclusion = document.getElementById("conclusion").value;
 	const recommendation = document.getElementById("recommendation").value;
 
 	axios.post('/api/saveReport', {
-		studyKey: studyKey, // studyKey 함께 전송
+		studyKey: reportStudyKey, // studyKey 함께 전송
 		reComment: comment,
 		reExploration: exploration,
 		reConclusion: conclusion,
@@ -104,7 +101,6 @@ function saveReport(studyKey) {
 			alert("오류가 발생했습니다.");
 		});
 }
-*/
 
 
 function loadImages(studyKey) {
