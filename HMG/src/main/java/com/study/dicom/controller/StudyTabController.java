@@ -25,7 +25,7 @@ import com.study.dicom.service.StudyTabService;
 @Controller
 public class StudyTabController {
 
-
+	
 	@Autowired
 	StudyTabService studyTabService;
 	
