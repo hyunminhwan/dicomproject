@@ -10,20 +10,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-	<form action="/search" method="get" class="fragment-menu-form">
 		<div class="search-fields">
-			<input type="text" placeholder="환자 아이디" name="pid">
-			<input type="text" placeholder="환자 이름" name="pname">
+			<input type="text" placeholder="환자 아이디" name="pid" id="pid">
+			<input type="text" placeholder="환자 이름" name="pname" id="pname">
 
 			<div class="select-fields">
-    			<select name="reportStatus" class="fragment-menu-select report-status-select">
+    			<select name="reportStatus" id="reportStatus" class="fragment-menu-select report-status-select">
 					<option value="0">판독 상태</option>
 					<option value="3">읽지 않음</option>
 					<option value="5">예비 판독</option>
 					<option value="6">판독</option>
 				</select>
 				
-				<select name="modality" class="fragment-menu-select">
+				<select name="modality" class="fragment-menu-select" id="modality">
 					<option value="">검사장비</option>
 					<option value="AS">AS</option>
 					<option value="AU">AU</option>
@@ -64,10 +63,10 @@
 			</div>
 		</div>
 		
-		<button type="submit" class="fragment-menu-button">검색</button>
-		<button type="button" onclick="location.href='StudyTabList'"
+		<button type="button" class="fragment-menu-button" onclick="studySearch()" >검색</button>
+		<button type="button" onclick="location.href='/search'"
 			class="fragment-menu-button fragment-menu-button-secondary">전체조회</button>
-	</form>
+
 
 
 	<!-- JavaScript로 Select2 초기화 -->

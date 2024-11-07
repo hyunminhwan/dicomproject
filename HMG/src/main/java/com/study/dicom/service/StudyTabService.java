@@ -28,7 +28,9 @@ public class StudyTabService {
 	}	
 	
 	public Page<StudyTab> searchStudyTab(PageRequest of,String pid, String pname, Long reportStatus, String modality,String startDate,String endDate) {
-        return studyTabRepository.findStudyTabsByCriteria(of,pid, pname, reportStatus, modality,startDate,endDate);
+        String sDate = startDate!=null ? startDate.replace("-",""):"";
+        String eDate = endDate!=null ? endDate.replace("-",""):"";
+		return studyTabRepository.findStudyTabsByCriteria(of,pid, pname, reportStatus, modality,sDate,eDate);
     }
 
 	public Page<StudyTab> pastList(PageRequest of, String pid, String pname) {
