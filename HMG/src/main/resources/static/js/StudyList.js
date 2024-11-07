@@ -7,13 +7,14 @@ function studyPast(element) {
 	document.getElementById('pname').innerText = pname;
 	console.log(pid, pname);
 	// AXIOS GET 요청
+	
 	axios.get(`/pastList`, {
 		params: {
 			pid: pid,
 			pname: pname
 		}
 	})
-		.then(function(response) {
+		.then((response)=>{
 			var studyPastList = response.data;
 
 			// 테이블의 기존 내용을 지우고 새로운 내용을 추가
