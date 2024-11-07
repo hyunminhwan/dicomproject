@@ -2,6 +2,8 @@ package com.study.dicom.repository;
 
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,5 +34,6 @@ public interface StudyTabRepository extends JpaRepository<StudyTab,Long>{
 
 	Page<StudyTab> findAllByPidAndPname(PageRequest of, String pid, String pname);
 
+	
 }
 
