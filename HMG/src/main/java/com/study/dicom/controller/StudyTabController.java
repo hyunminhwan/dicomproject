@@ -34,12 +34,12 @@ public class StudyTabController {
 	
 	 @GetMapping("/search")
 	    public String search(@RequestParam(value="searchPage", defaultValue="0") int searchPage,
-	    					 @RequestParam(value = "pid" ,required = false) String pid,
-	                         @RequestParam(value = "pname",required = false) String pname,
-	                         @RequestParam(value = "reportStatus",required = false) Long reportStatus,
-	                         @RequestParam(value = "modality",required = false) String modality,
-	                         @RequestParam(value = "startDate",required = false) String startDate,
-	                         @RequestParam(value = "endDate",required = false) String endDate,
+	    					 @RequestParam(value = "pid" ,required = false, defaultValue="") String pid,
+	                         @RequestParam(value = "pname",required = false, defaultValue="") String pname,
+	                         @RequestParam(value = "reportStatus",required = false, defaultValue="0") Long reportStatus,
+	                         @RequestParam(value = "modality",required = false, defaultValue="") String modality,
+	                         @RequestParam(value = "startDate",required = false, defaultValue="") String startDate,
+	                         @RequestParam(value = "endDate",required = false, defaultValue="") String endDate,
 	                         Model model) {
 
 		 Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(searchPage, 10),pid, pname, reportStatus, modality,startDate,endDate);
