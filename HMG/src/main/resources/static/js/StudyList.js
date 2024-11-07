@@ -34,7 +34,7 @@ function studyPast(element) {
             `;
 			})
 			// tbody에 한 번에 삽입
-			tbody.innerHTML = htmlContent;
+			tbody.innerHTML = htmlContent;                                                                                
 
 			// studyKey 사용하여 이미지 로드
 			loadImages(studyKey);
