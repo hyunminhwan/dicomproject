@@ -21,52 +21,45 @@ import com.study.dicom.service.StudyTabService;
 @Controller
 public class StudyTabController {
 
-    @Autowired
-    StudyTabService studyTabService;
 
-    @GetMapping("/StudyTabList")
-    public String list(@RequestParam(value = "nowPage", defaultValue = "0") int nowPage, Model model) {
-        Page<StudyTab> study = studyTabService.list(PageRequest.of(nowPage, 10));
-        int totalPages = study.getTotalPages() - 1;
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("study", study);
-        model.addAttribute("nowPage", nowPage);
-        return "index";
-    }
+	@Autowired
+	StudyTabService studyTabService;
+	
+	
+	 @GetMapping("/search")
+	    public String search(@RequestParam(value="searchPage", defaultValue="0") int searchPage,
+	    					 @RequestParam(value = "pid" ,required = false) String pid,
+	                         @RequestParam(value = "pname",required = false) String pname,
+	                         @RequestParam(value = "reportStatus",required = false) Long reportStatus,
+	                         @RequestParam(value = "modality",required = false) String modality,
+	                         @RequestParam(value = "startDate",required = false) String startDate,
+	                         @RequestParam(value = "endDate",required = false) String endDate,
+	                         Model model) {
 
-    @GetMapping("/search")
-    public String search(@RequestParam(value = "nowPage", defaultValue = "0") int nowPage,
-                         @RequestParam(value = "pid") String pid,
-                         @RequestParam(value = "pname") String pname,
-                         @RequestParam(value = "reportStatus") Long reportStatus,
-                         @RequestParam(value = "modality") String modality,
-                         @RequestParam(value = "startDate") String startDate,
-                         @RequestParam(value = "endDate") String endDate,
-                         Model model) {
+		 Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(searchPage, 10),pid, pname, reportStatus, modality,startDate,endDate);
+	        int totalPages=study.getTotalPages()-1;
+			model.addAttribute("totalPages",totalPages);
+			model.addAttribute("study",study);
+			model.addAttribute("searchPage",searchPage);
+			model.addAttribute("pid", pid); // 모델에 추가
+		    model.addAttribute("pname", pname); // 모델에 추가
+		    model.addAttribute("reportStatus", reportStatus); 
+		    model.addAttribute("modality", modality);
+		    model.addAttribute("startDate", startDate);
+		    model.addAttribute("endDate", endDate); 
+	        return "index";
+	 }
+	 
+	 @GetMapping("/pastList")
+	 @ResponseBody
+	 public List<StudyTab> pastList(@RequestParam(value="pastNowPage", defaultValue="0") int pastNowPage,
+			 				@RequestParam(value = "pid") String pid,
+             				@RequestParam(value = "pname") String pname
+             				 ) {
+		 
+		 Page<StudyTab> pastStudy=studyTabService.pastList(PageRequest.of(pastNowPage, 5),pid,pname);
+		 return pastStudy.getContent();
+	 }
+	 
 
-        Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(nowPage, 10), pid, pname, reportStatus, modality, startDate, endDate);
-        int totalPages = study.getTotalPages() - 1;
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("study", study);
-        model.addAttribute("nowPage", nowPage);
-        return "index";
-    }
-
-    @GetMapping("/pastList")
-    @ResponseBody
-    public List<StudyTab> pastList(@RequestParam(value = "pastNowPage", defaultValue = "0") int pastNowPage,
-                                   @RequestParam(value = "pid") String pid,
-                                   @RequestParam(value = "pname") String pname) {
-
-        Page<StudyTab> pastStudy = studyTabService.pastList(PageRequest.of(pastNowPage, 5), pid, pname);
-        return pastStudy.getContent();
-    }
-    
-    @PostMapping("/api/saveReport")
-    public ResponseEntity<String> saveReport(@RequestBody ReportTab reportTab) {
-        studyTabService.saveReport(reportTab);
-        return ResponseEntity.ok("저장되었습니다.");
-    }
-
-    
 }
