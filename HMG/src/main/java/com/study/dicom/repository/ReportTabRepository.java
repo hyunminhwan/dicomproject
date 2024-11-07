@@ -6,4 +6,6 @@ import com.study.dicom.domain.ReportTab;
 
 public interface ReportTabRepository extends JpaRepository<ReportTab, Long>{
 
+
+
 }
