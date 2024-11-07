@@ -196,18 +196,6 @@ public class StudyTab {
     @Column(name = "STUDY_KEY", nullable = false)
     private Long studyKeySecondary;
     
-	// 리포트 관련 필드
-    @Column(name = "RE_COMMENT", length = 1000)
-    private String REcomment;
-
-    @Column(name = "RE_EXPLORATION", length = 1000)
-    private String REexploration;
-
-    @Column(name = "RE_CONCLUSION", length = 1000)
-    private String REconclusion;
-
-    @Column(name = "RE_RECOMMENDATION", length = 1000)
-    private String RErecommendation;
 
     
 
