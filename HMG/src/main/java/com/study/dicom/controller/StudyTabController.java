@@ -35,20 +35,26 @@ public class StudyTabController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "nowPage", defaultValue = "0") int nowPage,
-                         @RequestParam(value = "pid") String pid,
-                         @RequestParam(value = "pname") String pname,
-                         @RequestParam(value = "reportStatus") Long reportStatus,
-                         @RequestParam(value = "modality") String modality,
-                         @RequestParam(value = "startDate") String startDate,
-                         @RequestParam(value = "endDate") String endDate,
+    public String search(@RequestParam(value = "searchPage", defaultValue = "0") int searchPage,
+                         @RequestParam(value = "pid", defaultValue = "") String pid,
+                         @RequestParam(value = "pname", defaultValue = "") String pname,
+                         @RequestParam(value = "reportStatus", defaultValue = "0") Long reportStatus,
+                         @RequestParam(value = "modality", defaultValue = "") String modality,
+                         @RequestParam(value = "startDate", defaultValue = "") String startDate,
+                         @RequestParam(value = "endDate", defaultValue = "") String endDate,
                          Model model) {
 
-        Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(nowPage, 10), pid, pname, reportStatus, modality, startDate, endDate);
+        Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(searchPage, 10), pid, pname, reportStatus, modality, startDate, endDate);
         int totalPages = study.getTotalPages() - 1;
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("study", study);
-        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("searchPage", searchPage);
+        model.addAttribute("pid", pid);
+        model.addAttribute("pname", pname);
+        model.addAttribute("reportStatus", reportStatus);
+        model.addAttribute("modality", modality);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
         return "index";
     }
 
