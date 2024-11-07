@@ -46,9 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				loadDicomImage(currentIndex);
 			});
 		});
-
-
-	
 });
 function imageDetail(key) {
 	const studyKey = key.getAttribute('data-studyKey');
