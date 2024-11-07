@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
 	cornerstoneWADOImageLoader.configure({ useWebWorkers: true });
+	cornerstoneTools.external.cornerstone = cornerstone;
+	cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
+	cornerstoneTools.external.Hammer = Hammer;
+	cornerstoneTools.getModule("segmentation").configuration.segmentsPerLabelmap = 0; // 오류 문구 제거용
 	
 	// DICOM 이미지를 단일 뷰어 컨테이너에서 로드하고 전환
 	const dicomElement = document.getElementById('dicomViewer');
@@ -9,6 +13,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// cornerstone 활성화
 	cornerstone.enable(dicomElement);
+	// cornerstoneTools 초기화(활성화시 커서 변경 true)
+	cornerstoneTools.init({ showSVGCursors: true });
+	
+	// 길이 측정 도구를 특정 요소에 추가
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.LengthTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.AngleTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.WwwcTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.PanTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.MagnifyTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.ZoomTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.EraserTool);
+	
+	// 라이브러리 활성화 상태 확인
+	console.log("cornerstone : ", cornerstone);
+	console.log("loader : ", cornerstoneWADOImageLoader);
+	console.log("tools : ", cornerstoneTools);
+	console.log("math : ", cornerstoneMath);
+	console.log("hammer : ", Hammer);
 
 	let currentImageIndex = 0;
 	const totalImages = imageList.length;
@@ -20,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		cornerstone.loadAndCacheImage('wadouri:' + dicomFilePath).then(function(image) {
 			cornerstone.displayImage(dicomElement, image);
 			dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시
+			initializeTools(dicomElement);  // mainTools.js 호출
 		}).catch(function(error) {
 			console.error('Error loading DICOM image:', error);
 			dicomElement.classList.add('hidden');  // 이미지가 없으면 뷰어를 숨김
@@ -47,28 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		e.preventDefault(); // 페이지 스크롤 방지
 	});
 
-	// 흑백 반전 기능
-	document.getElementById('invertButton').addEventListener('click', function(){
-		const viewport = cornerstone.getViewport(dicomElement); // 현재 뷰포트 가져오기
-		viewport.invert = !viewport.invert; // invert 속성 반전
-		cornerstone.setViewport(dicomElement, viewport); // 반전된 뷰포트 설정
-	});
-
-
-	
-	// 이동 기능
-	document.getElementById('panButton').addEventListener('click', function(){
-		const PanTool = cornerstoneTools.PanTool;
-
-		if (!panToolActive) {
-			cornerstoneTools.addTool(PanTool);
-			cornerstoneTools.setToolActive('Pan', { mouseButtonMask: 1 });
-			panToolActive = true;
-		} else {
-			cornerstoneTools.setToolDisabled('Pan');
-			panToolActive = false;
-		}
-	}); // panButton에 해당하는 버튼을 생성해서 연결
 });
 
 

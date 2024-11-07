@@ -142,21 +142,24 @@
 					</tr>
 					<tr th:each="study : ${study}"
 						th:ondblclick="|location.href='@{/ImageTabList(studyKey=${study.studyKey})}'|"
-						th:data-pid="${study.pid}" th:data-pname="${study.pname}" th:data-studyKey="${study.studyKey}"
-						onclick="studyPast(this)">
-						<td th:text="${study.studyDesc != null ? study.studyDesc : '이름없음'}"></td>
+						th:data-pid="${study.pid}" th:data-pname="${study.pname}"
+						th:data-studyKey="${study.studyKey}" onclick="studyPast(this)">
+						<td
+							th:text="${study.studyDesc != null ? study.studyDesc : '이름없음'}"></td>
 						<td th:text="${study.modality != null ? study.modality : ''}"></td>
 						<td th:text="${study.studyDate != null ? study.studyDate : ''}"></td>
 						<td th:text="${study.pid != null ? study.pid : ''}"></td>
 						<td th:text="${study.pname != null ? study.pname : ''}"></td>
 						<td th:text="${study.psex != null ? study.psex : ''}"></td>
-						<td th:text="${study.pBirthDateTime != null ? study.pBirthDateTime : ''}"></td>
+						<td
+							th:text="${study.pBirthDateTime != null ? study.pBirthDateTime : ''}"></td>
 						<td th:text="${study.seriesCnt != null ? study.seriesCnt : ''}"></td>
 						<td th:text="${study.imageCnt != null ? study.imageCnt : ''}"></td>
 						<td
 							th:text="${study.reportStatus != null ? (study.reportStatus == 3 ? '읽지않음' : (study.reportStatus == 5 ? '예비판독' : '판독')) : ''}">
 						</td>
 					</tr>
+
 				</table>
 				<div th:if="${study != null}">
 					<!-- 이전 페이지 링크 -->
@@ -177,7 +180,9 @@
 				<!-- 과거 검사 이력 -->
 				<div class="StudyList_past-exam">
 					<div class="StudyList_title">과거 검사 이력</div>
-					<div>환자 아이디: <span id="pid"></span>&emsp; 환자 이름: <span id="pname"></span></div>
+					<div>
+						환자 아이디: <span id="pid"></span>&emsp; 환자 이름: <span id="pname"></span>
+					</div>
 					<table class="StudyList_history-table">
 						<tr>
 							<th>검사장비</th>
@@ -194,7 +199,8 @@
 				<!-- 이미지 영역 -->
 				<div class="StudyList_image">
 					<div class="StudyList_title">이미지</div>
-					<div class="study-viewer-container" id="dicomViewer" th:ondblclick="imageTabList()"></div>
+					<div class="study-viewer-container" id="dicomViewer"
+						th:ondblclick="imageTabList()"></div>
 				</div>
 			</div>
 		</div>
@@ -211,8 +217,10 @@
 					cornerstone.displayImage(dicomViewer, image);
 					cornerstone.fitToWindow(dicomViewer); // 이미지 크기를 컨테이너에 맞추기
 				});
+				
 			}
-
+			
+		});
 			// 예제 이미지 ID, 실제 이미지 경로로 변경 필요
 			const exampleImageId = "wadouri:path/to/your/dicom/file.dcm";
 			loadImage(exampleImageId);

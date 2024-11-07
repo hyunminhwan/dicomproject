@@ -2,7 +2,6 @@ function studyPast(element) {
 	var pid = element.getAttribute('data-pid');
 	var pname = element.getAttribute('data-pname');
 	var studyKey = element.getAttribute('data-studyKey');  // studyKey 추가
-
 	document.getElementById('pid').innerText = pid;
 	document.getElementById('pname').innerText = pname;
 	console.log(pid, pname);
@@ -40,11 +39,73 @@ function studyPast(element) {
 
 			// studyKey 사용하여 이미지 로드
 			loadImages(studyKey);
+			
+			loadReportData(studyKey);
 		})
 		.catch(function(error) {
 			console.error('Error during AXIOS request:', error);
 		});
+		
+		
 }
+
+function loadReportData(studyKey) {
+    axios.get(`/api/report/${studyKey}`) // 검사에 대한 리포트를 가져오는 API 호출
+        .then(response => {
+            const report = response.data;
+            // 리포트 데이터가 있다면 입력 필드에 채우기
+            if (report) {
+                document.getElementById("comment").value = report.reComment || "";
+                document.getElementById("exploration").value = report.reExploration || "";
+                document.getElementById("conclusion").value = report.reConclusion || "";
+                document.getElementById("recommendation").value = report.reRecommendation || "";
+            }
+        })
+        .catch(error => {
+            console.error("리포트 로드 오류:", error);
+        });
+}
+
+function saveReport() {
+    if (!selectedStudyKey) {
+        alert("검사를 선택한 후 저장하세요.");
+        return;
+    }
+}
+
+/*
+// 리포트 저장
+function saveReport(studyKey) {
+	if (!studyKey) {
+		alert("검사를 선택한 후 저장하세요.");
+		return;
+	}
+	const comment = document.getElementById("comment").value;
+	const exploration = document.getElementById("exploration").value;
+	const conclusion = document.getElementById("conclusion").value;
+	const recommendation = document.getElementById("recommendation").value;
+
+	axios.post('/api/saveReport', {
+		studyKey: studyKey, // studyKey 함께 전송
+		reComment: comment,
+		reExploration: exploration,
+		reConclusion: conclusion,
+		reRecommendation: recommendation
+	})
+		.then(response => {
+			if (response.status === 200) {
+				alert("저장되었습니다.");
+			} else {
+				alert("저장에 실패했습니다.");
+			}
+		})
+		.catch(error => {
+			console.error("오류 발생:", error);
+			alert("오류가 발생했습니다.");
+		});
+}
+*/
+
 
 function loadImages(studyKey) {
 	console.log(studyKey);
