@@ -86,33 +86,21 @@
       <input type="date" id="start-date" name="startDate" readonly>
       ~
       <input type="date" id="end-date" name="endDate" readonly>
-
-      <label>Verify</label>
-      <select>
-      <option disabled hidden selected>
-      	선택해주세요.
-      </option>
-         <option>미요청</option>
-         <option>요청완료</option>
-      </select>
-      
-      <button>조회</button>
-      <button>재설정</button>
-      
+      <br><br>
       <!-- 리포트 섹션 -->
   	 <div class="calendar_report-container">
-      <label>리포트</label>
-      <label for="comment">[코멘트]</label>
-      <textarea id="comment" placeholder="코멘트를 입력하세요"></textarea>
+      <div>리포트</div>
+      <label for="comment">[코멘트]</label><br>
+      <textarea id="comment" placeholder="코멘트를 입력하세요" cols="40" rows="5"></textarea><br>
 
-      <label for="exploration">[탐색]</label>
-      <textarea id="exploration" placeholder="탐색 내용을 입력하세요"></textarea>
+      <label for="exploration">[탐색]</label><br>
+      <textarea id="exploration" placeholder="탐색 내용을 입력하세요" cols="40" rows="5"></textarea><br>
 
-      <label for="conclusion">[결론]</label>
-      <textarea id="conclusion" placeholder="결론을 입력하세요"></textarea>
+      <label for="conclusion">[결론]</label><br>
+      <textarea id="conclusion" placeholder="결론을 입력하세요" cols="40" rows="5" ></textarea><br>
 
-      <label for="recommendation">[권장]</label>
-      <textarea id="recommendation" placeholder="권장 사항을 입력하세요"></textarea>
+      <label for="recommendation">[권장]</label><br>
+      <textarea id="recommendation" placeholder="권장 사항을 입력하세요" cols="40" rows="5"></textarea><br>
    </div>
 	 	<button id="saveReport" onclick="saveReport()">저장</button>    
    </div>

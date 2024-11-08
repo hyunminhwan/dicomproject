@@ -63,7 +63,12 @@ function loadReportData(studyKey) {
                 document.getElementById("exploration").value = report.reExploration || "";
                 document.getElementById("conclusion").value = report.reConclusion || "";
                 document.getElementById("recommendation").value = report.reRecommendation || "";
-            }
+            }else{
+				document.getElementById("comment").value = "";
+                document.getElementById("exploration").value = "";
+                document.getElementById("conclusion").value = "";
+                document.getElementById("recommendation").value = "";
+			}
         })
         .catch(error => {
             console.error("리포트 로드 오류:", error);
