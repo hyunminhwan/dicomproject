@@ -1,6 +1,7 @@
 let dragEnabled = false;  // 이미지 이동(드래그) 기능이 활성화되었는지 여부
 
 function enableDrag(dicomElement) {
+	deactivateAllTools(dicomElement);
 	dragEnabled = !dragEnabled;
 	
 	if (dragEnabled) {
@@ -8,7 +9,6 @@ function enableDrag(dicomElement) {
         cornerstoneTools.setToolActiveForElement(dicomElement, 'Pan', { mouseButtonMask: 1 });
         cornerstoneTools.addToolState(dicomElement, 'Pan', {});  // 도구 상태 저장
         document.getElementById('drag').classList.add('active'); // 버튼 활성화 표시
-        console.log('도구 "Pan" 상태 활성화됨');
 
         // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
         const toolState = cornerstoneTools.getToolState(dicomElement, 'Pan');

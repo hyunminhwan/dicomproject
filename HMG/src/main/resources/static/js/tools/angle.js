@@ -1,6 +1,7 @@
 let angleToolEnabled = false;
 
 function enableAngle(dicomElement) {
+	deactivateAllTools(dicomElement);
 	angleToolEnabled = !angleToolEnabled;
 	
 	if (angleToolEnabled) {
@@ -25,8 +26,7 @@ function enableAngle(dicomElement) {
 		                    }
 		                }
 		            });
-        document.getElementById('angle').classList.add('active'); // 버튼 활성화 표시
-        console.log('길이 측정 도구 활성화됨');
+		document.getElementById('angle').classList.add('active');
 
         // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
         const toolState = cornerstoneTools.getToolState(dicomElement, 'Angle');
@@ -38,8 +38,8 @@ function enableAngle(dicomElement) {
     } else {
         // 길이 측정 도구 비활성화
         cornerstoneTools.setToolDisabledForElement(dicomElement, 'Angle');
-        document.getElementById('angle').classList.remove('active'); // 버튼 비활성화 표시
-        console.log('길이 측정 도구 비활성화됨');
+		document.getElementById('angle').classList.remove('active');
+        console.log('도구 "Angle" 상태 비활성화됨');
     }
 }
 

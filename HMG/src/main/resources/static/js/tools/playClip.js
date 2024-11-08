@@ -4,6 +4,7 @@ function playClipControll(dicomElement) {
 	const playClipPlayBtn = document.getElementById('playClipPlay');
 	const playClipPauseBtn = document.getElementById('playClipPause');
 	const playClipFpsInput = document.getElementById('playClipFps');
+	const playClipButton = document.getElementById('playClip');
 		
 	// DICOM 이미지 스택 준비(playClip 설정)
 	const imageElements = dicomElement.querySelectorAll('[data-path]');
@@ -25,8 +26,10 @@ function playClipControll(dicomElement) {
 	// 플레이 클립 재생 박스 출력
 	if(playClipBox.style.display === 'none') {
 		playClipBox.style.display = 'block';
+		playClipButton.classList.add('pc');
 	} else {
 		playClipBox.style.display = 'none';
+		playClipButton.classList.remove('pc');
 	}
 	
 	// 재생 버튼 클릭 시 클립 재생
