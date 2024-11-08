@@ -1,6 +1,7 @@
 let rotateToolEnabled = false;
 
 function enableRotate(dicomElement) {
+	deactivateAllTools(dicomElement);
 	rotateToolEnabled = !rotateToolEnabled;
 	
 	if (rotateToolEnabled) {
@@ -14,7 +15,6 @@ function enableRotate(dicomElement) {
 		});
 		                
         document.getElementById('scrollRoof').classList.add('active'); // 버튼 활성화 표시
-        console.log('도구 "Rotate" 상태 활성화됨');
 
         // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
         const toolState = cornerstoneTools.getToolState(dicomElement, 'Rotate');
