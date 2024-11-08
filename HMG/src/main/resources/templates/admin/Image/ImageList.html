@@ -2,36 +2,52 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>DICOM Viewer with Grid</title>
-	<!-- jQuery와 Select2 JavaScript 파일 포함 -->
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-	 
-	<script src="https://unpkg.com/cornerstone-core/dist/cornerstone.js"></script>
-	<script src="https://unpkg.com/cornerstone-tools"></script>
-	<script src="https://unpkg.com/dicom-parser"></script>
-	<script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
-	<link href="css/ImageList.css" rel="stylesheet"/>
-	<script src="js/ImageList.js"/>
-	<div th:replace="~{fragments/header.html :: fragment-menu}"></div>
+    <meta charset="UTF-8">
+    <title>DICOM Viewer with Grid</title>
+    <!-- jQuery와 Select2 JavaScript 파일 포함 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://unpkg.com/cornerstone-core/dist/cornerstone.js"></script>
+    <script src="https://unpkg.com/cornerstone-tools"></script>
+    <script src="https://unpkg.com/dicom-parser"></script>
+    <script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
+    <link href="css/ImageList.css" rel="stylesheet"/>
+    <script src="js/ImageList.js"></script>
 </head>
 
 <body>
+<div class="imageList-container">
+    <!-- 왼쪽 사이드바 -->
+    <div class="imageList-sidebar">
+        <div th:replace="~{/fragments/calendar.html :: fragment-calendar}"></div>
+    </div>
 
-	<div class="viewer-grid">
-		<!-- Thymeleaf 반복문으로 DICOM 뷰어 생성  ArrayList<ArrayList<String>>-->
-		<div th:each="series, indexStat : ${seriesList}" class="viewer-container"
-			th:id="'dicomViewer' + ${indexStat.index}" th:data-studyKey="${studyKey}" th:data-seriesKey="${series}"
-			ondblclick="imageDetail(this)">
-			<!-- 각 series 내의 imageList 처리 -->
-			<span th:each="image : ${imageList.get(indexStat.index)}" th:data-path="@{'/mhg/' + ${image}}"></span>
-		</div>
-	</div>
-	<a th:if="${nowPage > 0}" th:href="@{ImageTabList(nowPage=${nowPage-1},,studyKey=${studyKey})}">이전</a>
-	<span th:text="${nowPage+1}"></span>
-	<a th:if="${nowPage < totalPages}" th:href="@{ImageTabList(nowPage=${nowPage+1},studyKey=${studyKey})}">다음</a>
+    <!-- 오른쪽 메인 콘텐츠 -->
+    <div class="imageList-main-content">
+        <!-- 상단 헤더 -->
+        <div class="imageList-header">
+            <div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
+        </div>
+
+        <!-- DICOM Viewer Grid -->
+        <div class="imageList-viewer-grid">
+            <!-- Thymeleaf 반복문으로 DICOM 뷰어 생성 -->
+            <div th:each="series, indexStat : ${seriesList}" class="imageList-viewer-container"
+                th:id="'dicomViewer' + ${indexStat.index}" th:data-studyKey="${studyKey}" th:data-seriesKey="${series}"
+                ondblclick="imageDetail(this)">
+                <!-- 각 series 내의 imageList 처리 -->
+                <span th:each="image : ${imageList.get(indexStat.index)}" th:data-path="@{'/mhg/' + ${image}}"></span>
+            </div>
+        </div>
+
+        <!-- 페이지 네비게이션 -->
+        <div class="imageList-pagination">
+            <a th:if="${nowPage > 0}" th:href="@{ImageTabList(nowPage=${nowPage-1}, studyKey=${studyKey})}">이전</a>
+            <span th:text="${nowPage+1}"></span>
+            <a th:if="${nowPage < totalPages}" th:href="@{ImageTabList(nowPage=${nowPage+1}, studyKey=${studyKey})}">다음</a>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
