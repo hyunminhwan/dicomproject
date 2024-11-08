@@ -11,12 +11,7 @@
 	<script src="https://unpkg.com/dicom-parser"></script>
 	<script src="https://unpkg.com/cornerstone-math"></script>
 	<script src="https://unpkg.com/hammerjs"></script>
-	
-	<!-- jQuery와 jQuery UI CSS 및 JS를 추가합니다 -->
-	<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
-	<link rel="stylesheet" href="css/grid.css"></link>
+	<script src="https://unpkg.com/cornerstone3d-angular-core"></script>
 	
 	<!--스크립트 링크-->
 	<script src="js/ImageDetail.js"></script>
@@ -27,15 +22,15 @@
 	<script src="js/tools/flip.js"></script>
 	<script src="js/tools/invert.js"></script>
 	<script src="js/tools/length.js"></script>
+	<script src="js/tools/magnify.js"></script>
 	<script src="js/tools/playClip.js"></script>
 	<script src="js/tools/reset.js"></script>
 	<script src="js/tools/rotate.js"></script>
+	<script src="js/tools/scrollRoof.js"></script>
 	<script src="js/tools/scrollZoom.js"></script>
 	<script src="js/tools/windowLevel.js"></script>
 	<script src="js/tools/zoom.js"></script>
-	<script src="js/tools/magnify.js"></script>
-	<script src="js/tools/gridButton.js"></script>
-	<script src="js/tools/grid.js"></script>
+	
 </head>
 
 
@@ -44,17 +39,11 @@
 	<div th:replace="~{fragments/mainTools.html :: tools-container}"></div>
 	
 	<!-- DICOM 이미지를 표시할 단일 뷰어 컨테이너 -->
-	<div class="viewer-container" id="dicomViewer" style="width:1200px; height:800px; border:1px solid black;"
-	th:ondblclick="|location.href='@{/ImageTabList(studyKey=${studyKey})}'|">
+	<div class="viewer-container" id="dicomViewer" th:ondblclick="|location.href='@{/ImageTabList(studyKey=${studyKey})}'|">
 		<!-- 이미지 경로를 저장한 데이터 -->
 		<span th:each="image : ${images}" th:data-path="@{'/mhg/'+ ${image} }"></span>
 	</div>
-	
-	<!-- DICOM 이미지를 표시할 그리드용 다중 뷰어 컨테이너 -->
-	<div class="viewer-container" id="gridViewer" style="width:1200px; height:800px; border:1px solid black;">
-	
-	</div>
-	
+
 	<!-- DICOM 뷰어 하단부에 플레이 클립 박스 추가 -->
 	<div id="playClipBox" style="display:none; position:absolute; bottom:10px; left:50%; transform:translateX(-50%); background-color:rgba(0, 0, 0, 0.5); padding:10px; border-radius:5px;">
 	    <button id="playClipPlay" type="button" class="btn">▶ Play</button>
@@ -62,6 +51,7 @@
 	    <label for="playClipFps">FPS:</label>
 	    <input id="playClipFps" type="number" value="20" min="1" max="60" style="width:50px;">
 	</div>
+	
 	
 </body>
 </html>

@@ -30,6 +30,10 @@ function initializeTools() {
 	document.getElementById('zoomOut').addEventListener('click', function () {
 	    zoomOut(dicomElement);
 	});
+	
+	document.getElementById('scrollRoof').addEventListener('click', function () {
+	    enableRotate(dicomElement);
+	});
 
 	document.getElementById('scrollZoom').addEventListener('click', function () {
 	    enableScrollZoom(dicomElement);
@@ -69,6 +73,5 @@ function initializeTools() {
 	document.getElementById('magnify').addEventListener('click', function() {
 		enableMagnify(dicomElement);
 	});
-	
 
 }

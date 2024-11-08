@@ -10,77 +10,76 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-		<div class="search-fields">
-			<input type="text" placeholder="환자 아이디" name="pid" id="pid">
-			<input type="text" placeholder="환자 이름" name="pname" id="pname">
+	<div class="search-fields">
+		<input type="text" placeholder="환자 아이디" name="pid" id="pid">
+		<input type="text" placeholder="환자 이름" name="pname" id="pname">
 
-			<div class="select-fields">
-    			<select name="reportStatus" id="reportStatus" class="fragment-menu-select report-status-select">
-					<option value="0">판독 상태</option>
-					<option value="3">읽지 않음</option>
-					<option value="5">예비 판독</option>
-					<option value="6">판독</option>
-				</select>
-				
-				<select name="modality" class="fragment-menu-select" id="modality">
-					<option value="">검사장비</option>
-					<option value="AS">AS</option>
-					<option value="AU">AU</option>
-					<option value="BI">BI</option>
-					<option value="CD">CD</option>
-					<option value="CF">CF</option>
-					<option value="CP">CP</option>
-					<option value="CR">CR</option>
-					<option value="CS">CS</option>
-					<option value="CT">CT</option>
-					<option value="DD">DD</option>
-					<option value="DF">DF</option>
-					<option value="DG">DG</option>
-					<option value="DM">DM</option>
-					<option value="DR">DR</option>
-					<option value="DS">DS</option>
-					<option value="DX">DX</option>
-					<option value="EC">EC</option>
-					<option value="ES">ES</option>
-					<option value="FA">FA</option>
-					<option value="FS">FS</option>
-					<option value="LS">LS</option>
-					<option value="LP">LP</option>
-					<option value="MA">MA</option>
-					<option value="MR">MR</option>
-					<option value="MS">MS</option>
-					<option value="NM">NM</option>
-					<option value="OT">OT</option>
-					<option value="PT">PT</option>
-					<option value="RF">RF</option>
-					<option value="RG">RG</option>
-					<option value="ST">ST</option>
-					<option value="TG">TG</option>
-					<option value="US">US</option>
-					<option value="VF">VF</option>
-					<option value="XA">XA</option>
-				</select>
-			</div>
+		<div class="select-fields">
+			<select name="reportStatus" id="reportStatus" class="fragment-menu-select report-status-select">
+				<option value="0">판독 상태</option>
+				<option value="3">읽지 않음</option>
+				<option value="5">예비 판독</option>
+				<option value="6">판독</option>
+			</select>
+
+			<select name="modality" class="fragment-menu-select" id="modality">
+				<option value="">검사장비</option>
+				<option value="AS">AS</option>
+				<option value="AU">AU</option>
+				<option value="BI">BI</option>
+				<option value="CD">CD</option>
+				<option value="CF">CF</option>
+				<option value="CP">CP</option>
+				<option value="CR">CR</option>
+				<option value="CS">CS</option>
+				<option value="CT">CT</option>
+				<option value="DD">DD</option>
+				<option value="DF">DF</option>
+				<option value="DG">DG</option>
+				<option value="DM">DM</option>
+				<option value="DR">DR</option>
+				<option value="DS">DS</option>
+				<option value="DX">DX</option>
+				<option value="EC">EC</option>
+				<option value="ES">ES</option>
+				<option value="FA">FA</option>
+				<option value="FS">FS</option>
+				<option value="LS">LS</option>
+				<option value="LP">LP</option>
+				<option value="MA">MA</option>
+				<option value="MR">MR</option>
+				<option value="MS">MS</option>
+				<option value="NM">NM</option>
+				<option value="OT">OT</option>
+				<option value="PT">PT</option>
+				<option value="RF">RF</option>
+				<option value="RG">RG</option>
+				<option value="ST">ST</option>
+				<option value="TG">TG</option>
+				<option value="US">US</option>
+				<option value="VF">VF</option>
+				<option value="XA">XA</option>
+			</select>
 		</div>
-		
-		<button type="button" class="fragment-menu-button" onclick="studySearch()" >검색</button>
+		<button type="button" class="fragment-menu-button" onclick="studySearch()">검색</button>
 		<button type="button" onclick="location.href='/search'"
 			class="fragment-menu-button fragment-menu-button-secondary">전체조회</button>
+	</div>
+
+
 
 
 
 	<!-- JavaScript로 Select2 초기화 -->
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			$('.fragment-menu-select').select2({
-				placeholder : "검사장비",
-				allowClear : true,
-				width : '100%' // 필요에 따라 조정
+				placeholder: "검사장비",
+				allowClear: true,
+				width: '100%' // 필요에 따라 조정
 			});
 		});
 	</script>
 
 
 </div>
-
-

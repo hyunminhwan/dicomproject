@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneTools.external.cornerstone = cornerstone;
 	cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
 	cornerstoneTools.external.Hammer = Hammer;
-	cornerstoneTools.getModule("segmentation").configuration.segmentsPerLabelmap = 0; // 오류 문구 제거용
-	
+	cornerstoneTools.getModule("segmentation").configuration.segmentsPerLabelmap = 0; // 오류 문구 제거용	
+
 	// DICOM 이미지를 단일 뷰어 컨테이너에서 로드하고 전환
 	const dicomElement = document.getElementById('dicomViewer');
 	const imageElements = dicomElement.querySelectorAll('[data-path]');
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.MagnifyTool);
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.ZoomTool);
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.EraserTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.RotateTool);
 	
 	// 라이브러리 활성화 상태 확인
 	console.log("cornerstone : ", cornerstone);
