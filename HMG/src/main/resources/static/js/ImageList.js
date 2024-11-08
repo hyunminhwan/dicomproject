@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
 		cornerstoneWADOImageLoader.configure({useWebWorkers: true});
-
+		
 		// 모든 dicomViewer 요소를 찾아서 cornerstone.js 적용
 		document.querySelectorAll('[id^="dicomViewer"]').forEach((dicomElement) => {
 			const imageElements = dicomElement.querySelectorAll('[data-path]');
@@ -46,14 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				loadDicomImage(currentIndex);
 			});
 		});
-
-		
-	
 });
 function imageDetail(key) {
-			const studyKey = key.getAttribute('data-studyKey');
-			const seriesKey = key.getAttribute('data-seriesKey');
+	const studyKey = key.getAttribute('data-studyKey');
+	const seriesKey = key.getAttribute('data-seriesKey');
 
-			const url = `/ImageDetail?studyKey=${studyKey}&seriesKey=${seriesKey}`;
-			window.location.href = url;
-		}
+	const url = `/ImageDetail?studyKey=${studyKey}&seriesKey=${seriesKey}`;
+	window.location.href = url;
+}

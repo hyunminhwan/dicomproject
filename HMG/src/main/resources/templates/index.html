@@ -4,7 +4,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Study List</title>
-	<link href="css/index.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/cornerstone-core/dist/cornerstone.js"></script>
 	<script src="https://unpkg.com/cornerstone-tools"></script>
@@ -158,12 +157,18 @@
 							th:text="${study.reportStatus != null ? (study.reportStatus == 3 ? '읽지않음' : (study.reportStatus == 5 ? '예비판독' : '판독')) : ''}">
 						</td>
 					</tr>
-					<div th:if="${study != null}">
-						<a th:if="${nowPage > 0}" th:href="@{StudyTabList(nowPage=${nowPage-1})}">이전</a>
-						<span th:text="${nowPage+1}"></span>
-						<a th:if="${nowPage < totalPages}" th:href="@{StudyTabList(nowPage=${nowPage+1})}">다음</a>
-					</div>
 				</table>
+				<div th:if="${study != null}">
+					<!-- 이전 페이지 링크 -->
+					<a th:if="${searchPage != null and searchPage > 0}"
+						th:href="@{/search(searchPage=${searchPage-1}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}">이전</a>
+
+					<span th:text="${searchPage != null ? searchPage + 1 : 1}"></span>
+
+					<!-- 다음 페이지 링크 -->
+					<a th:if="${searchPage != null and searchPage < totalPages}"
+						th:href="@{/search(searchPage=${searchPage+1}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}">다음</a>
+				</div>
 			</div>
 
 
@@ -207,10 +212,33 @@
 					cornerstone.fitToWindow(dicomViewer); // 이미지 크기를 컨테이너에 맞추기
 				});
 			}
+		});
+		// 예제 이미지 ID, 실제 이미지 경로로 변경 필요
+		const exampleImageId = "wadouri:path/to/your/dicom/file.dcm";
+		loadImage(exampleImageId);
 
-			// 예제 이미지 ID, 실제 이미지 경로로 변경 필요
-			const exampleImageId = "wadouri:path/to/your/dicom/file.dcm";
-			loadImage(exampleImageId);
+		function studySearch() {
+			const pid = document.getElementById("pid").value || "";
+			const modality = document.getElementById("modality").value || "";
+			const reportStatus = document.getElementById("reportStatus").value || "0";
+			const pname = document.getElementById("pname").value || "";
+			const startDate = document.getElementById("start-date").value || "";
+			const endDate = document.getElementById("end-date").value || "";
+
+			// 검색 조건을 URL 쿼리 파라미터로 추가
+			const queryParams = new URLSearchParams({
+				pid: pid,
+				pname: pname,
+				modality: modality,
+				reportStatus: reportStatus,
+				startDate: startDate,
+				endDate: endDate
+			});
+
+			// URL 이동
+			window.location.href = `/search?${queryParams.toString()}`;
+		}
 	</script>
 </body>
+
 </html>

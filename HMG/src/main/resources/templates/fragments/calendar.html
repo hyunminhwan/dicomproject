@@ -6,6 +6,7 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
    <style>    
       .Calendar_header {
@@ -86,21 +87,20 @@
       ~
       <input type="date" id="end-date" name="endDate" readonly>
 
-      <!-- 검사장비 및 기타 설정 -->
-      <select>
-         <option>선택해주세요</option>
-         <!-- 옵션 추가 -->
-      </select>
       <label>Verify</label>
       <select>
-         <option>선택해주세요</option>
-         <!-- 옵션 추가 -->
+      <option disabled hidden selected>
+      	선택해주세요.
+      </option>
+         <option>미요청</option>
+         <option>요청완료</option>
       </select>
+      
       <button>조회</button>
       <button>재설정</button>
       
-         <!-- 리포트 섹션 -->
-   <div class="calendar_report-container">
+      <!-- 리포트 섹션 -->
+  	 <div class="calendar_report-container">
       <label>리포트</label>
       <label for="comment">[코멘트]</label>
       <textarea id="comment" placeholder="코멘트를 입력하세요"></textarea>
@@ -114,7 +114,7 @@
       <label for="recommendation">[권장]</label>
       <textarea id="recommendation" placeholder="권장 사항을 입력하세요"></textarea>
    </div>
-   
+	 	<button id="saveReport" onclick="saveReport()">저장</button>    
    </div>
 
    <script>
@@ -214,60 +214,9 @@
 
          highlightSelectedRange();
       }
-
-      // 버튼 기능 추가
-      document.getElementById("select-all").addEventListener("click", () => {
-         startDate = `${currentYear}-${currentMonth + 1 < 10 ? '0' + (currentMonth + 1) : currentMonth + 1}-01`;
-         endDate = `${currentYear}-${currentMonth + 1 < 10 ? '0' + (currentMonth + 1) : currentMonth + 1}-${new Date(currentYear, currentMonth + 1, 0).getDate()}`;
-         document.getElementById("start-date").value = startDate;
-         document.getElementById("end-date").value = endDate;
-         highlightSelectedRange();
-      });
-
-      document.getElementById("select-1-day").addEventListener("click", () => {
-         const todayDate = new Date(currentYear, currentMonth, today.getDate());
-         startDate = formatDate(todayDate);
-         endDate = startDate;
-         document.getElementById("start-date").value = startDate;
-         document.getElementById("end-date").value = endDate;
-         highlightSelectedRange();
-      });
-
-      document.getElementById("select-3-day").addEventListener("click", () => {
-         const todayDate = new Date(currentYear, currentMonth, today.getDate());
-         startDate = formatDate(todayDate);
-         endDate = formatDate(new Date(todayDate.setDate(todayDate.getDate() + 2)));
-         document.getElementById("start-date").value = startDate;
-         document.getElementById("end-date").value = endDate;
-         highlightSelectedRange();
-      });
-
-      document.getElementById("select-1-week").addEventListener("click", () => {
-         const todayDate = new Date(currentYear, currentMonth, today.getDate());
-         startDate = formatDate(todayDate);
-         endDate = formatDate(new Date(todayDate.setDate(todayDate.getDate() + 6)));
-         document.getElementById("start-date").value = startDate;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  document.getElementById("end-date").value = endDate;
-         highlightSelectedRange();
-      });
-
-      function formatDate(date) {
-         return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
-      }
-
-      // 이전 달 이동
-      document.getElementById("prev-month").addEventListener("click", () => {
-         currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-         currentYear = (currentMonth === 11) ? currentYear - 1 : currentYear;
-         renderCalendar(currentMonth, currentYear);
-      });
-
-      // 다음 달 이동
-      document.getElementById("next-month").addEventListener("click", () => {
-         currentMonth = (currentMonth === 11) ? 0 : currentMonth + 1;
-         currentYear = (currentMonth === 0) ? currentYear + 1 : currentYear;
-         renderCalendar(currentMonth, currentYear);
-      });
+      
+      
+      
    </script>
 </body>
 </div>

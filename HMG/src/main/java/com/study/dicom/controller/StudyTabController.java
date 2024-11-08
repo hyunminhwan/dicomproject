@@ -1,52 +1,58 @@
 package com.study.dicom.controller;
 
-
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.study.dicom.domain.ReportTab;
 import com.study.dicom.domain.StudyTab;
+import com.study.dicom.service.ReportTabService;
 import com.study.dicom.service.StudyTabService;
 
 @Controller
 public class StudyTabController {
 
+	
 	@Autowired
 	StudyTabService studyTabService;
 	
-	@GetMapping("/StudyTabList")
-	public String list(@RequestParam(value="nowPage", defaultValue="0") int nowPage, Model model) {
-		Page<StudyTab> study = studyTabService.list(PageRequest.of(nowPage, 10));
-		int totalPages=study.getTotalPages()-1;
-		model.addAttribute("totalPages",totalPages);
-		model.addAttribute("study",study);
-		model.addAttribute("nowPage",nowPage);
-		return "index";
-		
-	}
+	@Autowired
+	ReportTabService reportTabService;
 	
 	 @GetMapping("/search")
-	    public String search(@RequestParam(value="nowPage", defaultValue="0") int nowPage,
-	    					 @RequestParam(value = "pid") String pid,
-	                         @RequestParam(value = "pname") String pname,
-	                         @RequestParam(value = "reportStatus") Long reportStatus,
-	                         @RequestParam(value = "modality") String modality,
-	                         @RequestParam(value = "startDate") String startDate,
-	                         @RequestParam(value = "endDate") String endDate,
+	    public String search(@RequestParam(value="searchPage", defaultValue="0") int searchPage,
+	    					 @RequestParam(value = "pid" ,required = false, defaultValue="") String pid,
+	                         @RequestParam(value = "pname",required = false, defaultValue="") String pname,
+	                         @RequestParam(value = "reportStatus",required = false, defaultValue="0") Long reportStatus,
+	                         @RequestParam(value = "modality",required = false, defaultValue="") String modality,
+	                         @RequestParam(value = "startDate",required = false, defaultValue="") String startDate,
+	                         @RequestParam(value = "endDate",required = false, defaultValue="") String endDate,
 	                         Model model) {
 
-		 Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(nowPage, 10),pid, pname, reportStatus, modality,startDate,endDate);
+		 Page<StudyTab> study = studyTabService.searchStudyTab(PageRequest.of(searchPage, 10),pid, pname, reportStatus, modality,startDate,endDate);
 	        int totalPages=study.getTotalPages()-1;
 			model.addAttribute("totalPages",totalPages);
 			model.addAttribute("study",study);
-			model.addAttribute("nowPage",nowPage);
+			model.addAttribute("searchPage",searchPage);
+			model.addAttribute("pid", pid); // 모델에 추가
+		    model.addAttribute("pname", pname); // 모델에 추가
+		    model.addAttribute("reportStatus", reportStatus); 
+		    model.addAttribute("modality", modality);
+		    model.addAttribute("startDate", startDate);
+		    model.addAttribute("endDate", endDate); 
 	        return "index";
 	 }
 	 
@@ -61,4 +67,32 @@ public class StudyTabController {
 		 return pastStudy.getContent();
 	 }
 	 
+	    @GetMapping("/api/report/{studyKey}")
+	    @ResponseBody
+	    public ReportTab getReportByStudyKey(@PathVariable(name ="studyKey") Long StudyKey){
+	    	Optional<ReportTab> loadReportTab = reportTabService.findById(StudyKey);
+	    	return loadReportTab.get();
+	    }
+	 
+
+	    @PostMapping("/api/saveReport")
+	    @ResponseBody
+	    public ResponseEntity<String> saveReport(@RequestBody ReportTab report) {
+	        try {
+	            reportTabService.save(report); // 서비스에서 데이터 저장
+	            return ResponseEntity.ok("저장완료");
+	        } catch (Exception e) {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save report");
+	        }
+	    }
 }
+
+
+
+
+
+
+
+
+
+

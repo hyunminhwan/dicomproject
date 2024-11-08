@@ -195,6 +195,9 @@ public class StudyTab {
 
     @Column(name = "STUDY_KEY", nullable = false)
     private Long studyKeySecondary;
+    
+
+    
 
 }
 
