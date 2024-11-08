@@ -1,31 +1,98 @@
-@charset "UTF-8";
-
-/* 그리드 레이아웃 설정 */
-.viewer-grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	/* 2열 그리드 (2x2 레이아웃) */
-	grid-template-rows: repeat(2, 1fr);
-	/* 2행 그리드 */
-	gap: 10px;
-	/* 그리드 요소 사이의 간격 */
-
+/* 전체 컨테이너 레이아웃 설정 */
+.imageList-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
 }
 
-.viewer-container {
-	position: relative;
-	width: 512px;
-	height: 512px;
-	border: 1px solid #f00;
-	/* 시각적으로 확인하기 위한 테두리 */
+/* 사이드바 스타일 */
+.imageList-sidebar {
+    width: 20%;
+    background-color: #f8f9fa; /* 배경 색상 */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
-.hidden {
-	display: none;
-	/* 이미지를 숨길 때 사용 */
+/* 메인 콘텐츠 스타일 */
+.imageList-main-content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff; /* 배경 색상 */
 }
 
-.dicomImage {
-	width: 100%;
-	height: 100%;
+/* 헤더 스타일 */
+.imageList-header {
+    width: 100%;
+    padding: 10px;
+    background-color: #e0e0e0;
+    color: #ffffff;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* DICOM 뷰어 그리드 */
+.imageList-viewer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 그리드 */
+    grid-template-rows: 1fr 1fr; /* 2행 그리드 */
+    gap: 0; /* 빈칸 없이 배치 */
+    width: 100%;
+    height: calc(100vh - 100px); /* 화면 높이에 맞춤, 헤더 높이를 뺌 */
+    box-sizing: border-box;
+}
+
+/* 각 DICOM 뷰어 컨테이너 스타일 */
+.imageList-viewer-container {
+    width: 100%;
+    height: 100%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid #dee2e6; /* 테두리 추가 */
+    box-sizing: border-box;
+}
+
+/* DICOM 이미지 스타일 */
+.imageList-viewer-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 컨테이너 전체를 채우도록 설정 */
+}
+
+
+
+
+/* 페이지 네비게이션 스타일 */
+.imageList-pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.imageList-pagination a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.imageList-pagination a:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.imageList-pagination span {
+    padding: 5px 10px;
+    font-weight: bold;
 }

@@ -71,7 +71,12 @@ public class StudyTabController {
 	    @ResponseBody
 	    public ReportTab getReportByStudyKey(@PathVariable(name ="studyKey") Long StudyKey){
 	    	Optional<ReportTab> loadReportTab = reportTabService.findById(StudyKey);
-	    	return loadReportTab.get();
+	    	if(loadReportTab.isPresent()) {
+	    		return loadReportTab.get();
+	    	}else {
+	    		return null;
+	    	}
+	    	
 	    }
 	 
 
