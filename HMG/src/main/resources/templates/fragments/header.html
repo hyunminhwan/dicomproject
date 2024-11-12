@@ -1,7 +1,7 @@
 <div th:fragment="fragment-menu">
 
 	<!-- CSS 파일 경로설정 -->
-	<link rel="stylesheet" href="/css/header.css">
+	<link rel="stylesheet" href="css/header.css">
 
 	<!-- Select2 CSS 파일 포함 -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
@@ -15,14 +15,14 @@
 		<input type="text" placeholder="환자 이름" name="pname" id="pname">
 
 		<div class="select-fields">
-			<select name="reportStatus" id="reportStatus" class="fragment-menu-select report-status-select">
+			<select name="reportStatus" id="reportStatus" class="fragment-menu-select">
 				<option value="0">판독 상태</option>
 				<option value="3">읽지 않음</option>
 				<option value="5">예비 판독</option>
 				<option value="6">판독</option>
 			</select>
 
-			<select name="modality" class="fragment-menu-select" id="modality">
+			<select name="modality" id="modality" class="fragment-menu-select">
 				<option value="">검사장비</option>
 				<option value="AS">AS</option>
 				<option value="AU">AU</option>
@@ -66,20 +66,14 @@
 			class="fragment-menu-button fragment-menu-button-secondary">전체조회</button>
 	</div>
 
-
-
-
-
 	<!-- JavaScript로 Select2 초기화 -->
 	<script>
 		$(document).ready(function () {
 			$('.fragment-menu-select').select2({
-				placeholder: "검사장비",
 				allowClear: true,
-				width: '100%' // 필요에 따라 조정
+				width: 'resolve' // 텍스트 길이에 맞춰 너비 조정
 			});
 		});
 	</script>
-
 
 </div>
