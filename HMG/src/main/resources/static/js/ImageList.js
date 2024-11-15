@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneWADOImageLoader.external.cornerstone = cornerstone;
-		cornerstoneWADOImageLoader.configure({useWebWorkers: true});
-		
+	cornerstoneWADOImageLoader.configure({useWebWorkers: true});
+	
 		// 모든 dicomViewer 요소를 찾아서 cornerstone.js 적용
-		document.querySelectorAll('[id^="dicomViewer"]').forEach((dicomElement) => {
+		document.querySelectorAll('[id^="dicomViewer"]').forEach((dicomElement, index) => {
 			const imageElements = dicomElement.querySelectorAll('[data-path]');
 			const imageList = Array.from(imageElements).map(el => el.getAttribute('data-path'));
-
+			
 			let currentIndex = 0;
 			const totalImages = imageList.length;
 

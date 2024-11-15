@@ -36,4 +36,9 @@ public class ImageTabService {
 //		return imageTabRepository.findByIdStudyKeyOrderByIdSeriesKeyAscIdImageKeyAsc(studyKey);
 //	}
 
+	public ArrayList<Long> gridSeriesList(Long studyKey) {
+	    ArrayList<Long> seriesList = imageTabRepository.findBySeriesKey(studyKey);
+	    System.out.println("Retrieved series list: " + seriesList);
+		return imageTabRepository.findBySeriesKey(studyKey);
+	}
 }

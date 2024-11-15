@@ -13,6 +13,7 @@
 	<script src="https://unpkg.com/hammerjs"></script>
 	
 	<!--스크립트 링크-->
+	<link rel="stylesheet" href="css/imageDetail.css">
 	<script src="js/ImageDetail.js"></script>
 	<script src="js/mainTools.js"></script>
 	<script src="js/tools/angle.js"></script>
@@ -31,6 +32,14 @@
 	<script src="js/tools/zoom.js"></script>
 	<script src="js/tools/deactivateAllTools.js"></script>
 	
+	<script src="js/tools/compare.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+	
+	<!-- jQuery와 jQuery UI CSS 및 JS를 추가합니다 -->
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	
 </head>
 
 
@@ -39,11 +48,24 @@
 	<div th:replace="~{fragments/mainTools.html :: tools-container}"></div>
 	
 	<!-- DICOM 이미지를 표시할 단일 뷰어 컨테이너 -->
-	<div class="viewer-container" id="dicomViewer" th:ondblclick="|location.href='@{/ImageTabList(studyKey=${studyKey})}'|">
+	<div class="viewer-container" id="dicomViewer" th:ondblclick="|location.href='@{/ImageTabList(studyKey=${studyKey})}'|" style="display: block;">
 		<!-- 이미지 경로를 저장한 데이터 -->
 		<span th:each="image : ${images}" th:data-path="@{'/mhg/'+ ${image} }"></span>
 	</div>
+	
+    <!-- 다중 뷰어 그리드 선택 후 출력되는 뷰어 -->
+    <div class="multi-viewer-grid" id="multiViewerGrid" style="display: none;">
+        <!-- 그리드 선택 후 각 셀에 뷰어가 동적으로 추가 -->
+    </div>
+    
+    <!-- 페이지네이션 버튼 (시리즈가 많은 경우를 대비) -->
+    <div class="pagination-controls" id="paginationControls" style="display: none;">
+        <button id="prevPage" class="pagination-prevbtn"><img src="/img/icons/icon_prev.png" alt="prev icon" class="pageBtn-image"></button>
+   	    <span id="pageInfo" class="page-info" data-crtPage="" data-totalPage=""></span>
+        <button id="nextPage" class="pagination-nextbtn"><img src="/img/icons/icon_next.png" alt="next icon" class="pageBtn-image"></button>
+    </div>
 
+	
 	<!-- DICOM 뷰어 하단부에 플레이 클립 박스 추가 -->
 	<div id="playClipBox" style="display:none; position:absolute; bottom:10px; left:50%; transform:translateX(-50%); background-color:rgba(0, 0, 0, 0.5); padding:10px; border-radius:5px;">
 	    <button id="playClipPlay" type="button" class="btn">▶ Play</button>
