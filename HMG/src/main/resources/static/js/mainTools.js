@@ -73,5 +73,11 @@ function initializeTools() {
 	document.getElementById('magnify').addEventListener('click', function() {
 		enableMagnify(dicomElement);
 	});
-
+	/*
+	document.getElementById('compare').addEventListener('click', function() {
+		gridController();
+		seriesAllDataLoad(dicomElement);
+	});
+	*/
+	
 }
