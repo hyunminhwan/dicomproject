@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneTools.external.cornerstoneMath = cornerstoneMath;
 	cornerstoneTools.external.Hammer = Hammer;
 	cornerstoneTools.getModule("segmentation").configuration.segmentsPerLabelmap = 0; // 오류 문구 제거용	
-
+	
+	
 	// DICOM 이미지를 단일 뷰어 컨테이너에서 로드하고 전환
 	const dicomElement = document.getElementById('dicomViewer');
 	const imageElements = dicomElement.querySelectorAll('[data-path]');
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.ZoomTool);
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.EraserTool);
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.RotateTool);
+
 	
 	// 라이브러리 활성화 상태 확인
 	console.log("cornerstone : ", cornerstone);
@@ -38,9 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// 이미지 로드 함수
 	function loadDicomImage(index) {
-		const dicomFilePath = imageList[index]; // currentImageIndex에 따른 이미지 로드
+		const dicomFilePath = 'wadouri:' + imageList[index]; // currentImageIndex에 따른 이미지 로드
+		console.log('imageList: ', imageList);
 		// cornerstone을 사용해 DICOM 이미지 로드 및 표시
-		cornerstone.loadAndCacheImage('wadouri:' + dicomFilePath).then(function(image) {
+		
+		cornerstone.loadAndCacheImage(dicomFilePath).then(function(image) {
 			cornerstone.displayImage(dicomElement, image);
 			dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시
 			initializeTools(dicomElement);  // mainTools.js 호출
@@ -72,5 +76,35 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 });
+/*
+function gridViewerImageLoad() {
+	const param = new URLSearchParams(window.location.search);
+	const studyKey = param.get('studyKey');
+	const seriesCache = {
+	        studyKey: '',
+	        seriesList: []
+	    };
+	console.log('gridViewerImageLoad studyKey: ', studyKey);
+	
+	axios.get('/gridImageData', {
+		params: {studyKey: studyKey}
+		})
+		.then(response => {
+			const seriesList = response.data.map((images, index) => {
+				return {
+					seriesKey: index + 1,
+					imagePath: images
+				};
+			});
+			
+			seriesCache.studyKey = studyKey;
+			seriesCache.seriesList = seriesList;
+			console.log('seriesCache: ', seriesCache);
+			window.seriesCache = seriesCache;
+		})
+		.catch((e) => {
+			console.error('axios error:', e.response ? e.response.data : e.message);
+		})
 
-
+}
+*/

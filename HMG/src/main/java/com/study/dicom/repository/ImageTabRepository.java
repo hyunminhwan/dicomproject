@@ -51,5 +51,12 @@ public interface ImageTabRepository extends JpaRepository<ImageTab,ImageTabId> {
 	
 
 //	ArrayList<ImageTab> findByIdStudyKeyOrderByIdSeriesKeyAscIdImageKeyAsc(Long studyKey);
- 
+	
+	//serieskey 가져오기
+	@Query(value = "SELECT DISTINCT s.SERIESKEY " +
+            "FROM IMAGETAB s " +
+            "WHERE s.STUDYKEY = :studyKey " +
+            "ORDER BY s.SERIESKEY", 
+    nativeQuery = true)
+	ArrayList<Long> findBySeriesKey(@Param("studyKey") Long studyKey);
 }
