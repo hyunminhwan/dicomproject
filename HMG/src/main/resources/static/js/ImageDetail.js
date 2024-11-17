@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.ZoomTool);
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.EraserTool);
 	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.RotateTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.ArrowAnnotateTool);
+	cornerstoneTools.addToolForElement(dicomElement, cornerstoneTools.FreehandRoiTool);
 
 	
 	// 라이브러리 활성화 상태 확인
@@ -41,9 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// 이미지 로드 함수
 	function loadDicomImage(index) {
 		const dicomFilePath = 'wadouri:' + imageList[index]; // currentImageIndex에 따른 이미지 로드
-		console.log('imageList: ', imageList);
 		// cornerstone을 사용해 DICOM 이미지 로드 및 표시
-		
 		cornerstone.loadAndCacheImage(dicomFilePath).then(function(image) {
 			cornerstone.displayImage(dicomElement, image);
 			dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시

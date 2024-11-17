@@ -12,9 +12,31 @@ function deactivateAllTools(dicomElement) {
 	cornerstoneTools.setToolDisabledForElement(dicomElement, 'Pan');
 	//cornerstoneTools.setToolDisabledForElement(dicomElement, 'Eraser');
 	//cornerstoneTools.setToolDisabledForElement(dicomElement, 'Length');
+	//cornerstoneTools.setToolDisabledForElement(dicomElement, 'FreeHandRoi');
 	cornerstoneTools.setToolDisabledForElement(dicomElement, 'Magnify');
 	cornerstoneTools.setToolDisabledForElement(dicomElement, 'Rotate');
 	cornerstoneTools.setToolDisabledForElement(dicomElement, 'Zoom');
 	cornerstoneTools.setToolDisabledForElement(dicomElement, 'Wwwc');
+	
+}
+
+function multiDeactivateAllTools(element) {
+	// 모든 버튼에서 'active' 클래스를 제거하여 초기화
+	const buttons = document.querySelectorAll('.tools-container-ul .btn');
+
+	buttons.forEach(button => {
+	    button.classList.remove('active');
+	});
+	
+	// 모든 도구 비활성화
+	//cornerstoneTools.setToolDisabledForElement(element, 'Angle');
+	cornerstoneTools.setToolDisabledForElement(element, 'Pan');
+	//cornerstoneTools.setToolDisabledForElement(element, 'Eraser');
+	//cornerstoneTools.setToolDisabledForElement(element, 'Length');
+	//cornerstoneTools.setToolDisabledForElement(element, 'FreeHandRoi');
+	cornerstoneTools.setToolDisabledForElement(element, 'Magnify');
+	cornerstoneTools.setToolDisabledForElement(element, 'Rotate');
+	cornerstoneTools.setToolDisabledForElement(element, 'Zoom');
+	cornerstoneTools.setToolDisabledForElement(element, 'Wwwc');
 	
 }
