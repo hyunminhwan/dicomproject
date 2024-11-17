@@ -11,4 +11,4 @@ public class ImgConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/mhg/**")
 		.addResourceLocations("file:///C:/mhg/");
 	}
-}
+}  

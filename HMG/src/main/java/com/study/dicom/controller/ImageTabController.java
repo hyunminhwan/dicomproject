@@ -28,6 +28,7 @@ public class ImageTabController {
 	@GetMapping("ImageTabList")
 	public String list(@RequestParam(value="nowPage", defaultValue="0") int nowPage,@RequestParam(value="studyKey") Long studyKey, 
             Model model) {
+		
 //		ArrayList<SeriesTab> series = seriesTabService.seriesList(studyKey);
 //		ArrayList<ArrayList<ImageTab>> imagesList = new ArrayList<ArrayList<ImageTab>>();
 //		
@@ -91,6 +92,7 @@ public class ImageTabController {
 		model.addAttribute("images",image);
 		model.addAttribute("studyKey",studyKey);
 		return "/admin/Image/ImageDetail";
+		
 	}
 	
 	@GetMapping("/studyImages")

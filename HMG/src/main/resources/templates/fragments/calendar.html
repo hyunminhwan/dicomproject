@@ -1,210 +1,413 @@
 <div th:fragment="fragment-calendar">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>달력 예제</title>
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
-   <style>    
-      .Calendar_header {
-         display: flex;
-         align-items: center;
-         font-size: 24px;
-         cursor: pointer;
-      }
-      .Calendar_button {
-         background: none;
-         border: none;
-         color: black;
-         font-size: 24px;
-         cursor: pointer;
-      }
-      .Calendar_title {
-         margin: 0 10px;
-         cursor: pointer;
-         background: none;
-         border: none;
-         color: black;
-         text-align: center;
-      }
-      .Calendar_table {
-         margin-top: 20px;
-         width: 100%;
-         text-align: center;
-         color: black;
-      }
-      .Calendar_filter-buttons {
-         display: flex;
-         gap: 10px;
-         margin-bottom: 10px;
-         justify-content: center;
-      }
-      .Calendar_filter-buttons button {
-         padding: 5px 10px;
-         cursor: pointer;
-         border: 1px solid #ddd;
-         background-color: white;
-      }
-      .Calendar_settings-area {
-         display: flex;
-         flex-direction: column;
-         gap: 10px;
-         margin-top: 10px;
-      }
-   </style>
-</head>
-<body>
-   <div class="Calendar_header">
-      <button id="prev-month" class="Calendar_button">&lt;</button>
-      <input id="calendar-title" class="Calendar_title" type="text" readonly>
-      <button id="next-month" class="Calendar_button">&gt;</button>
-   </div>
 
-   <!-- 필터 버튼 영역 -->
-   <div class="Calendar_filter-buttons">
-      <button id="select-all">전체</button>
-      <button id="select-1-day">1일</button>
-      <button id="select-3-day">3일</button>
-      <button id="select-1-week">1주일</button>
-   </div>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>달력 예제</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+      <style>
+        /* 캘린더 헤더 및 필터 버튼 */
+.Calendar_header {
+   display: flex;
+   align-items: center;
+   font-size: 16px;
+   font-weight: bold;
+   color: #333;
+   margin-bottom: 10px;
+   justify-content: center;
+}
 
-   <table class="Calendar_table">
-      <thead>
-         <tr>
-            <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
-         </tr>
-      </thead>
-      <tbody id="calendar-body"></tbody>
-   </table>
+.Calendar_button {
+   background: none;
+   border: none;
+   color: #333;
+   font-size: 16px;
+   cursor: pointer;
+   margin: 0 5px;
+}
 
-   <!-- 검사일자 선택 -->
-   <div class="Calendar_settings-area">
-      <label>검사일자:</label>
-      <input type="date" id="start-date" name="startDate" readonly>
-      ~
-      <input type="date" id="end-date" name="endDate" readonly>
-      <br><br>
-      <!-- 리포트 섹션 -->
-  	 <div class="calendar_report-container">
-      <div>리포트</div>
-      <label for="comment">[코멘트]</label><br>
-      <textarea id="comment" placeholder="코멘트를 입력하세요" cols="40" rows="5"></textarea><br>
+.Calendar_title {
+   margin: 0 10px;
+   background: none;
+   border: none;
+   color: #333;
+   text-align: center;
+}
 
-      <label for="exploration">[탐색]</label><br>
-      <textarea id="exploration" placeholder="탐색 내용을 입력하세요" cols="40" rows="5"></textarea><br>
+/* 캘린더 테이블 */
+.Calendar_table {
+   background-color: #ffffff;
+   border: 1px solid #ddd;
+   width: 100%;
+   text-align: center;
+   color: #333;
+   margin-bottom: 15px;
+   font-size: 14px;
+}
 
-      <label for="conclusion">[결론]</label><br>
-      <textarea id="conclusion" placeholder="결론을 입력하세요" cols="40" rows="5" ></textarea><br>
+.Calendar_table th,
+.Calendar_table td {
+   padding: 6px;
+   border: 1px solid #ddd;
+   color: #333;
+   width: 14.2%;
+}
 
-      <label for="recommendation">[권장]</label><br>
-      <textarea id="recommendation" placeholder="권장 사항을 입력하세요" cols="40" rows="5"></textarea><br>
-   </div>
-	 	<button id="saveReport" onclick="saveReport()">저장</button>    
-   </div>
+/* 필터 버튼 영역 */
+.Calendar_filter-buttons {
+   display: flex;
+   gap: 5px;
+   margin-bottom: 10px;
+   justify-content: center;
+}
 
-   <script>
-      let today = new Date();
-      let currentMonth = today.getMonth();
-      let currentYear = today.getFullYear();
-      let startDate = null;
-      let endDate = null;
+.Calendar_filter-buttons button {
+   padding: 5px 10px;
+   border: 1px solid #ddd;
+   background-color: #f8f8f8;
+   color: #333;
+   cursor: pointer;
+   font-size: 13px;
+   transition: background-color 0.3s;
+}
 
-      // Flatpickr 달력 설정
-      document.addEventListener('DOMContentLoaded', function() {
-         flatpickr("#calendar-title", {
-            plugins: [
-               new monthSelectPlugin({
-                  shorthand: true,
-                  dateFormat: "Y-m",
-                  altFormat: "Y년 F",
-                  theme: "light"
-               })
-            ],
-            defaultDate: `${currentYear}-${currentMonth + 1}-01`,
-            onChange: function(selectedDates) {
-               const selectedDate = selectedDates[0];
-               currentYear = selectedDate.getFullYear();
-               currentMonth = selectedDate.getMonth();
-               renderCalendar(currentMonth, currentYear);
-            }
-         });
+.Calendar_filter-buttons button:hover {
+   background-color: #e0e0e0;
+}
 
+/* 검사일자 및 리포트 텍스트 영역 */
+.Calendar_settings-area, .calendar_report-container {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   margin-top: 10px;
+   padding: 10px;
+   background-color: #f9f9f9;
+   border-radius: 8px;
+   border: 1px solid #ddd;
+   align-items: center; /* 가운데 정렬 */
+}
+
+.Calendar_settings-area label {
+   font-weight: bold;
+   color: #333;
+   margin-bottom: 5px;
+}
+
+.Calendar_settings-area input[type="date"],
+.calendar_report-container textarea {
+   padding: 8px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   width: calc(100% - 20px); /* 입력칸이 테두리 안에 딱 맞도록 조정 */
+   font-size: 14px;
+   color: #333;
+   background-color: #ffffff;
+   box-sizing: border-box; /* 테두리를 포함한 너비 계산 */
+   margin-bottom: 5px;
+}
+
+.calendar_report-container textarea {
+   width: 100%;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   padding: 4px; /* 패딩 줄이기 */
+   font-size: 12px; /* 글꼴 크기 줄이기 */
+   color: #333;
+   background-color: #ffffff;
+   margin-top: 5px;
+   resize: vertical;
+   height: 55px; /* 높이 조절하여 공간 절약 */
+}
+
+
+/* 리포트 섹션 */
+.calendar_report-container {
+   background-color: #f9f9f9;
+   padding: 10px;
+   border-radius: 8px;
+   border: 1px solid #ddd;
+   margin-top: 10px;
+}
+
+.calendar_report-container div {
+   font-size: 16px;
+   font-weight: bold;
+   margin-bottom: 10px;
+   color: #333;
+   text-align: center; /* 가운데 정렬 */
+}
+
+.calendar_report-container label {
+   font-size: 14px;
+   color: #333;
+   display: block;
+   margin-top: 10px;
+}
+
+.calendar_report-container textarea {
+   width: 100%;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   padding: 8px;
+   font-size: 14px;
+   color: #333;
+   background-color: #ffffff;
+   margin-top: 5px;
+   resize: vertical;
+}
+
+#saveReport {
+   width: 100%;
+   padding: 10px;
+   border: none;
+   border-radius: 5px;
+   background-color: #333;
+   color: #ffffff;
+   font-size: 14px;
+   cursor: pointer;
+   margin-top: 10px;
+   transition: background-color 0.3s;
+}
+
+#saveReport:hover {
+   background-color: #555;
+}
+      </style>
+   </head>
+
+   <body>
+      <div class="Calendar_header">
+         <button id="prev-month" class="Calendar_button">&lt;</button>
+         <input id="calendar-title" class="Calendar_title" type="text" readonly>
+         <button id="next-month" class="Calendar_button">&gt;</button>
+      </div>
+
+      <div class="Calendar_filter-buttons">
+         <button id="select-all">전체</button>
+         <button id="select-1-day">1일</button>
+         <button id="select-3-day">3일</button>
+         <button id="select-1-week">1주일</button>
+      </div>
+
+      <table class="Calendar_table">
+         <thead>
+            <tr>
+               <th>일</th>
+               <th>월</th>
+               <th>화</th>
+               <th>수</th>
+               <th>목</th>
+               <th>금</th>
+               <th>토</th>
+            </tr>
+         </thead>
+         <tbody id="calendar-body"></tbody>
+      </table>
+
+      <div class="Calendar_settings-area">
+         <label>검사일자</label>
+         <div style="display: flex; gap: 10px;">
+            <input type="date" id="start-date" name="startDate" readonly>
+            <input type="date" id="end-date" name="endDate" readonly>
+         </div>
+      </div>
+
+      <div class="calendar_report-container">
+         <div>리포트</div>
+         <label for="comment">[코멘트]</label>
+         <textarea id="comment" placeholder="코멘트를 입력하세요" rows="4"></textarea>
+
+         <label for="exploration">[탐색]</label>
+         <textarea id="exploration" placeholder="탐색 내용을 입력하세요" rows="4"></textarea>
+
+         <label for="conclusion">[결론]</label>
+         <textarea id="conclusion" placeholder="결론을 입력하세요" rows="4"></textarea>
+
+         <label for="recommendation">[권장]</label>
+         <textarea id="recommendation" placeholder="권장 사항을 입력하세요" rows="4"></textarea>
+      </div>
+
+      <button id="saveReport" onclick="saveReport()">저장</button>
+
+
+
+<script>
+   let today = new Date();
+   let currentMonth = today.getMonth();
+   let currentYear = today.getFullYear();
+   let startDate = null;
+   let endDate = null;
+
+   // Flatpickr 달력 설정
+  // Flatpickr 달력 설정
+document.addEventListener('DOMContentLoaded', function () {
+   flatpickr("#calendar-title", {
+      plugins: [
+         new monthSelectPlugin({
+            shorthand: true,
+            dateFormat: "Y-m",
+            altFormat: "Y년 F",
+            theme: "light"
+         })
+      ],
+      defaultDate: `${currentYear}-${currentMonth + 1}-01`,
+      onChange: function (selectedDates) {
+         const selectedDate = selectedDates[0];
+         currentYear = selectedDate.getFullYear();
+         currentMonth = selectedDate.getMonth();
          renderCalendar(currentMonth, currentYear);
-      });
-
-      // 달력 렌더링 함수
-      function renderCalendar(month, year) {
-         const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
-         document.getElementById("calendar-title").value = `${year}년 ${monthNames[month]}`;
-
-         const calendarBody = document.getElementById("calendar-body");
-         calendarBody.innerHTML = ""; // 기존 내용 지우기
-
-         const firstDay = new Date(year, month).getDay();
-         const daysInMonth = new Date(year, month + 1, 0).getDate();
-         let date = 1;
-
-         for (let i = 0; i < 6; i++) {
-            const row = document.createElement("tr");
-            for (let j = 0; j < 7; j++) {
-               const cell = document.createElement("td");
-               if (i === 0 && j < firstDay) {
-                  cell.textContent = "";
-               } else if (date > daysInMonth) {
-                  cell.textContent = "";
-               } else {
-                  cell.textContent = date;
-                  cell.dataset.date = `${year}-${month < 9 ? '0' + (month + 1) : (month + 1)}-${date < 10 ? '0' + date : date}`;
-                  cell.addEventListener("click", () => handleDateSelection(cell, cell.textContent, month + 1, year));
-                  date++;
-               }
-               row.appendChild(cell);
-            }
-            calendarBody.appendChild(row);
-         }
-         highlightSelectedRange();
       }
+   });
 
-      // 날짜 범위 시각적 표시
-      function highlightSelectedRange() {
-         if (!startDate || !endDate) return;
+   // 달력 초기 렌더링
+   renderCalendar(currentMonth, currentYear);
 
-         const cells = document.querySelectorAll("td");
-         cells.forEach(cell => {
-            const cellDate = cell.dataset.date;
-            if (cellDate >= startDate && cellDate <= endDate) {
-               cell.style.backgroundColor = "#ccffcc";
-            } else {
-               cell.style.backgroundColor = "";
-            }
-         });
+   // 이전 달 버튼 이벤트
+   document.getElementById("prev-month").addEventListener("click", function () {
+      currentMonth--;
+      if (currentMonth < 0) {
+         currentMonth = 11;
+         currentYear--;
       }
+      renderCalendar(currentMonth, currentYear);
+   });
 
-      // 날짜 선택 핸들러
-      function handleDateSelection(cell, day, month, year) {
-         const selectedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+   // 다음 달 버튼 이벤트
+   document.getElementById("next-month").addEventListener("click", function () {
+      currentMonth++;
+      if (currentMonth > 11) {
+         currentMonth = 0;
+         currentYear++;
+      }
+      renderCalendar(currentMonth, currentYear);
+   });
+});
 
-         if (!startDate || (startDate && endDate)) {
-            startDate = selectedDate;
-            endDate = null;
+   
+   // 달력 렌더링 함수
+   function renderCalendar(month, year) {
+   const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+   document.getElementById("calendar-title").value = `${year}년 ${monthNames[month]}`;
+
+   const calendarBody = document.getElementById("calendar-body");
+   calendarBody.innerHTML = ""; // 기존 내용 지우기
+
+   const firstDay = new Date(year, month).getDay();
+   const daysInMonth = new Date(year, month + 1, 0).getDate();
+   let date = 1;
+
+   // 필요한 행만 생성하도록 while문 사용
+   let row = document.createElement("tr");
+   for (let i = 0; i < firstDay; i++) {
+      const cell = document.createElement("td");
+      row.appendChild(cell);
+   }
+
+   for (let i = firstDay; i < 7; i++) {
+      const cell = document.createElement("td");
+      cell.textContent = date;
+      cell.dataset.date = `${year}-${month < 9 ? '0' + (month + 1) : (month + 1)}-${date < 10 ? '0' + date : date}`;
+      cell.addEventListener("click", () => handleDateSelection(cell, cell.textContent, month + 1, year));
+      row.appendChild(cell);
+      date++;
+   }
+
+   calendarBody.appendChild(row);
+
+   while (date <= daysInMonth) {
+      row = document.createElement("tr");
+      for (let i = 0; i < 7 && date <= daysInMonth; i++) {
+         const cell = document.createElement("td");
+         cell.textContent = date;
+         cell.dataset.date = `${year}-${month < 9 ? '0' + (month + 1) : (month + 1)}-${date < 10 ? '0' + date : date}`;
+         cell.addEventListener("click", () => handleDateSelection(cell, cell.textContent, month + 1, year));
+         row.appendChild(cell);
+         date++;
+      }
+      calendarBody.appendChild(row);
+   }
+}
+
+   
+   // 날짜 범위 시각적 표시
+   function highlightSelectedRange() {
+      if (!startDate || !endDate) return;
+
+      const cells = document.querySelectorAll("td");
+      cells.forEach(cell => {
+         const cellDate = cell.dataset.date;
+         if (cellDate >= startDate && cellDate <= endDate) {
+            cell.style.backgroundColor = "#d3d3d3"; // 버튼 클릭시 회색으로 변경함!!
          } else {
-            endDate = selectedDate;
-            if (startDate > endDate) {
-               [startDate, endDate] = [endDate, startDate];
-            }
+            cell.style.backgroundColor = "";
          }
+      });
+   }
 
-         document.getElementById("start-date").value = startDate;
-         document.getElementById("end-date").value = endDate ? endDate : startDate;
+   // 날짜 선택 핸들러
+   function handleDateSelection(cell, day, month, year) {
+      const selectedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
-         highlightSelectedRange();
+      if (!startDate || (startDate && endDate)) {
+         startDate = selectedDate;
+         endDate = null;
+      } else {
+         endDate = selectedDate;
+         if (startDate > endDate) {
+            [startDate, endDate] = [endDate, startDate];
+         }
       }
-      
-      
-      
-   </script>
+
+      document.getElementById("start-date").value = startDate;
+      document.getElementById("end-date").value = endDate ? endDate : startDate;
+
+      highlightSelectedRange();
+   }
+
+
+// 버튼 클릭시 날짜 범위 설정 기능 (전체~-7일)
+   document.getElementById("select-all").addEventListener("click", () => {
+       startDate = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-01`;
+       endDate = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${new Date(currentYear, currentMonth + 1, 0).getDate()}`;
+       updateSelectedRange();
+   });
+
+   document.getElementById("select-1-day").addEventListener("click", () => {
+       const selectedDate = new Date(today);
+       selectedDate.setDate(today.getDate() - 1); // -1일
+       startDate = `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getDate().toString().padStart(2, '0')}`;
+       endDate = startDate;
+       updateSelectedRange();
+   });
+
+   document.getElementById("select-3-day").addEventListener("click", () => {
+       const selectedDate = new Date(today);
+       selectedDate.setDate(today.getDate() - 3); // -3일
+       startDate = `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getDate().toString().padStart(2, '0')}`;
+       endDate = today.toISOString().split('T')[0]; // 오늘 날짜
+       updateSelectedRange();
+   });
+
+   document.getElementById("select-1-week").addEventListener("click", () => {
+       const selectedDate = new Date(today);
+       selectedDate.setDate(today.getDate() - 7); // -7일
+       startDate = `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1).toString().padStart(2, '0')}-${selectedDate.getDate().toString().padStart(2, '0')}`;
+       endDate = today.toISOString().split('T')[0]; // 오늘 날짜
+       updateSelectedRange();
+   });
+
+   function updateSelectedRange() {
+       document.getElementById("start-date").value = startDate;
+       document.getElementById("end-date").value = endDate;
+       highlightSelectedRange();
+   }
+
+
+</script>
 </body>
 </div>
