@@ -126,12 +126,19 @@ function initializeMultiViewerTools() {
 	
 	//주석 도구
 	document.getElementById('annotateBtn')	.addEventListener('click', function() {
-		if (multiViewerGrid && multiViewerGrid.style.display !== 'none' && dicomElements && !annoDropControllEnabled) {
-			annoDropControllEnabled = true;
-			multiAnnoDropControll();
+		if (multiViewerGrid && multiViewerGrid.style.display !== 'none' && dicomElements) {
+			if(!annoDropControllEnabled) {
+				annoDropControllEnabled = true;
+				multiAnnoDropControll();
+			} else {
+				annoDropControllEnabled = false;
+				multiUnAnnoDropControll();
+			}
 		} else {
-			annoDropControllEnabled = false;
-			multiUnAnnoDropControll();
+			if(annoDropControllEnabled) {
+				annoDropControllEnabled = false;
+				multiUnAnnoDropControll();
+			}
 		}  
     });
 	
