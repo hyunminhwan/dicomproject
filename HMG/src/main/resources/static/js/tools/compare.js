@@ -85,6 +85,8 @@ function gridController() {
 		const singleViewer = document.getElementById('dicomViewer');
 		const pageBtn = document.getElementById('paginationControls');
 		const playClipBtn = document.getElementById('playClip');
+		const downloadBtn = document.getElementById('download');
+		downloadBtn.style.display = 'block';
 		playClipBtn.style.display = 'block';
 		multiViewerGrid.style.display = 'none';
 		singleViewer.style.display = 'block';
@@ -109,6 +111,7 @@ function seriesAllDataLoad() {
 				return {
 					seriesKey: index + 1,
 					imagePath: images
+					//ArrayList<ArrayList<String>>
 				};
 			});
 			
@@ -130,11 +133,13 @@ function loadGridImages(rows, cols) {
 	const prevBtn = document.getElementById('prevPage');
 	const nextBtn = document.getElementById('nextPage');
 	const playClipBtn = document.getElementById('playClip');
+	const downloadBtn = document.getElementById('download');
 	
 	multiViewerGrid.innerHTML = '';
 	multiViewerGrid.style.display = 'grid';
 	singleViewer.style.display = 'none';
 	playClipBtn.style.display = 'none';
+	downloadBtn.style.display = 'none';
 	multiViewerGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 	multiViewerGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 	multiViewerGrid.style.gap = '10px';  // 선택사항: 셀 간격 설정
@@ -160,7 +165,7 @@ function loadGridImages(rows, cols) {
 	console.log('currentSeriesList :', currentSeriesList);
 	console.log('totalPages :', totalPages);
 	
-	
+	//gpt 물어보기
 	currentSeriesList.forEach((series) => {
 	    const dicomElement = document.createElement('div');
 	    dicomElement.classList.add('dicom-viewer');

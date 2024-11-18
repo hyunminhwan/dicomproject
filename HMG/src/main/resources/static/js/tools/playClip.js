@@ -1,4 +1,5 @@
 function playClipControll(dicomElement) {
+	deactivateAllTools(dicomElement)
 	// 플레이클립 박스
 	const playClipBox = document.getElementById('playClipBox');
 	const playClipPlayBtn = document.getElementById('playClipPlay');
@@ -14,6 +15,7 @@ function playClipControll(dicomElement) {
 	const stack = { currentImageIdIndex: 0, imageIds: imageList };
 	
 	let isPlaying = false;  // 클립 재생 상태 추적
+	
 	let fps = 20; // 기본 재생 속도
 
 	// playClip 툴 추가
@@ -27,9 +29,11 @@ function playClipControll(dicomElement) {
 	if(playClipBox.style.display === 'none') {
 		playClipBox.style.display = 'block';
 		playClipButton.classList.add('pc');
+		
 	} else {
 		playClipBox.style.display = 'none';
 		playClipButton.classList.remove('pc');
+		
 	}
 	
 	// 재생 버튼 클릭 시 클립 재생
