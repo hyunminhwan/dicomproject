@@ -1,5 +1,5 @@
-function initializeTools() {
-	const dicomElement = document.getElementById('dicomViewer');
+function initializeTools(dicomElement, index) {
+	//const dicomElement = document.getElementById('dicomViewer');
 	const viewerContainer = document.querySelector('.viewer-container');
 	cornerstone.enable(dicomElement);
 	// cornerstone-tools 초기화 및 외부 라이브러리 연결
@@ -69,8 +69,18 @@ function initializeTools() {
 			seriesAllDataLoad(dicomElement);
 	});
 	
-	document.getElementById('download').addEventListener('click', function() {
-		
+	const downloadBtn = document.getElementById('download'); // 다운로드 버튼
+	downloadBtn.replaceWith(downloadBtn.cloneNode(true)); // 기존 이벤트 리스너 제거 후 새로 등록 (중복 방지)
+	
+	const newDownloadBtn = document.getElementById('download');
+	newDownloadBtn.addEventListener('click', function() {
+		if(viewerContainer && viewerContainer.style.display !== 'none' && dicomElement) {
+			const imageElements = dicomElement.querySelectorAll('[data-path]');
+			const imageList = Array.from(imageElements).map(el => el.getAttribute('data-path'));
+			
+			if( imageList && index >= 0 ) downloadDicomAsJpg(imageList, index);
+			else console.log('이미지를 찾을 수 없습니다.');
+		}
 	});
 	
 	
