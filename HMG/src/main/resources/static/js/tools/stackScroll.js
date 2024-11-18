@@ -26,6 +26,8 @@ function enablestackScroll(dicomElement) {
         console.log('도구 "StackScroll" 상태 비활성화됨');
     }
 }*/
+
+/*
 function enablestackScroll(dicomElement) {
     // StackScroll 도구 활성화
     cornerstoneTools.setToolActiveForElement(dicomElement, 'StackScroll', { mouseButtonMask: 0 });
@@ -49,3 +51,4 @@ function enablestackScroll(dicomElement) {
         evt.preventDefault();
     });
 }
+*/

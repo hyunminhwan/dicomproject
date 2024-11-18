@@ -1,7 +1,3 @@
-document.getElementById('compare').addEventListener('click', function() {
-	gridController();
-	seriesAllDataLoad(dicomElement);
-});
 // 페이지 관련 변수 설정
 let compareEnabled = false;
 let currentPage = 1; // 페이지 번호는 1부터 시작
@@ -88,6 +84,8 @@ function gridController() {
 		const multiViewerGrid = document.getElementById('multiViewerGrid');
 		const singleViewer = document.getElementById('dicomViewer');
 		const pageBtn = document.getElementById('paginationControls');
+		const playClipBtn = document.getElementById('playClip');
+		playClipBtn.style.display = 'block';
 		multiViewerGrid.style.display = 'none';
 		singleViewer.style.display = 'block';
 		pageBtn.style.display = 'none';
@@ -131,10 +129,12 @@ function loadGridImages(rows, cols) {
 	const pageBtn = document.getElementById('paginationControls');
 	const prevBtn = document.getElementById('prevPage');
 	const nextBtn = document.getElementById('nextPage');
+	const playClipBtn = document.getElementById('playClip');
 	
 	multiViewerGrid.innerHTML = '';
 	multiViewerGrid.style.display = 'grid';
 	singleViewer.style.display = 'none';
+	playClipBtn.style.display = 'none';
 	multiViewerGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 	multiViewerGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 	multiViewerGrid.style.gap = '10px';  // 선택사항: 셀 간격 설정
@@ -305,6 +305,7 @@ function switchToCompareMode(dicomElement, stack) {
 	cornerstone.enable(secondDicomElement);
 	loadSeriesImages(secondDicomElement, secondStack);
 	
+	initializeMultiViewerTools();
 }
 
 function loadSeriesImages(dicomElement, stack) {
@@ -312,7 +313,6 @@ function loadSeriesImages(dicomElement, stack) {
         .then(image => {
             cornerstone.displayImage(dicomElement, image);
             cornerstone.setViewport(dicomElement, { scale: 1.0 });
-
             // 휠 이벤트로 스택 이미지 스크롤
             dicomElement.addEventListener('wheel', function(event) {
                 event.preventDefault();

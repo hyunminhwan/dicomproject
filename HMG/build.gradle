@@ -42,6 +42,17 @@ dependencies {
 	
 	//security 설정
 	 implementation 'org.springframework.boot:spring-boot-starter-security'
+	 
+	// dcm4che(core,imageio,tool)
+	// https://mvnrepository.com/artifact/org.dcm4che/dcm4che-core
+	implementation group: 'org.dcm4che', name: 'dcm4che-core', version: '5.33.0'
+	// https://mvnrepository.com/artifact/org.dcm4che/dcm4che-imageio
+	implementation group: 'org.dcm4che', name: 'dcm4che-imageio', version: '5.33.0'
+	// https://mvnrepository.com/artifact/org.dcm4che.tool/dcm4che-tool-common
+	implementation group: 'org.dcm4che.tool', name: 'dcm4che-tool-common', version: '5.33.0'
+	
+	
+	 
 }
 
 tasks.named('test') {
