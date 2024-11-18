@@ -18,6 +18,10 @@
 <a href="https://www.flaticon.com/kr/free-icons/" title="바퀴 아이콘">바퀴 아이콘 제작자: Freepik - Flaticon</a>
 <a href="https://www.flaticon.com/kr/free-icons/-" title="...을 더한 아이콘">...을 더한 아이콘 제작자: Freepik - Flaticon</a>
 <a href="https://www.flaticon.com/kr/free-icons/" title="축소 아이콘">축소 아이콘 제작자: Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/kr/free-icons/" title="다음 아이콘">다음 아이콘 제작자: Smashicons - Flaticon</a>
+<a href="https://www.flaticon.com/kr/free-icons/" title="뒤 아이콘">뒤 아이콘 제작자: Roundicons - Flaticon</a>
+<a href="https://www.flaticon.com/kr/free-icons/" title="다음 아이콘">다음 아이콘 제작자: bsd - Flaticon</a>
+<a href="https://www.flaticon.com/kr/free-icons/" title="방향 아이콘">방향 아이콘 제작자: Andy Horvath - Flaticon</a>
 </head>
 <body>
 	<!-- fragments/tools.html -->
@@ -99,28 +103,61 @@
 					<p>돋보기</p>
 				</button>
 				
-				<button id="length" type="button" class="btn btn-default">
+				<button class="btn btn-default" id="annotateBtn">
+					<img src="/img/icons/icon_anno.png" alt="anno icon" class="icon-image">
+					<p>주석모음</p>
+				</button>
+
+				<div>
+			  		<button id="compare" type="button" class="btn btn-default">
+						<img src="/img/icons/icon_a_comparative_series.png" alt="compare icon" class="icon-image">
+						<p>시리즈 비교</p>
+					</button>
+					<div id="gridContainer" class="dropdown-content">
+					  <!-- 셀렉터 그리드가 표시될 영역 -->
+					  <div class="grid-selector"></div>
+					</div>
+				</div>
+				
+				<button id="reset" type="button" class="btn btn-default">
+					<img src="/img/icons/icon_reset.png" alt="reset icon" class="icon-image">
+					<p>초기화</p>
+				</button>
+				
+				<button id="download" class="btn btn-default">
+					<img src="/img/icons/icon_download.png" alt="download icon" class="icon-image">
+					<p>다운로드</p>
+				</button>
+			
+			</ul>
+		</div>
+			<!-- 주석 드롭다운 -->
+			<div class="annotate-dropdown-menu" id="annotateDropdown" style="display: none; position: absolute;">
+				<button id="length" class="btn btn-default">
 					<img src="/img/icons/icon_length.png" alt="length icon" class="icon-image">
 					<p>길이 측정</p>
 				</button>
-				
-				<button id="angle" type="button" class="btn btn-default">
+			
+				<button id="angle" class="btn btn-default">
 					<img src="/img/icons/icon_angle.png" alt="angle icon" class="icon-image">
 					<p>각도 측정</p>
+				</button>
+				
+				<button id="arrow" class="btn btn-default">
+					<img src="/img/icons/icon_arrow.png" alt="arrow icon" class="icon-image">
+					<p>화살표</p>
+				</button>
+				
+				<button id="freeHand" class="btn btn-default">
+					<img src="/img/icons/icon_freeHand.png" alt="freeHand icon" class="icon-image">
+					<p>프리핸즈</p>
 				</button>
 				
 				<button id="eraser" type="button" class="btn btn-default">
 					<img src="/img/icons/icon_eraser.png" alt="eraser icon" class="icon-image">
 					<p>지우개</p>
 				</button>
-			
-				<button id="reset" type="button" class="btn btn-default">
-					<img src="/img/icons/icon_reset.png" alt="reset icon" class="icon-image">
-					<p>초기화</p>
-				</button>
-				
-			</ul>
-		</div>
+			</div>
 	</div>	
 	
 	<style>

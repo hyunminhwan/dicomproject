@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,4 +103,19 @@ public class ImageTabController {
 		return imageList;
 	}
 	
+	@GetMapping("/gridImageData")
+	public ResponseEntity<ArrayList<ArrayList<String>>> gridList(@RequestParam(value="studyKey") Long studyKey, Model model) {
+		ArrayList<ArrayList<String>> imagesList = new ArrayList<ArrayList<String>>();
+		ArrayList<Long> seriesList = imageTabService.gridSeriesList(studyKey);
+		for(Long s : seriesList) {
+			System.out.println("seriesList : "+s);
+			ArrayList<String> images = imageTabService.list(studyKey,s);
+			imagesList.add(images);
+		}
+		
+		model.addAttribute("imageList",imagesList);
+		model.addAttribute("studyKey",studyKey);
+		model.addAttribute("seriesList", seriesList); 
+		return ResponseEntity.ok(imagesList);
+	}
 }
