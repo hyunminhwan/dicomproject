@@ -25,7 +25,7 @@ public class ImageTabController {
 	SeriesTabService seriesTabService;
 	
 	
-	@GetMapping("ImageTabList")
+	@GetMapping("/ImageTabList")
 	public String list(@RequestParam(value="nowPage", defaultValue="0") int nowPage,@RequestParam(value="studyKey") Long studyKey, 
             Model model) {
 		

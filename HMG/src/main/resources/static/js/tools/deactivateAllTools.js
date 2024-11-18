@@ -25,7 +25,7 @@ function multiDeactivateAllTools(element) {
 	const buttons = document.querySelectorAll('.tools-container-ul .btn');
 
 	buttons.forEach(button => {
-	    button.classList.remove('active');
+	    button.classList.remove('active2');
 	});
 	
 	// 모든 도구 비활성화

@@ -111,6 +111,7 @@ function seriesAllDataLoad() {
 				return {
 					seriesKey: index + 1,
 					imagePath: images
+					//ArrayList<ArrayList<String>>
 				};
 			});
 			
@@ -164,7 +165,7 @@ function loadGridImages(rows, cols) {
 	console.log('currentSeriesList :', currentSeriesList);
 	console.log('totalPages :', totalPages);
 	
-	
+	//gpt 물어보기
 	currentSeriesList.forEach((series) => {
 	    const dicomElement = document.createElement('div');
 	    dicomElement.classList.add('dicom-viewer');
