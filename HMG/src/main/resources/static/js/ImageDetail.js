@@ -44,10 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	function loadDicomImage(index) {
 		const dicomFilePath = 'wadouri:' + imageList[index]; // currentImageIndex에 따른 이미지 로드
 		// cornerstone을 사용해 DICOM 이미지 로드 및 표시
+		console.log('loadDicomImage index :', index);
 		cornerstone.loadAndCacheImage(dicomFilePath).then(function(image) {
 			cornerstone.displayImage(dicomElement, image);
 			dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시
-			initializeTools(dicomElement);  // mainTools.js 호출
+			initializeTools(dicomElement, index);  // mainTools.js 호출
 		}).catch(function(error) {
 			console.error('Error loading DICOM image:', error);
 			dicomElement.classList.add('hidden');  // 이미지가 없으면 뷰어를 숨김
