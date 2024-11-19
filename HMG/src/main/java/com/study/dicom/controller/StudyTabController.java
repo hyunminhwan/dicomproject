@@ -70,7 +70,7 @@ public class StudyTabController {
 	    @GetMapping("/api/report/{studyKey}")
 	    @ResponseBody
 	    public ReportTab getReportByStudyKey(@PathVariable(name ="studyKey") Long StudyKey){
-	    	Optional<ReportTab> loadReportTab = reportTabService.findById(StudyKey);
+	    	Optional<ReportTab> loadReportTab = reportTabService.findByStudyKeyAndSeriesKeyIsNull(StudyKey);
 	    	if(loadReportTab.isPresent()) {
 	    		return loadReportTab.get();
 	    	}else {
