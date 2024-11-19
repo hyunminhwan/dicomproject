@@ -34,7 +34,7 @@ function multiEnableDrag(element) {
     // 길이 측정 도구 활성화 및 상태 저장
     cornerstoneTools.setToolActiveForElement(element, 'Pan', { mouseButtonMask: 1 });
     cornerstoneTools.addToolState(element, 'Pan', {});  // 도구 상태 저장
-    document.getElementById('drag').classList.add('active'); // 버튼 활성화 표시
+    document.getElementById('drag').classList.add('active2'); // 버튼 활성화 표시
 
     // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
     const toolState = cornerstoneTools.getToolState(element, 'Pan');
@@ -48,6 +48,6 @@ function multiEnableDrag(element) {
 function multiUnableDrag(element) {
 	// 길이 측정 도구 비활성화
 	cornerstoneTools.setToolDisabledForElement(element, 'Pan');
-	document.getElementById('drag').classList.remove('active'); // 버튼 비활성화 표시
+	document.getElementById('drag').classList.remove('active2'); // 버튼 비활성화 표시
 	console.log(`도구 "Pan" 상태 비활성화됨 (${element.id})`);
 }
