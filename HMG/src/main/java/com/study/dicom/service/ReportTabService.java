@@ -14,12 +14,14 @@ public class ReportTabService {
 	@Autowired
 	ReportTabRepository reportTabRepository;
 
-	public Optional<ReportTab> findById(Long studyKey) {
-		return reportTabRepository.findById(studyKey);
-	}
 
 	public void save(ReportTab reportTab) {
 		reportTabRepository.save(reportTab);
 	}
+
+	public Optional<ReportTab> findByStudyKeyAndSeriesKey(Long studyKey, Long seriesKey) {
+		return reportTabRepository.findByStudyKeyAndSeriesKey(studyKey, seriesKey);
+	}
+	
 	
 }

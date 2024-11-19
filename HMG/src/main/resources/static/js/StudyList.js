@@ -53,7 +53,7 @@ let reportStudyKey;
 
 function loadReportData(studyKey) {
 	reportStudyKey=studyKey;
-    axios.get(`/api/report/${studyKey}`) // 검사에 대한 리포트를 가져오는 API 호출
+    axios.get(`/api/report/${studyKey}/${0}`) // 검사에 대한 리포트를 가져오는 API 호출
         .then(response => {
             const report = response.data;
 			console.log(report);
@@ -89,6 +89,7 @@ function saveReport() {
 
 	axios.post('/api/saveReport', {
 		studyKey: reportStudyKey, // studyKey 함께 전송
+		seriesKey: 0,
 		reComment: comment,
 		reExploration: exploration,
 		reConclusion: conclusion,
