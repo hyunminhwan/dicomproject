@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //리포트 studyKey 로 List에서 보여주기
 	const param = new URLSearchParams(window.location.search);
 	const studyKey = param.get('studyKey');
-	axios.get(`/api/report/${studyKey}`) // 검사에 대한 리포트를 가져오는 API 호출
+	axios.get(`/api/report/${studyKey}/${0}`) // 검사에 대한 리포트를 가져오는 API 호출
 		.then(response => {
 			const report = response.data;
 			console.log(report);

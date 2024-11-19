@@ -1,28 +1,91 @@
 <div th:fragment="fragment-report">
-<head>
+	<head>
 <meta charset="UTF-8">
 <title>Report</title>
-</head>
+	</head>
 
-<body>
+	<body>
 
-	<div class="calendar_report-container">
-         <div>리포트</div>
-         <label for="comment">[코멘트]</label>
-         <textarea id="comment" placeholder="코멘트를 입력하세요" rows="4"></textarea>
+		<div class="calendar_report-container">
+			<div>리포트</div>
+			<label for="comment">[코멘트]</label>
+			<textarea id="comment" placeholder="코멘트를 입력하세요" rows="4"></textarea>
 
-         <label for="exploration">[탐색]</label>
-         <textarea id="exploration" placeholder="탐색 내용을 입력하세요" rows="4"></textarea>
+			<label for="exploration">[탐색]</label>
+			<textarea id="exploration" placeholder="탐색 내용을 입력하세요" rows="4"></textarea>
 
-         <label for="conclusion">[결론]</label>
-         <textarea id="conclusion" placeholder="결론을 입력하세요" rows="4"></textarea>
+			<label for="conclusion">[결론]</label>
+			<textarea id="conclusion" placeholder="결론을 입력하세요" rows="4"></textarea>
 
-         <label for="recommendation">[권장]</label>
-         <textarea id="recommendation" placeholder="권장 사항을 입력하세요" rows="4"></textarea>
-    </div>
+			<label for="recommendation">[권장]</label>
+			<textarea id="recommendation" placeholder="권장 사항을 입력하세요" rows="4"></textarea>
+		</div>
 
-      <button id="saveReport" onclick="saveReport()">저장</button>
-      
-   
-</body>
+		<button id="saveReport" onclick="saveKeyReport()">저장</button>
+
+	</body>
+
+	<script>
+	( () => {
+		const param = new URLSearchParams(window.location.search);
+		const studyKey = param.get('studyKey');
+		const seriesKey = param.get('seriesKey');
+
+		axios.get(`/api/report/${studyKey}/${seriesKey}`) // 검사에 대한 리포트를 가져오는 API 호출
+			.then(response => {
+				const report = response.data;
+				console.log(report);
+				// 리포트 데이터가 있다면 입력 필드에 채우기
+				if (report) {
+					document.getElementById("comment").value = report.reComment || "";
+					document.getElementById("exploration").value = report.reExploration || "";
+					document.getElementById("conclusion").value = report.reConclusion || "";
+					document.getElementById("recommendation").value = report.reRecommendation || "";
+				} else {
+					document.getElementById("comment").value = "";
+					document.getElementById("exploration").value = "";
+					document.getElementById("conclusion").value = "";
+					document.getElementById("recommendation").value = "";
+				}
+			})
+			.catch(error => {
+				console.error("리포트 로드 오류:", error);
+			});
+	})();
+	
+	
+	// 리포트 저장
+	function saveKeyReport() {
+		
+		const comment = document.getElementById("comment").value;
+		const exploration = document.getElementById("exploration").value;
+		const conclusion = document.getElementById("conclusion").value;
+		const recommendation = document.getElementById("recommendation").value;
+		
+		const param = new URLSearchParams(window.location.search);
+		const studyKey = param.get('studyKey');
+		const seriesKey = param.get('seriesKey');
+		
+		axios.post('/api/saveReport', {
+			studyKey: studyKey,
+			seriesKey: seriesKey,
+			reComment: comment,
+			reExploration: exploration,
+			reConclusion: conclusion,
+			reRecommendation: recommendation
+		})
+			.then(response => {
+				if (response.status === 200) {
+					alert("저장되었습니다.");
+				} else {
+					alert("저장에 실패했습니다.");
+				}
+			})
+			.catch(error => {
+				console.error("오류 발생:", error);
+				alert("오류가 발생했습니다.");
+			});
+	}
+	</script>
+
 </div>
