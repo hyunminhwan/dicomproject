@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		cornerstone.loadAndCacheImage(dicomFilePath).then(function(image) {
 			cornerstone.displayImage(dicomElement, image);
 			dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시
-			initializeTools(dicomElement);  // mainTools.js 호출
+			initializeTools(dicomElement,index);  // mainTools.js 호출
 		}).catch(function(error) {
 			console.error('Error loading DICOM image:', error);
 			dicomElement.classList.add('hidden');  // 이미지가 없으면 뷰어를 숨김
