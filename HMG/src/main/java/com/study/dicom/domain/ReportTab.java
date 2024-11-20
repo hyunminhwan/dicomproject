@@ -2,19 +2,20 @@ package com.study.dicom.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import lombok.Data;
 
 @Data
 @Entity(name = "REPORTTab")
+@IdClass(ReportTabId.class)
 public class ReportTab {
 
     @Id
     @Column(name = "STUDYKEY")
     private Long studyKey;
     
+    @Id
     @Column(name = "SERIESKEY")
     private Long seriesKey;
 

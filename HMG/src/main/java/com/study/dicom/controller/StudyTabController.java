@@ -66,18 +66,19 @@ public class StudyTabController {
 		 Page<StudyTab> pastStudy=studyTabService.pastList(PageRequest.of(pastNowPage, 5),pid,pname);
 		 return pastStudy.getContent();
 	 }
-	 
-	    @GetMapping("/api/report/{studyKey}")
-	    @ResponseBody
-	    public ReportTab getReportByStudyKey(@PathVariable(name ="studyKey") Long StudyKey){
-	    	Optional<ReportTab> loadReportTab = reportTabService.findByStudyKeyAndSeriesKeyIsNull(StudyKey);
-	    	if(loadReportTab.isPresent()) {
-	    		return loadReportTab.get();
-	    	}else {
-	    		return null;
-	    	}
-	    	
-	    }
+
+//	 
+//	    @GetMapping("/api/report/{studyKey}")
+//	    @ResponseBody
+//	    public ReportTab getReportByStudyKey(@PathVariable(name ="studyKey") Long StudyKey){
+//	    	Optional<ReportTab> loadReportTab = reportTabService.findById(StudyKey);
+//	    	if(loadReportTab.isPresent()) {
+//	    		return loadReportTab.get();
+//	    	}else {
+//	    		return null;
+//	    	}
+//	    	
+//	    }
 	 
 
 	    @PostMapping("/api/saveReport")
@@ -90,6 +91,21 @@ public class StudyTabController {
 	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to save report");
 	        }
 	    }
+	    
+	    @GetMapping("/api/report/{studyKey}/{seriesKey}")
+	    @ResponseBody
+	    public ReportTab getReportByStudyKeySeriesKey(@PathVariable(name ="studyKey") Long StudyKey,
+	    		@PathVariable(name="seriesKey") Long SeriesKey)
+	    {
+	    	Optional<ReportTab> studyKeyseriesKey = reportTabService.findByStudyKeyAndSeriesKey(StudyKey, SeriesKey);
+	    	//isPresent 들어있으면 true
+	    	if(studyKeyseriesKey.isPresent()) {
+	    		return studyKeyseriesKey.get();
+	    	}else {
+	    		return null;
+	    	}
+	    }
+	    	    
 }
 
 

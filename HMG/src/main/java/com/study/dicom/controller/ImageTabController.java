@@ -91,6 +91,7 @@ public class ImageTabController {
 		ArrayList<String> image = imageTabService.imageDetail(studyKey,seriesKey);
 		model.addAttribute("images",image);
 		model.addAttribute("studyKey",studyKey);
+		model.addAttribute("seriesKey",seriesKey);
 		return "/admin/Image/ImageDetail";
 		
 	}
