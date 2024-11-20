@@ -58,11 +58,9 @@
 }
 /* 클릭 시 효과 */
 .tools-container-ul .btn.active {
-
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
 .tools-container-ul .btn.active2 {
-
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
 .tools-container-ul .btn.pc {
