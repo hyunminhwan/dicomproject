@@ -11,8 +11,6 @@ import lombok.Data;
 public class MemberTab  {
 	
 	@Id
-	@Column(name = "USER_NO")
-	private Long userNo;
 	@Column(name = "USER_NAME")
 	private String userName;
 	@Column(name = "PWD")

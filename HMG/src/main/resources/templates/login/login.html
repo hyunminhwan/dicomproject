@@ -71,7 +71,8 @@
             color: #333333; /* 진한 회색 글자 */
         }
 
-        input[type="submit"] {
+        input[type="submit"],
+        input[type="button"] {
             width: 100%;
             padding: 10px;
             border: none;
@@ -81,9 +82,11 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px; /* 버튼 사이 간격 추가 */
         }
 
-        input[type="submit"]:hover {
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
             background-color: #b3b3b3; /* 조금 더 진한 회색 */
         }
 
@@ -102,6 +105,7 @@
             <input type="text" name="userName" placeholder="ID" required>
             <input type="password" name="pwd" placeholder="Password" required>
             <input type="submit" value="Login">
+            <input type="button" value="Sign Up" onclick="location.href='/signUp'">
         </form>
         <p th:if="${error}" th:text="${error}" class="error-message"></p>
     </div>

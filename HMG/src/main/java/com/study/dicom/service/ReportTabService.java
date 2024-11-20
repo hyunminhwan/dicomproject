@@ -19,9 +19,9 @@ public class ReportTabService {
 		reportTabRepository.save(reportTab);
 	}
 
+
 	public Optional<ReportTab> findByStudyKeyAndSeriesKey(Long studyKey, Long seriesKey) {
 		return reportTabRepository.findByStudyKeyAndSeriesKey(studyKey, seriesKey);
 	}
-	
 	
 }
