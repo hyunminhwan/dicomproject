@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests(request -> request
 						.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 						.requestMatchers("/").permitAll()
-						.requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+						.requestMatchers("/signUp","/css/**", "/js/**", "/img/**").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated()
 				 )
