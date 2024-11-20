@@ -90,6 +90,31 @@
 		input[type="reset"]:hover {
 			background-color: #b3b3b3; /* 조금 더 진한 회색 */
 		}
+
+		/* Reset과 Login 버튼을 나란히 배치 */
+		.button-row {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			margin-top: 10px;
+		}
+
+		.button-row input {
+			flex: 1;
+			padding: 10px;
+			border: none;
+			border-radius: 0; /* 둥근 모서리 제거 */
+			background-color: #cccccc;
+			color: #333333;
+			font-weight: bold;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			margin: 0 2px; /* 버튼 간격 */
+		}
+
+		.button-row input:hover {
+			background-color: #b3b3b3;
+		}
 	</style>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -102,7 +127,10 @@
 		<input type="password" id="pwd" name="pwd" placeholder="Password" required>
 		<input type="hidden" id="role" name="role" value="ADMIN">
 		<input type="button" value="Sign Up" onclick="saveMember()">
-		<input type="reset" value="Reset">
+		<div class="button-row">
+			<input type="reset" value="Reset">
+			<input type="button" value="Login" onclick="location.href='/login'">
+		</div>
 	</div>
 
 	<script>
