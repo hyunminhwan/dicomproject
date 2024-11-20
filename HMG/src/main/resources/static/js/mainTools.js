@@ -71,16 +71,30 @@ function initializeTools(dicomElement, index) {
 	
 	const downloadBtn = document.getElementById('download'); // 다운로드 버튼
 	downloadBtn.replaceWith(downloadBtn.cloneNode(true)); // 기존 이벤트 리스너 제거 후 새로 등록 (중복 방지)
-	
+
 	const newDownloadBtn = document.getElementById('download');
-	newDownloadBtn.addEventListener('click', function() {
-		if(viewerContainer && viewerContainer.style.display !== 'none' && dicomElement) {
-			const imageElements = dicomElement.querySelectorAll('[data-path]');
-			const imageList = Array.from(imageElements).map(el => el.getAttribute('data-path'));
-			
-			if( imageList && index >= 0 ) downloadDicomAsJpg(imageList, index);
-			else console.log('이미지를 찾을 수 없습니다.');
-		}
+	newDownloadBtn.addEventListener('click', async function () {
+	    if (viewerContainer && viewerContainer.style.display !== 'none' && dicomElement) {
+	        // 확인 창을 띄워 사용자가 다운로드 유형 선택
+	        const choice = await confirmDownloadType();
+
+	        const imageElements = dicomElement.querySelectorAll('[data-path]');
+	        const imageList = Array.from(imageElements).map(el => el.getAttribute('data-path'));
+
+	        if (imageList && index >= 0) {
+	            if (choice === 'current') { // 현재 페이지 다운로드
+	                console.log('현재 페이지 다운로드 실행');
+	                downloadDicomAsJpg(imageList, index);
+	            } else if (choice === 'series') { // 시리즈 다운로드
+	                console.log('시리즈 다운로드 실행');
+	                downloadSeriesAsZip(imageList);
+	            } else {
+	                console.log('다운로드가 취소되었습니다.');
+	            }
+	        } else {
+	            console.log('이미지를 찾을 수 없습니다.');
+	        }
+	    }
 	});
 	
 	
