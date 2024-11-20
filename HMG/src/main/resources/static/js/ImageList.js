@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-//리포트 studyKey 로 List에서 보여주기
+	//리포트 studyKey 로 List에서 보여주기
 	const param = new URLSearchParams(window.location.search);
 	const studyKey = param.get('studyKey');
 	axios.get(`/api/report/${studyKey}/${0}`) // 검사에 대한 리포트를 가져오는 API 호출
@@ -75,6 +75,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
+function saveReport() {
+	const param = new URLSearchParams(window.location.search);
+	const studyKey = param.get('studyKey');
+
+	const comment = document.getElementById("comment").value;
+	const exploration = document.getElementById("exploration").value;
+	const conclusion = document.getElementById("conclusion").value;
+	const recommendation = document.getElementById("recommendation").value;
+
+	axios.post('/api/saveReport', {
+		studyKey: studyKey, // studyKey 함께 전송
+		reComment: comment,
+		reExploration: exploration,
+		reConclusion: conclusion,
+		reRecommendation: recommendation
+	})
+		.then(response => {
+			if (response.status === 200) {
+				alert("저장되었습니다.");
+			} else {
+				alert("저장에 실패했습니다.");
+			}
+		})
+		.catch(error => {
+			console.error("오류 발생:", error);
+			alert("오류가 발생했습니다.");
+		});
+}
+
 function imageDetail(key) {
 	const studyKey = key.getAttribute('data-studyKey');
 	const seriesKey = key.getAttribute('data-seriesKey');

@@ -58,11 +58,9 @@
 }
 /* 클릭 시 효과 */
 .tools-container-ul .btn.active {
-
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
 .tools-container-ul .btn.active2 {
-
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
 .tools-container-ul .btn.pc {
@@ -144,8 +142,31 @@
     margin-top: 20px;
     gap: 20px;
 }
-.pagination-controls .btn img {
-	width: 5px;
-	height: 5px;
-	border: none;
+.pagination-prevbtn {
+	padding: 8px 16px;
+	font-size: 0.9em;
+	text-decoration: none;
+	color: #333;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #f4f4f4;
+	transition: all 0.3s ease;
+}
+.pagination-nextbtn {
+	padding: 8px 16px;
+	font-size: 0.9em;
+	text-decoration: none;
+	color: #333;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background-color: #f4f4f4;
+	transition: all 0.3s ease;
+}
+.pagination-prevbtn:hover {
+    background-color: #808080;
+    color: #ffffff;
+}
+.pagination-nextbtn:hover {
+    background-color: #808080;
+    color: #ffffff;
 }

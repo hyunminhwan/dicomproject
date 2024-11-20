@@ -29,7 +29,7 @@ public class SecurityMemberTabService implements UserDetailsService {
 
         return User.builder()
                 .username(member.getUserName())
-                .password("{noop}" +member.getPwd())
+                .password(member.getPwd())
                 .roles(member.getRole()) // role 필드를 사용하여 권한 설정
                 .build();
     }

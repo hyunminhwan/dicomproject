@@ -7,7 +7,7 @@ import jakarta.persistence.IdClass;
 import lombok.Data;
 
 @Data
-@Entity(name = "REPORTTab")
+@Entity(name = "REPORTTAB")
 @IdClass(ReportTabId.class)
 public class ReportTab {
 

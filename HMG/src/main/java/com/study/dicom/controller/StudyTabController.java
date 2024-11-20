@@ -66,6 +66,7 @@ public class StudyTabController {
 		 Page<StudyTab> pastStudy=studyTabService.pastList(PageRequest.of(pastNowPage, 5),pid,pname);
 		 return pastStudy.getContent();
 	 }
+
 //	 
 //	    @GetMapping("/api/report/{studyKey}")
 //	    @ResponseBody
