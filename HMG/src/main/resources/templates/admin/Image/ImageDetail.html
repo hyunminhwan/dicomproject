@@ -53,6 +53,15 @@
 <body>
 	<div th:replace="~{fragments/mainTools.html :: tools-container}"></div>
 	
+	<div class="ImageDetail_container">
+	<!--  왼쪽 사이드바-->	
+	<div class="ImageDetail_report">
+		<div th:replace="~{/fragments/report.html :: fragment-report}"></div>
+	</div>
+	
+	<!-- 메인 -->	
+	<div class="ImageDetail_main">
+	
 	<!-- DICOM 이미지를 표시할 단일 뷰어 컨테이너 -->
 	<div class="viewer-container" id="dicomViewer" th:ondblclick="|location.href='@{/ImageTabList(studyKey=${studyKey})}'|" style="display: block;">
 		<!-- 이미지 경로를 저장한 데이터 -->
@@ -78,6 +87,10 @@
 	    <button id="playClipPause" type="button" class="btn">⏸ Pause</button>
 	    <label for="playClipFps">FPS:</label>
 	    <input id="playClipFps" type="number" value="20" min="1" max="60" style="width:50px;">
+	</div>
+	
+	</div>
+	
 	</div>
 	
 	
