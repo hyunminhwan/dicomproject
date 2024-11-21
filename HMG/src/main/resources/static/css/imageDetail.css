@@ -209,7 +209,7 @@
 
 .ImageDetail_container{
 	display: flex;
-	height: 100vh;
+	height: 82vh;
 }
 
 /* 왼쪽 사이드바 */
@@ -218,6 +218,8 @@
     background-color: #f4f4f4;
     padding: 10px;
     overflow-y: auto; 
+    padding-bottom: 0; /* 아래쪽 여백 제거 */
+
 }
 
 .ImageDetail_main {

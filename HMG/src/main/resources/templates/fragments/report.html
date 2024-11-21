@@ -9,12 +9,12 @@
             border-radius: 8px;
             width: 80%; /* 전체 화면의 80% 너비 */
             max-width: 600px; /* 최대 너비 제한 */
-            margin: 0 auto; /* 화면 중앙 정렬 */
+            margin: 0 auto; 
             display: flex;
             flex-direction: column;
             gap: 20px; /* 섹션 간격 */
-            height: calc(100vh - 20px); /* 화면 높이 조정 */
-            justify-content: center; /* 중앙 정렬 */
+           
+            
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
         }
 
@@ -94,6 +94,7 @@
                 <label for="recommendation">[권장]</label>
                 <textarea id="recommendation" placeholder="권장 사항을 입력하세요"></textarea>
             </div>
+            <br>
         </div>
         <button id="saveReport" class="report_save-btn" onclick="saveKeyReport()">저장</button>
     </div>
