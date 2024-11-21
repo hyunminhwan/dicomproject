@@ -1,90 +1,154 @@
 <div th:fragment="fragment-report">
-<meta charset="UTF-8">
-<title>Report</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Report</title>
+    <style>
+        .report_container {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 8px;
+            width: 80%; /* 전체 화면의 80% 너비 */
+            max-width: 600px; /* 최대 너비 제한 */
+            margin: 0 auto; /* 화면 중앙 정렬 */
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* 섹션 간격 */
+            height: calc(100vh - 20px); /* 화면 높이 조정 */
+            justify-content: center; /* 중앙 정렬 */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        }
 
-	<body>
+        .report_header {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            text-align: center; /* 중앙 정렬 */
+        }
 
-		<div class="calendar_report-container">
-			<div>리포트</div>
-			<label for="comment">[코멘트]</label>
-			<textarea id="comment" placeholder="코멘트를 입력하세요" rows="4"></textarea>
+        .report_fields {
+            display: flex;
+            flex-direction: column; /* 세로 정렬 */
+            gap: 15px;
+        }
 
-			<label for="exploration">[탐색]</label>
-			<textarea id="exploration" placeholder="탐색 내용을 입력하세요" rows="4"></textarea>
+        .report_field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-			<label for="conclusion">[결론]</label>
-			<textarea id="conclusion" placeholder="결론을 입력하세요" rows="4"></textarea>
+        .report_field label {
+            font-size: 1em;
+            color: #333;
+        }
 
-			<label for="recommendation">[권장]</label>
-			<textarea id="recommendation" placeholder="권장 사항을 입력하세요" rows="4"></textarea>
-		</div>
+        .report_field textarea {
+            width: 100%;
+            height: 80px; /* 입력 창 크기 확대 */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1em;
+            color: #333;
+            resize: none;
+            background-color: #fff;
+        }
 
-		<button id="saveReport" onclick="saveKeyReport()">저장</button>
+        .report_save-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            align-self: center;
+            width: 100%;
+            max-width: 200px; /* 버튼 너비 제한 */
+            transition: background-color 0.3s ease;
+        }
 
-	</body>
+        .report_save-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
 
-	<script>
-	( () => {
-		const param = new URLSearchParams(window.location.search);
-		const studyKey = param.get('studyKey');
-		const seriesKey = param.get('seriesKey');
+<body>
+    <div class="report_container">
+        <div class="report_header">상세 리포트</div>
+        <div class="report_fields">
+            <div class="report_field">
+                <label for="comment">[코멘트]</label>
+                <textarea id="comment" placeholder="코멘트를 입력하세요"></textarea>
+            </div>
+            <div class="report_field">
+                <label for="exploration">[탐색]</label>
+                <textarea id="exploration" placeholder="탐색 내용을 입력하세요"></textarea>
+            </div>
+            <div class="report_field">
+                <label for="conclusion">[결론]</label>
+                <textarea id="conclusion" placeholder="결론을 입력하세요"></textarea>
+            </div>
+            <div class="report_field">
+                <label for="recommendation">[권장]</label>
+                <textarea id="recommendation" placeholder="권장 사항을 입력하세요"></textarea>
+            </div>
+        </div>
+        <button id="saveReport" class="report_save-btn" onclick="saveKeyReport()">저장</button>
+    </div>
 
-		axios.get(`/api/report/${studyKey}/${seriesKey}`) // 검사에 대한 리포트를 가져오는 API 호출
-			.then(response => {
-				const report = response.data;
-				console.log(report);
-				// 리포트 데이터가 있다면 입력 필드에 채우기
-				if (report) {
-					document.getElementById("comment").value = report.reComment || "";
-					document.getElementById("exploration").value = report.reExploration || "";
-					document.getElementById("conclusion").value = report.reConclusion || "";
-					document.getElementById("recommendation").value = report.reRecommendation || "";
-				} else {
-					document.getElementById("comment").value = "";
-					document.getElementById("exploration").value = "";
-					document.getElementById("conclusion").value = "";
-					document.getElementById("recommendation").value = "";
-				}
-			})
-			.catch(error => {
-				console.error("리포트 로드 오류:", error);
-			});
-	})();
-	
-	
-	// 리포트 저장
-	function saveKeyReport() {
-		
-		const comment = document.getElementById("comment").value;
-		const exploration = document.getElementById("exploration").value;
-		const conclusion = document.getElementById("conclusion").value;
-		const recommendation = document.getElementById("recommendation").value;
-		
-		const param = new URLSearchParams(window.location.search);
-		const studyKey = param.get('studyKey');
-		const seriesKey = param.get('seriesKey');
-		
-		axios.post('/api/saveReport', {
-			studyKey: studyKey,
-			seriesKey: seriesKey,
-			reComment: comment,
-			reExploration: exploration,
-			reConclusion: conclusion,
-			reRecommendation: recommendation
-		})
-			.then(response => {
-				if (response.status === 200) {
-					alert("저장되었습니다.");
-				} else {
-					alert("저장에 실패했습니다.");
-				}
-			})
-			.catch(error => {
-				console.error("오류 발생:", error);
-				alert("오류가 발생했습니다.");
-			});
-	}
-	</script>
+    <script>
+        (() => {
+            const param = new URLSearchParams(window.location.search);
+            const studyKey = param.get("studyKey");
+            const seriesKey = param.get("seriesKey");
 
+            axios.get(`/api/report/${studyKey}/${seriesKey}`)
+                .then((response) => {
+                    const report = response.data;
+                    if (report) {
+                        document.getElementById("comment").value = report.reComment || "";
+                        document.getElementById("exploration").value = report.reExploration || "";
+                        document.getElementById("conclusion").value = report.reConclusion || "";
+                        document.getElementById("recommendation").value = report.reRecommendation || "";
+                    } else {
+                        document.getElementById("comment").value = "";
+                        document.getElementById("exploration").value = "";
+                        document.getElementById("conclusion").value = "";
+                        document.getElementById("recommendation").value = "";
+                    }
+                })
+                .catch((error) => console.error("리포트 로드 오류:", error));
+        })();
+
+        function saveKeyReport() {
+            const comment = document.getElementById("comment").value;
+            const exploration = document.getElementById("exploration").value;
+            const conclusion = document.getElementById("conclusion").value;
+            const recommendation = document.getElementById("recommendation").value;
+
+            const param = new URLSearchParams(window.location.search);
+            const studyKey = param.get("studyKey");
+            const seriesKey = param.get("seriesKey");
+
+            axios.post('/api/saveReport', {
+                studyKey: studyKey,
+                seriesKey: seriesKey,
+                reComment: comment,
+                reExploration: exploration,
+                reConclusion: conclusion,
+                reRecommendation: recommendation
+            })
+                .then((response) => {
+                    if (response.status === 200) alert("저장되었습니다.");
+                    else alert("저장에 실패했습니다.");
+                })
+                .catch((error) => {
+                    console.error("오류 발생:", error);
+                    alert("오류가 발생했습니다.");
+                });
+        }
+    </script>
+</body>
 </div>
