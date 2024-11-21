@@ -5,8 +5,6 @@
     background-color: lightgray; /* 연한 회색 배경 */
     padding: 20px;
     border-radius: 20px;
-    /*border: 1px solid darkgray; *//* 테두리 설정 */
-    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); *//* 그림자 효과 추가 */
     display: flex;
     justify-content: center;
     margin-bottom: 15px;
@@ -17,7 +15,6 @@
     background-color: #cccccc; /* 조금 더 짙은 회색 배경 */
     padding: 10px;
     border-radius: 5px;
-    /*border: 1px solid gray; *//* 테두리 설정 */
     overflow-x: auto; /* 가로 스크롤 가능 */
     white-space: nowrap; /* 줄바꿈 방지 */
 }
@@ -54,44 +51,49 @@
 }
 
 .tools-container-ul .btn:hover {
-    background-color: rgb(126, 123, 116) /* 버튼 호버 색상 */
+    background-color: rgb(126, 123, 116); /* 버튼 호버 색상 */
 }
+
 /* 클릭 시 효과 */
 .tools-container-ul .btn.active {
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
+
 .tools-container-ul .btn.active2 {
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
+
 .tools-container-ul .btn.pc {
-	background-color: rgb(90, 87, 80);
+    background-color: rgb(90, 87, 80);
 }
+
 .tools-container-ul .btn.comp {
-	background-color: rgb(90, 87, 80);
+    background-color: rgb(90, 87, 80);
 }
-
-
 
 /* DICOM 뷰어 컨테이너 스타일 */
 .viewer-container {
-	padding-top: 15px;
-	margin-top: 20px;
-    width: 90%; /* 너비를 화면의 80%로 설정 */
+    padding-top: 15px;
+    margin-top: 20px;
+    width: 75%; /* 너비를 화면의 75%로 설정 */
     height: 85vh; /* 높이를 화면의 85%로 설정 */
-    margin: 0 auto; /* 중앙 정렬 */
+    margin: 0; /* 중앙 정렬 제거 */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 /* DICOM 다중 뷰어 컨테이너 스타일 */
-
-/* 다중 뷰어 시리즈 별 스타일 */
 .multi-viewer-grid {
-	padding-top: 15px;
-	margin-top: 20px;
-    width: 90%; /* 너비를 화면의 80%로 설정 */
+    padding-top: 15px;
+    margin-top: 20px;
+    width: 90%; /* 너비를 화면의 90%로 설정 */
     height: 85vh; /* 높이를 화면의 85%로 설정 */
     margin: 0 auto; /* 중앙 정렬 */
 }
-
-
 
 /* 플레이 클립 박스 */
 #playClipBox {
@@ -102,38 +104,34 @@
     border: 1px solid darkgray; /* 테두리 설정 */
 }
 
-
-
-
-
 /* 이하 그리드 */
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  padding: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
 }
 
 /* 그리드 선택기 스타일 */
 .grid-selector {
-  display: grid;
-  grid-template-columns: repeat(5, 30px);
-  grid-template-rows: repeat(5, 30px);
-  gap: 2px;
+    display: grid;
+    grid-template-columns: repeat(5, 30px);
+    grid-template-rows: repeat(5, 30px);
+    gap: 2px;
 }
 
 .grid-selector div {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ccc;
-  background-color: white;
-  cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
 }
 
 .ui-selected {
-  background-color: grey;
+    background-color: grey;
 }
 
 .pagination-controls {
@@ -142,31 +140,94 @@
     margin-top: 20px;
     gap: 20px;
 }
+
 .pagination-prevbtn {
-	padding: 8px 16px;
-	font-size: 0.9em;
-	text-decoration: none;
-	color: #333;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	background-color: #f4f4f4;
-	transition: all 0.3s ease;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    transition: all 0.3s ease;
 }
+
 .pagination-nextbtn {
-	padding: 8px 16px;
-	font-size: 0.9em;
-	text-decoration: none;
-	color: #333;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	background-color: #f4f4f4;
-	transition: all 0.3s ease;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f4f4f4;
+    transition: all 0.3s ease;
 }
+
 .pagination-prevbtn:hover {
     background-color: #808080;
     color: #ffffff;
 }
+
 .pagination-nextbtn:hover {
     background-color: #808080;
     color: #ffffff;
 }
+
+/* 추가된 StudyList_report 스타일 */
+.layout-container {
+    display: flex;
+    flex-direction: row; /* 가로 방향 배치 */
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+}
+
+.StudyList_report {
+    width: 25%; /* 리포트 영역의 너비 설정 */
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.StudyList_report button {
+    align-self: center;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.StudyList_report button:hover {
+    background-color: #555;
+}
+
+.ImageDetail_container{
+	display: flex;
+	height: 100vh;
+}
+
+/* 왼쪽 사이드바 */
+.ImageDetail_report {
+	width: 18%; 
+    background-color: #f4f4f4;
+    padding: 10px;
+    overflow-y: auto; 
+}
+
+.ImageDetail_main {
+	width: 82%; /* 사이드바 크기 조정에 따라 넓힘 */
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+
+
+
+
