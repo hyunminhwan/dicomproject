@@ -86,6 +86,7 @@ function saveReport() {
 
 	axios.post('/api/saveReport', {
 		studyKey: studyKey, // studyKey 함께 전송
+		seriesKey:0,
 		reComment: comment,
 		reExploration: exploration,
 		reConclusion: conclusion,

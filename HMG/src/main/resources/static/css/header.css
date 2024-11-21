@@ -41,13 +41,8 @@
 }
 
 .fragment-menu-button:hover {
-    background-color: #555;
+    background-color: #808080;
+    color: #ffffff;
 }
 
-.fragment-menu-button-secondary {
-    background-color: #777;
-}
 
-.fragment-menu-button-secondary:hover {
-    background-color: #555;
-}
