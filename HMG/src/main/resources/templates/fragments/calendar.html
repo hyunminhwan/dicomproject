@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function () {
    }
 
 
-// 버튼 클릭시 날짜 범위 설정 기능 (전체~-7일)
+	// 버튼 클릭시 날짜 범위 설정 기능 (전체~-7일)
    document.getElementById("select-all").addEventListener("click", () => {
        startDate = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-01`;
        endDate = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${new Date(currentYear, currentMonth + 1, 0).getDate()}`;
