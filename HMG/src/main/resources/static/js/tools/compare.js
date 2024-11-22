@@ -23,61 +23,61 @@ function gridController() {
 	  	const gridContainer = $("#gridContainer");
 	  	const gridSelector = $(".grid-selector");
 	  
-	  // 그리드 초기화: 기존 셀 제거
-	  gridSelector.empty();
+	    // 그리드 초기화: 기존 셀 제거
+	    gridSelector.empty();
 	
-	  // 초기 5x5 그리드 셀 생성
-	  for (let i = 0; i < 25; i++) {
-	    gridSelector.append("<div></div>");
-	  }
+	    // 초기 5x5 그리드 셀 생성
+	    for (let i = 0; i < 25; i++) {
+	    	gridSelector.append("<div></div>");
+		}
 	
-	  // 버튼 클릭 시 드롭다운 메뉴 표시
-	  gridContainer.toggle();
+		// 버튼 클릭 시 드롭다운 메뉴 표시
+		gridContainer.toggle();
+		
+		// 마우스 오버 이벤트: 색상만 표시
+		gridSelector.children("div").on("mouseover", function() {
+		    const index = $(this).index();
+		    const gridSize = Math.sqrt(gridSelector.children().length); // 그리드 크기 계산 (예: 5x5)
 	
-	  // 마우스 오버 이벤트: 색상만 표시
-	  gridSelector.children("div").on("mouseover", function() {
-	      const index = $(this).index();
-	      const gridSize = Math.sqrt(gridSelector.children().length); // 그리드 크기 계산 (예: 5x5)
+		    // 마우스가 위치한 셀의 행, 열 인덱스 계산
+		    const row = Math.floor(index / gridSize);
+			const col = index % gridSize;
+	
+		    // 모든 셀의 배경 초기화
+		    gridSelector.children("div").css("background-color", "");
+	
+		    // (0,0)부터 (row, col)까지의 영역에 배경색 적용
+		    gridSelector.children("div").each(function(i) {
+		        const r = Math.floor(i / gridSize);
+		        const c = i % gridSize;
+		        if (r <= row && c <= col) {
+		            $(this).css("background-color", "grey");
+		        }
+	    	});
+		});
 
-	      // 마우스가 위치한 셀의 행, 열 인덱스 계산
-	      const row = Math.floor(index / gridSize);
-	      const col = index % gridSize;
+		// 클릭 이벤트: 그리드 크기 선택 및 로드
+		gridSelector.children("div").on("click", function() {
+		    const index = $(this).index();
+		    const gridSize = Math.sqrt(gridSelector.children().length);
+		    const col = Math.floor(index / gridSize) + 1;
+		    const row = index % gridSize + 1;
 
-	      // 모든 셀의 배경 초기화
-	      gridSelector.children("div").css("background-color", "");
-
-	      // (0,0)부터 (row, col)까지의 영역에 배경색 적용
-	      gridSelector.children("div").each(function(i) {
-	          const r = Math.floor(i / gridSize);
-	          const c = i % gridSize;
-	          if (r <= row && c <= col) {
-	              $(this).css("background-color", "grey");
-	          }
-	      });
-	  });
-
-	  // 클릭 이벤트: 그리드 크기 선택 및 로드
-	  gridSelector.children("div").on("click", function() {
-	      const index = $(this).index();
-	      const gridSize = Math.sqrt(gridSelector.children().length);
-	      const col = Math.floor(index / gridSize) + 1;
-	      const row = index % gridSize + 1;
-
-	      // 선택한 그리드 크기 출력
-	      console.log(`선택된 그리드 크기: ${col}x${row}`);
-
-	      // 선택한 그리드 크기 값을 사용하여 다중 뷰어 로드
-	      loadGridImages(col, row);
-
-	      // 드롭다운 메뉴 닫기
-	      gridContainer.hide();
-	  });
+		    // 선택한 그리드 크기 출력
+		    console.log(`선택된 그리드 크기: ${col}x${row}`);
+	
+		    // 선택한 그리드 크기 값을 사용하여 다중 뷰어 로드
+		    loadGridImages(col, row);
+	
+		    // 드롭다운 메뉴 닫기
+		    gridContainer.hide();
+		});
 	
 		// 드롭다운 외부 클릭 시 드롭다운 숨기기
 		$(window).on("click", function(event) {
-		    if (!$(event.target).closest("#compare").length && !$(event.target).closest("#gridContainer").length) {
-		        gridContainer.hide();
-		    }
+			if (!$(event.target).closest("#compare").length && !$(event.target).closest("#gridContainer").length) {
+				gridContainer.hide();
+			}
 		});
 	} else {
 		compareButton.classList.remove('comp');
@@ -99,13 +99,11 @@ function seriesAllDataLoad() {
 	const param = new URLSearchParams(window.location.search);
 	const studyKey = param.get('studyKey');
 	const seriesCache = {
-	        studyKey: '',
-	        seriesList: []
-	    };
+		studyKey: '',
+		seriesList: []
+	};
 
-	axios.get('/gridImageData', {
-		params: {studyKey: studyKey}
-		})
+	axios.get('/gridImageData', { params: {studyKey: studyKey} })
 		.then(response => {
 			const seriesList = response.data.map((images, index) => {
 				return {
@@ -165,7 +163,7 @@ function loadGridImages(rows, cols) {
 	console.log('currentSeriesList :', currentSeriesList);
 	console.log('totalPages :', totalPages);
 	
-	//gpt 물어보기
+	// 
 	currentSeriesList.forEach((series) => {
 	    const dicomElement = document.createElement('div');
 	    dicomElement.classList.add('dicom-viewer');
@@ -229,10 +227,21 @@ function loadGridImages(rows, cols) {
 	}
 
 	// 이전 버튼 비활성화 설정
-	prevBtn.disabled = currentPage === 1;
-
+	if (currentPage === 1) {
+	    prevBtn.disabled = true;
+	    prevBtn.classList.add('disabled'); // 비활성화 스타일 추가
+	} else {
+	    prevBtn.disabled = false;
+	    prevBtn.classList.remove('disabled');
+	}
 	// 다음 버튼 비활성화 설정
-	nextBtn.disabled = currentPage === totalPages;
+	if (currentPage === totalPages) {
+	    nextBtn.disabled = true;
+	    nextBtn.classList.add('disabled'); // 비활성화 스타일 추가
+	} else {
+	    nextBtn.disabled = false;
+	    nextBtn.classList.remove('disabled');
+	}
 }
 
 function handleScroll(event, dicomElement, stack) {

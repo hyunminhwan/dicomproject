@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	const imageElements = dicomElement.querySelectorAll('[data-path]');
 	const imageList = Array.from(imageElements).map(el => el.getAttribute('data-path'));
 
+
 	// cornerstone 활성화
 	cornerstone.enable(dicomElement);
 	// cornerstoneTools 초기화(활성화시 커서 변경 true)
@@ -73,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		loadDicomImage(currentImageIndex); // 현재 이미지 인덱스에 해당하는 이미지 로드
 		e.preventDefault(); // 페이지 스크롤 방지
+		console.log('imageElements: ', imageElements);
+		console.log('imageList: ', imageList);
 	});
 
 });

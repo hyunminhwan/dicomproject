@@ -2,9 +2,12 @@
 function deactivateAllTools(dicomElement) {
 	// 모든 버튼에서 'active' 클래스를 제거하여 초기화
 	const buttons = document.querySelectorAll('.tools-container-ul .btn');
-
+	const annoButtons = document.querySelectorAll('.annotate-dropdown-menu .btn');
 	buttons.forEach(button => {
 	    button.classList.remove('active');
+	});
+	annoButtons.forEach(button => {
+		button.classList.remove('active');
 	});
 	
 	// 모든 도구 비활성화
@@ -23,9 +26,12 @@ function deactivateAllTools(dicomElement) {
 function multiDeactivateAllTools(element) {
 	// 모든 버튼에서 'active' 클래스를 제거하여 초기화
 	const buttons = document.querySelectorAll('.tools-container-ul .btn');
-
+	const annoButtons = document.querySelectorAll('.annotate-dropdown-menu .btn');
 	buttons.forEach(button => {
 	    button.classList.remove('active2');
+	});
+	annoButtons.forEach(button => {
+		button.classList.remove('active2');
 	});
 	
 	// 모든 도구 비활성화

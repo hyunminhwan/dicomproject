@@ -25,7 +25,7 @@ async function downloadSeriesAsZip(imageList) {
 		// 폴더 위치와 파일 이름 분리
 		const folderPath = imageList[0].split('/').slice(0, -1).join('/'); // 첫 번째 파일의 폴더 경로
 		const fileNames = imageList.map(path => path.split('/').pop()); // 파일 이름들 
-
+		console.log('imageList :', imageList);
 		console.log('Folder path:', folderPath);
 		console.log('File names:', fileNames);
 
