@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// DICOM 이미지 로드 함수
 		function loadDicomImage(index) {
 			const dicomFilePath = imageList[index];
-
+			console.log('dicomFilePath :', dicomFilePath);
 			cornerstone.loadAndCacheImage('wadouri:' + dicomFilePath).then(function(image) {
 				cornerstone.displayImage(dicomElement, image);
 				dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시
