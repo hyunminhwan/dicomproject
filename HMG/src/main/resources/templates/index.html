@@ -80,7 +80,7 @@
 		.StudyList_table th,
 		.StudyList_table td {
 			border: 1px solid #ddd;
-			padding: 8px;
+			padding: 6px;
 		}
 
 		/* 페이지 네이션 스타일 */
@@ -195,7 +195,7 @@
 				<div th:replace="~{/fragments/header.html :: fragment-menu}"></div>
 			</div>
 
-			<!-- 중간 테이블 -->`
+			<!-- 중간 테이블 -->
 			<div class="StudyList_table-container">
 				<table class="StudyList_table">
 					<tr>
@@ -228,6 +228,7 @@
 						</td>
 					</tr>
 				</table>
+				<br>
 				<!--페이지네이션-->
 				<div class="pagination">
     <!-- 이전 버튼 -->
@@ -264,7 +265,7 @@
 				<!-- 과거 검사 이력 -->
 				<div class="StudyList_past-exam">
 					<div class="StudyList_title">과거 검사 이력</div>
-					<div>환자 아이디: <span id="pid"></span>&emsp; 환자 이름: <span id="pname"></span></div>
+					<div>환자 아이디: <span id="pastPid"></span>&emsp; 환자 이름: <span id="pastPname"></span></div>
 					<table class="StudyList_history-table">
 						<tr>
 							<th>검사장비</th>
