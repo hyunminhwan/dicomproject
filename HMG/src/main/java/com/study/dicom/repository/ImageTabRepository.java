@@ -18,8 +18,15 @@ public interface ImageTabRepository extends JpaRepository<ImageTab,ImageTabId> {
 
 
 	
-//	ArrayList<ImageTab> findByIdStudyKeyAndIdSeriesKeyOrderByIdImageKey(Long studyKey, Long seriesKey);
+
 	
+	//serieskey 가져오기
+		@Query(value="SELECT distinct CAST(s.SERIESKEY AS NUMBER(19)) "
+				+ "FROM IMAGETAB s "
+				+ "WHERE s.STUDYKEY = :studyKey "
+				+ "ORDER BY s.SERIESKEY",nativeQuery = true)
+		Page<Long> findBySeriesKey(PageRequest of,@Param("studyKey") Long studyKey);
+		
 	//imageList 가져오기
 	@Query(value = "SELECT CONCAT(REPLACE(i.PATH, '\\', '/'), i.FNAME) " +
 		       "FROM IMAGETAB i " +
@@ -28,12 +35,7 @@ public interface ImageTabRepository extends JpaRepository<ImageTab,ImageTabId> {
 	ArrayList<String> findByIdStudyKeyAndIdSeriesKeyOrderByIdImageKey(@Param("studyKey") Long studyKey,
 																	@Param("seriesKey") Long seriesKey);
 	
-	//serieskey 가져오기
-	@Query(value="SELECT distinct CAST(s.SERIESKEY AS NUMBER(19)) "
-			+ "FROM IMAGETAB s "
-			+ "WHERE s.STUDYKEY = :studyKey "
-			+ "ORDER BY s.SERIESKEY",nativeQuery = true)
-	Page<Long> findBySeriesKey(PageRequest of,@Param("studyKey") Long studyKey);
+	
 	
 	
 	//detail
@@ -43,7 +45,8 @@ public interface ImageTabRepository extends JpaRepository<ImageTab,ImageTabId> {
 		       "ORDER BY i.CURSEQNUM",nativeQuery = true)
 	ArrayList<String> findByIdStudyKeyAndIdSeriesKey(@Param("studyKey") Long studyKey,@Param("seriesKey") Long seriesKey);
 
-	
+  
+	//해당 스터디 이미지 가져오기
 	@Query(value ="SELECT CONCAT(REPLACE(i.PATH, '\\', '/'),i.FNAME) "
 			+ "FROM IMAGETAB i "
 			+ "WHERE i.STUDYKEY = :studyKey "
