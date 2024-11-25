@@ -27,7 +27,8 @@
 }
 
 /* 도구 버튼 스타일 */
-.tools-container-ul .btn {
+.tools-container-ul .btn,
+.tools-container-ul .toolBtn {
     flex-shrink: 0; /* 버튼 크기 고정 */
     width: 90px; /* 버튼 너비 고정 */
     height: 90px; /* 버튼 높이 고정 */
@@ -42,9 +43,11 @@
     font-weight: bold;
     transition: background-color 0.3s ease;
     border: none;
+    border-radius: 10px;
 }
 
-.tools-container-ul .btn img {
+.tools-container-ul .btn img, 
+.tools-container-ul .toolBtn img {
     width: 30px; /* 아이콘 크기 조정 */
     height: 30px;
     margin-bottom: 5px;
@@ -55,11 +58,13 @@
 }
 
 /* 클릭 시 효과 */
-.tools-container-ul .btn.active {
+.tools-container-ul .btn.active,
+.tools-container-ul .btn.active2 {
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
 
-.tools-container-ul .btn.active2 {
+.tools-container-ul .toolBtn.active,
+.tools-container-ul .toolBtn.active2 {
     background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
 }
 
@@ -71,12 +76,60 @@
     background-color: rgb(90, 87, 80);
 }
 
+
+/* 이하 주석모음 툴 모음 */
+.annotate-dropdown-menu {
+	display: none;
+    position: absolute;
+    background-color: #cccccc;
+    padding: 10px;
+    border: 4px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #e0e0e0;
+    opacity: 0.9;
+    z-index: 1;
+    white-space: nowrap; 
+    flex-wrap: nowrap;
+}
+
+.annotate-dropdown-menu .btn {
+    flex-shrink: 0; /* 버튼 크기 고정 */
+    width: 90px; /* 버튼 너비 고정 */
+    height: 90px; /* 버튼 높이 고정 */
+    background-color: #cccccc; /* 버튼 기본 색상 */
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    border-radius: 10px;
+}
+
+.annotate-dropdown-menu .btn img {
+    width: 30px; /* 아이콘 크기 조정 */
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.annotate-dropdown-menu .btn:hover {
+	background-color: rgb(126, 123, 116); /* 버튼 호버 색상 */
+}
+
+.annotate-dropdown-menu .btn.active,
+.annotate-dropdown-menu .btn.active2 {
+	background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
+}
+.annotate-dropdown-menu .btn.active,
+.annotate-dropdown-menu .btn.active2 {
+	background-color: rgb(90, 87, 80); /* 더 진한 회색으로 클릭 시 효과 */
+}
+
 /* DICOM 뷰어 컨테이너 스타일 */
 .viewer-container {
-    padding-top: 15px;
     margin-top: 20px;
-    width: 75%; /* 너비를 화면의 75%로 설정 */
-    height: 85vh; /* 높이를 화면의 85%로 설정 */
+    width: 100%; /* 너비를 화면의 75%로 설정 */
+    height: 90%; /* 높이를 화면의 85%로 설정 */
     margin: 0; /* 중앙 정렬 제거 */
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -88,10 +141,9 @@
 
 /* DICOM 다중 뷰어 컨테이너 스타일 */
 .multi-viewer-grid {
-    padding-top: 15px;
     margin-top: 20px;
-    width: 90%; /* 너비를 화면의 90%로 설정 */
-    height: 85vh; /* 높이를 화면의 85%로 설정 */
+    width: 100%; /* 너비를 화면의 90%로 설정 */
+    height: 90%; /* 높이를 화면의 85%로 설정 */
     margin: 0 auto; /* 중앙 정렬 */
 }
 
@@ -99,6 +151,7 @@
 #playClipBox {
     background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
     padding: 10px;
+    margin-left: 9%;
     border-radius: 5px;
     color: white;
     border: 1px solid darkgray; /* 테두리 설정 */
@@ -108,9 +161,12 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: white;
+    background-color: #cccccc;
     padding: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: 4px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #e0e0e0;
+    opacity: 0.9;
     z-index: 1;
 }
 
@@ -134,14 +190,16 @@
     background-color: grey;
 }
 
-.pagination-controls {
+
+/* 시리즈비교 페이지네이션 버튼 스타일 */
+.pagination-controls {/* 버튼 컨테이너 스타일 */
     justify-content: center;
     align-items: center;
     margin-top: 20px;
     gap: 20px;
 }
 
-.pagination-prevbtn {
+.pagination-prevbtn {/* 이전 버튼 */
     padding: 8px 16px;
     font-size: 0.9em;
     text-decoration: none;
@@ -152,7 +210,7 @@
     transition: all 0.3s ease;
 }
 
-.pagination-nextbtn {
+.pagination-nextbtn {/* 다음 버튼 */
     padding: 8px 16px;
     font-size: 0.9em;
     text-decoration: none;
@@ -163,15 +221,24 @@
     transition: all 0.3s ease;
 }
 
-.pagination-prevbtn:hover {
+.pagination-prevbtn:hover {/* 이전 버튼 호버 */
     background-color: #808080;
     color: #ffffff;
 }
 
-.pagination-nextbtn:hover {
+.pagination-nextbtn:hover {/* 다음 버튼 호버 */
     background-color: #808080;
     color: #ffffff;
 }
+/* 비활성화 상태의 버튼 */
+#prevPage.disabled,
+#nextPage.disabled {
+    cursor: not-allowed; /* 마우스 커서 변경 */
+    opacity: 0.5; /* 흐려지게 표시 */
+    pointer-events: none; /* 클릭 불가능 */
+}
+
+
 
 /* 추가된 StudyList_report 스타일 */
 .layout-container {
@@ -230,6 +297,54 @@
 }
 
 
+
+/* 다운로드 모달창 스타일 */
+#confirm-download-modal { /* 모달 스타일 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 9999;
+}
+
+#confirm-download-modal h3 { /* 모달 제목 스타일 */
+	color: #555555;
+	font-size: 24px;
+	margin-bottom: 20px;
+    text-align: center;
+}
+
+#confirm-download-modal button { /* 모달 버튼 스타일 */
+    margin: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #cccccc;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#confirm-download-modal button#cancel { /* 모달 취소버튼 스타일 */
+    background: red;
+    color: #fff;
+}
+
+#confirm-download-modal button:hover { /* 모달 버튼 호버 스타일 */
+    background-color: #b3b3b3;
+    font-weight: bold;
+}
+
+#confirm-download-modal button#cancel:hover { /* 모달 취소버튼 호버 스타일 */
+    background-color: #ffbdbd;
+    color: red;
+    font-weight: bold;
+}
 
 
 

@@ -66,7 +66,7 @@ function initializeTools(dicomElement, index) {
 	
 	document.getElementById('compare').addEventListener('click', function() {
 			gridController();
-			seriesAllDataLoad(dicomElement);
+			seriesAllDataLoad();
 	});
 	
 	const downloadBtn = document.getElementById('download'); // 다운로드 버튼

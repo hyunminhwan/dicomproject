@@ -7,6 +7,7 @@ function enableArrow(dicomElement) {
 	if (arrowToolEnabled) {
         // 길이 측정 도구 활성화 및 상태 저장
         cornerstoneTools.setToolActiveForElement(dicomElement, 'ArrowAnnotate', { mouseButtonMask: 1 });
+		try {
 		cornerstoneTools.addToolState(dicomElement, 'ArrowAnnotate', {
 			getTextCallback,
 			changeTextCallback,
@@ -17,6 +18,9 @@ function enableArrow(dicomElement) {
 			renderDashed: false,
 			allowEmptyLabel: false
         });
+		} catch (error) {
+			console.error(`ArrowAnnotate 도구 상태 추가 중 오류 발생 (${dicomElement}):`, error);
+		}
 		document.getElementById('arrow').classList.add('active');
 
         // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
