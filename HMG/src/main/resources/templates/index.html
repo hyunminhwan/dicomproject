@@ -287,23 +287,6 @@
 		</div>
 	</div>
 	<script>
-		// Cornerstone.js 초기화
-		document.addEventListener("DOMContentLoaded", function () {
-			const dicomViewer = document.getElementById("dicomViewer");
-
-			cornerstone.enable(dicomViewer);
-
-			function loadImage(imageId) {
-				cornerstone.loadAndCacheImage(imageId).then(function (image) {
-					cornerstone.displayImage(dicomViewer, image);
-					cornerstone.fitToWindow(dicomViewer); // 이미지 크기를 컨테이너에 맞추기
-				});
-			}
-		});
-		// 예제 이미지 ID, 실제 이미지 경로로 변경 필요
-		const exampleImageId = "wadouri:path/to/your/dicom/file.dcm";
-		loadImage(exampleImageId);
-
 		function studySearch() {
 			const pid = document.getElementById("pid").value || "";
 			const modality = document.getElementById("modality").value || "";
