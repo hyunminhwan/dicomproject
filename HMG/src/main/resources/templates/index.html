@@ -85,50 +85,49 @@
 
 		/* 페이지 네이션 스타일 */
 		.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-size: 1em;
-    padding: 10px 0;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-}
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			font-size: 1em;
+			padding: 10px 0;
+			background-color: #f9f9f9;
+			border-radius: 8px;
+		}
 
-.pagination a,
-.pagination span {
-    padding: 8px 16px;
-    font-size: 0.9em;
-    text-decoration: none;
-    color: #555;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+		.pagination a{
+			padding: 8px 16px;
+			font-size: 0.9em;
+			text-decoration: none;
+			color: #555;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			background-color: #fff;
+			transition: all 0.3s ease;
+			cursor: pointer;
+		}
 
-.pagination a:hover {
-    background-color: #e0e0e0;
-    color: #000;
-    border-color: #bbb;
-}
+		.pagination a:hover {
+			background-color: #e0e0e0;
+			color: #000;
+			border-color: #bbb;
+		}
 
-.pagination a.disabled {
-    background-color: #f5f5f5;
-    color: #bbb;
-    border-color: #ddd;
-    cursor: not-allowed;
-}
+		.pagination a.disabled {
+			background-color: #f5f5f5;
+			color: #bbb;
+			border-color: #ddd;
+			cursor: not-allowed;
+		}
 
-.pagination strong {
-    padding: 8px 16px;
-    font-size: 0.9em;
-    color: #fff;
-    background-color: #808080;
-    border: 1px solid #808080;
-    border-radius: 4px;
-}
+		.pagination strong {
+			padding: 8px 16px;
+			font-size: 0.9em;
+			color: #fff;
+			background-color: #808080;
+			border: 1px solid #808080;
+			border-radius: 4px;
+		}
 
 
 		/* 하단 과거 검사 이력 및 이미지 섹션 */
@@ -231,30 +230,30 @@
 				<br>
 				<!--페이지네이션-->
 				<div class="pagination">
-    <!-- 이전 버튼 -->
-    <a th:if="${searchPage != null and searchPage > 0}"
-       th:classappend="${searchPage == 0 ? 'disabled' : ''}"
-       th:href="@{/search(searchPage=${searchPage-1}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}">
-        이전
-    </a>
+					<!-- 이전 버튼 -->
+					<a th:if="${searchPage != null and searchPage > 0}"
+						th:classappend="${searchPage == 0 ? 'disabled' : ''}"
+						th:href="@{/search(searchPage=${searchPage-1}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}">
+						이전
+					</a>
 
-    <!-- 페이지 숫자 -->
-    <span th:if="${startPage != null and endPage != null}">
-        <span th:each="page : ${#numbers.sequence(startPage, endPage-1)}">
-            <strong th:if="${page == searchPage}" th:text="|${page + 1}|"></strong>
-            <a th:unless="${page == searchPage}"
-               th:href="@{/search(searchPage=${page}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}"
-               th:text="|${page + 1}|"></a>
-        </span>
-    </span>
+					<!-- 페이지 숫자 -->
+					<span th:if="${startPage != null and endPage != null}">
+						<span th:each="page : ${#numbers.sequence(startPage, endPage-1)}">
+							<strong th:if="${page == searchPage}" th:text="|${page + 1}|"></strong>
+							<a th:unless="${page == searchPage}"
+								th:href="@{/search(searchPage=${page}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}"
+								th:text="|${page + 1}|"></a>
+						</span>
+					</span>
 
-    <!-- 다음 버튼 -->
-    <a th:if="${searchPage != null and searchPage < totalPages - 1}"
-       th:classappend="${searchPage >= totalPages - 1 ? 'disabled' : ''}"
-       th:href="@{/search(searchPage=${searchPage+1}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}">
-        다음
-    </a>
-</div>
+					<!-- 다음 버튼 -->
+					<a th:if="${searchPage != null and searchPage < totalPages - 1}"
+						th:classappend="${searchPage >= totalPages - 1 ? 'disabled' : ''}"
+						th:href="@{/search(searchPage=${searchPage+1}, pid=${pid}, pname=${pname}, reportStatus=${reportStatus}, modality=${modality}, startDate=${startDate}, endDate=${endDate})}">
+						다음
+					</a>
+				</div>
 
 			</div>
 
