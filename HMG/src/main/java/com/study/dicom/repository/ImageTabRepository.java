@@ -43,9 +43,11 @@ public interface ImageTabRepository extends JpaRepository<ImageTab,ImageTabId> {
 		       "ORDER BY i.CURSEQNUM",nativeQuery = true)
 	ArrayList<String> findByIdStudyKeyAndIdSeriesKey(@Param("studyKey") Long studyKey,@Param("seriesKey") Long seriesKey);
 
+	
 	@Query(value ="SELECT CONCAT(REPLACE(i.PATH, '\\', '/'),i.FNAME) "
 			+ "FROM IMAGETAB i "
-			+ "WHERE i.STUDYKEY = :studyKey ",nativeQuery = true)
+			+ "WHERE i.STUDYKEY = :studyKey "
+			+ "ORDER BY i.SERIESKEY,i.CURSEQNUM",nativeQuery = true)
 	ArrayList<String> studyImages(@Param("studyKey") Long studyKey);
 
 	

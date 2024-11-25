@@ -2,8 +2,8 @@ function studyPast(element) {
 	var pid = element.getAttribute('data-pid');
 	var pname = element.getAttribute('data-pname');
 	var studyKey = element.getAttribute('data-studyKey');  // studyKey 추가
-	document.getElementById('pid').innerText = pid;
-	document.getElementById('pname').innerText = pname;
+	document.getElementById('pastPid').innerText = pid;
+    document.getElementById('pastPname').innerText = pname;
 	console.log(pid, pname);
 	// AXIOS GET 요청
 	

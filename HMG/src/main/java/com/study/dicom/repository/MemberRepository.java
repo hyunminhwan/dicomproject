@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.study.dicom.domain.MemberTab;
 
 @Repository
-public interface MemberRepository extends JpaRepository<MemberTab,Long> {
+public interface MemberRepository extends JpaRepository<MemberTab,String> {
 	MemberTab findByUserName(String username);
 }
