@@ -1,6 +1,6 @@
 # DicomProject
 
-<h3>팀명: HealScope </h3>
+<h3>프로젝트 명 : HealScope </h3>
 <ul>
   <li>팀장: 현민환</li>
   <li>박혜연</li>
@@ -80,9 +80,10 @@
 <h3>ImageList(DICOM Viewer Grid)</h3>
 <ul>
   <li> 다수의 DICOM 이미지를 그리드 형식으로 배치하여 동시에 표시</li>
-  <li> 각 seriesKey별로 그룹화된 이미지 리스트를 처리하고, 각 뷰어 컨테이너를 더블 클릭으로 상세 보기 기능 제공</li>
+  <li> 각 seriesKey별로 그룹화된 이미지 리스트를 처리하고, 각 뷰어 컨테이너를 더블 클릭으로 상세 페이지로 이동</li>
   <li> Thymeleaf의 th:each 반복문을 활용하여 동적으로 그리드 생성</li>
   <li> 각 DICOM 뷰어가 studyKey와 seriesKey를 포함하여 개별적으로 동작하도록 설계</li>
   <li> DICOM 이미지 목록 페이지에 페이지네이션 추가</li>
   <li> "이전" 및 "다음" 버튼을 통해 이미지 목록을 탐색 가능</li>
+  <li> 마우스 휠로 이미지 탐색 가능(이전/다음 이미지 로드)</li>
 </ul>
