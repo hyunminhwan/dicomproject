@@ -1,13 +1,21 @@
-# DicomProject
+#  HealScope(의료영상 API연동 하여 의료이미지를 시각화한 프로젝트)
 
-### 프로젝트 명 : HealScope 
+## 제작 기간 
+<h3>2024.10.07 ~ 2024.11.25</h4>
+
+## 프로젝트 소개
 <ul>
-  <li>팀장: 현민환</li>
-  <li>박혜연</li>
-  <li>김광훈</li>
-  <li>유병수</li>
-  <li>김승욱</li>
+  <li> DICOM 데이터를 효율적으로 관리하고 의료 영상을 시각화하는 시스템 개발 </li>
+  <li> cornerstone.js 라이브러리를 활용하여 DICOM 이미지를 로드 및 시각화 </li>
+  <li> 환자 CT 및 X-ray 이미지 뷰어, 검색 및 필터링, 보고서 작성 기능 제공 </li>
+  <li> Spring Boot, Thymeleaf, Oracle DB를 사용하여 안정적이고 직관적인 UI 구현 </li>
+  <li> 의료 데이터 관리 효율성과 사용 편의성을 크게 향상 </li>
 </ul>
+
+### ⭐ 팀장: 현민환 , 박혜연 , 김광훈 , 유병수 , 김승욱
+
+
+
 
 # 🚀 Stacks
 <div>
@@ -32,14 +40,7 @@
 </div>
 
 
-## 프로젝트 소개
-<ul>
-  <li> DICOM 데이터를 효율적으로 관리하고 의료 영상을 시각화하는 시스템 개발 </li>
-  <li> cornerstone.js 라이브러리를 활용하여 DICOM 이미지를 로드 및 시각화 </li>
-  <li> 환자 CT 및 X-ray 이미지 뷰어, 검색 및 필터링, 보고서 작성 기능 제공 </li>
-  <li> Spring Boot, Thymeleaf, Oracle DB를 사용하여 안정적이고 직관적인 UI 구현 </li>
-  <li> 의료 데이터 관리 효율성과 사용 편의성을 크게 향상 </li>
-</ul>
+
 
 ---
 ### 🔐 회원가입/로그인
