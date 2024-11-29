@@ -48,10 +48,9 @@
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"> 
 </div>
 
+---
 
 # 기능설명
-
----
 ### 🔐 회원가입/로그인
 <img src="https://github.com/user-attachments/assets/408a3e8f-1313-4fe7-a5ba-51a841f595a9">
 
