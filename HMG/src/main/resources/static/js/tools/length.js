@@ -69,7 +69,7 @@ function multiEnableLength(element) {
 	                    }
 	                }
 	            });
-    document.getElementById('length').classList.add('active'); // 버튼 활성화 표시
+    document.getElementById('length').classList.add('active2'); // 버튼 활성화 표시
 
     // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
     const toolState = cornerstoneTools.getToolState(element, 'Length');
@@ -83,6 +83,6 @@ function multiEnableLength(element) {
 function multiUnableLength(element) {
 	// 길이 측정 도구 비활성화
 	cornerstoneTools.setToolDisabledForElement(element, 'Length');
-	document.getElementById('length').classList.remove('active'); // 버튼 비활성화 표시
+	document.getElementById('length').classList.remove('active2'); // 버튼 비활성화 표시
 	console.log(`도구 "Length" 상태 비활성화됨 (${element.id})`);
 }

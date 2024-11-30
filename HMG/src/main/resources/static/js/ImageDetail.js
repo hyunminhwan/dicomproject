@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		cornerstone.loadAndCacheImage(dicomFilePath).then(function(image) {
 			cornerstone.displayImage(dicomElement, image);
 			dicomElement.classList.remove('hidden');  // 이미지가 있으면 뷰어를 표시
-			initializeTools(dicomElement,index);  // mainTools.js 호출
+			
 		}).catch(function(error) {
 			console.error('Error loading DICOM image:', error);
 			dicomElement.classList.add('hidden');  // 이미지가 없으면 뷰어를 숨김
@@ -74,10 +74,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		loadDicomImage(currentImageIndex); // 현재 이미지 인덱스에 해당하는 이미지 로드
 		e.preventDefault(); // 페이지 스크롤 방지
-		console.log('imageElements: ', imageElements);
-		console.log('imageList: ', imageList);
 	});
-
+	
+	console.log('ImageDetail_dicomElement :', dicomElement);
+	
+	// mainTools.js 호출
+	if(dicomElement.style.display != 'none') { 
+		initializeTools(dicomElement,currentImageIndex); 
+	}
+	
 });
 /*
 function gridViewerImageLoad() {

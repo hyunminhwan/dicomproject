@@ -61,7 +61,7 @@ function multiEnableArrow(element) {
 		console.error(`ArrowAnnotate 도구 상태 추가 중 오류 발생 (${element.id}):`, error);
 	}
 	
-	document.getElementById('arrow').classList.add('active');
+	document.getElementById('arrow').classList.add('active2');
 
     // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
     const toolState = cornerstoneTools.getToolState(element, 'ArrowAnnotate');
@@ -75,6 +75,6 @@ function multiEnableArrow(element) {
 function multiUnableArrow(element) {
 	// 길이 측정 도구 비활성화
 	cornerstoneTools.setToolDisabledForElement(element, 'Arrow');
-	document.getElementById('arrow').classList.remove('active'); // 버튼 비활성화 표시
+	document.getElementById('arrow').classList.remove('active2'); // 버튼 비활성화 표시
 	console.log(`도구 "Arrow" 상태 비활성화됨 (${element.id})`);
 }

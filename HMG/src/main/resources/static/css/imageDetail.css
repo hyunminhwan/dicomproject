@@ -53,7 +53,8 @@
     margin-bottom: 5px;
 }
 
-.tools-container-ul .btn:hover {
+.tools-container-ul .btn:hover,
+.tools-container-ul .toolBtn:hover {
     background-color: rgb(126, 123, 116); /* 버튼 호버 색상 */
 }
 
@@ -129,7 +130,7 @@
 .viewer-container {
     margin-top: 20px;
     width: 100%; /* 너비를 화면의 75%로 설정 */
-    height: 90%; /* 높이를 화면의 85%로 설정 */
+    height: 95%; /* 높이를 화면의 85%로 설정 */
     margin: 0; /* 중앙 정렬 제거 */
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -143,7 +144,7 @@
 .multi-viewer-grid {
     margin-top: 20px;
     width: 100%; /* 너비를 화면의 90%로 설정 */
-    height: 90%; /* 높이를 화면의 85%로 설정 */
+    height: 95%; /* 높이를 화면의 85%로 설정 */
     margin: 0 auto; /* 중앙 정렬 */
 }
 
@@ -197,6 +198,7 @@
     align-items: center;
     margin-top: 20px;
     gap: 20px;
+    padding-bottom: 10px;
 }
 
 .pagination-prevbtn {/* 이전 버튼 */

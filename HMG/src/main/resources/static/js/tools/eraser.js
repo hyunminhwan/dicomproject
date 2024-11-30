@@ -52,7 +52,7 @@ function multiEnableEraser(element) {
 	                    points: [] // 필요한 경우 초기화
 	                }
 	            });
-    document.getElementById('eraser').classList.add('active'); // 버튼 활성화 표시
+    document.getElementById('eraser').classList.add('active2'); // 버튼 활성화 표시
 
     // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
     const toolState = cornerstoneTools.getToolState(element, 'Eraser');
@@ -66,6 +66,6 @@ function multiEnableEraser(element) {
 function multiUnableEraser(element) {
 	// 길이 측정 도구 비활성화
 	cornerstoneTools.setToolDisabledForElement(element, 'Eraser');
-	document.getElementById('eraser').classList.remove('active'); // 버튼 비활성화 표시
+	document.getElementById('eraser').classList.remove('active2'); // 버튼 비활성화 표시
 	console.log(`도구 "Eraser" 상태 비활성화됨 (${element.id})`);
 }

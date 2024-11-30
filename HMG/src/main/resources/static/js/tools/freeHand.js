@@ -74,7 +74,7 @@ function multiEnableFreeHand(element) {
 		    }
 		}
 	});
-	document.getElementById('freeHand').classList.add('active');
+	document.getElementById('freeHand').classList.add('active2');
 
     // 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
     const toolState = cornerstoneTools.getToolState(element, 'FreehandRoi');
@@ -88,6 +88,6 @@ function multiEnableFreeHand(element) {
 function multiUnableFreeHand(element) {
 	// 길이 측정 도구 비활성화
 	cornerstoneTools.setToolDisabledForElement(element, 'FreehandRoi');
-	document.getElementById('freeHand').classList.remove('active'); // 버튼 비활성화 표시
+	document.getElementById('freeHand').classList.remove('active2'); // 버튼 비활성화 표시
 	console.log(`도구 "FreehandRoi" 상태 비활성화됨 (${element.id})`);
 }

@@ -33,7 +33,7 @@ function multiEnableWwwcTool(element) {
 	
 	cornerstoneTools.setToolActiveForElement(element, 'Wwwc', { mouseButtonMask: 1 });
 	cornerstoneTools.addToolState(element, 'Wwwc', {});
-	document.getElementById('windowLevel').classList.add('active');
+	document.getElementById('windowLevel').classList.add('active2');
 
 	// 도구 상태 즉시 확인 - Length 기능이 활성화 됐는지 확인
     const toolState = cornerstoneTools.getToolState(element, 'Wwwc');
@@ -47,6 +47,6 @@ function multiEnableWwwcTool(element) {
 function multiUnableWwwcTool(element) {
 	// 길이 측정 도구 비활성화
 	cornerstoneTools.setToolDisabledForElement(element, 'Wwwc');
-	document.getElementById('windowLevel').classList.remove('active'); // 버튼 비활성화 표시
+	document.getElementById('windowLevel').classList.remove('active2'); // 버튼 비활성화 표시
 	console.log(`도구 "Wwwc" 상태 비활성화됨 (${element.id})`);
 }
